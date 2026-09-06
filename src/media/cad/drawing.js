@@ -6,7 +6,6 @@ var self = this;
  self.pins=[];
  self.vars=[];
  self.showPolarity=false;
- self.itProject=false;
  self.pendingSave = false;
  self.selectPart= false;
  self.selectAnalysis= false;
@@ -15,8 +14,8 @@ var self = this;
  self.symbol = {
         name: "New Symbol",
         reference: "X",
-        model: { type: "SPICE", name: "None" },
-        destination: "local",
+        device: { type: "SPICE", name: "None"}, 
+        model:{name:"None",file:"None",dir:"None",local:false},
         description: {webPage:'',info:''}
     };
 
@@ -78,31 +77,14 @@ this.resize.grid=this.grid;
             left: scrollLeft,
             behavior: 'smooth'
         });
-        self.symbol.name = sym.getAttribute("symbolname");
-        self.symbol.reference = sym.getAttribute("reference");
-        self.symbol.description = sym.getAttribute("description");
-        self.symbol.type = sym.getAttribute("type");
-        self.symbol.model.name = sym.getAttribute("modelname");
-        if(sym.getAttribute("destination"))
-           self.symbol.destination= sym.getAttribute("destination");
-        if(!sym.getAttribute("modelname"))
-        {
-          self.symbol.model={ type: "SPICE", name: "None"};
-        }
-        else        {
-          self.symbol.model={ type: sym.getAttribute("modeltype"), name: sym.getAttribute("modelname")};
-        }
-		self.active();
-		if((self.pageType!='sym')&&sym.getAttribute("optionsimulation"))
-		  self.optionsimulation=self.optionsimulation=JSON.parse(sym.getAttribute("optionsimulation"));
-        
-        if(self.pageType!='sym')
-          self.itProject=sym.getAttribute("itproject")=='true';
-       
-
-    try {  self.symbol.description  = JSON.parse(self.symbol.description);}
-    catch(err) { self.symbol.description={webPage:'',info:''}; }
-
+        try
+          {self.symbol=JSON.parse(sym.getAttribute("symbol"));}
+        catch(e)
+          {self.symbol={name:"New Symbol",reference:"X",device:{type:"SPICE",name:"None"},model:{name:"None",file:"None",dir:"None",local:false},description:{webPage:'',info:''}};}
+		
+        if(!self.symbol)
+          {self.symbol={name:"New Symbol",reference:"X",device:{type:"SPICE",name:"None"},model:{name:"None",file:"None",dir:"None",local:false},description:{webPage:'',info:''}};}
+        self.active();
     }
 
     self.getSymbolDescription = function () {
@@ -113,17 +95,8 @@ this.resize.grid=this.grid;
         sym.setAttribute("zoom", self.grid.zoom);
         sym.setAttribute("left", self.grid.area.areaGlobal.scrollLeft);
         sym.setAttribute("top", self.grid.area.areaGlobal.scrollTop);
-        sym.setAttribute("symbolname", self.symbol.name);
-        sym.setAttribute("reference", self.symbol.reference);
-        sym.setAttribute("description",JSON.stringify(self.symbol.description));
-        sym.setAttribute("type", self.symbol.type);
-        sym.setAttribute("modelname", self.symbol.model.name);
-        sym.setAttribute("modeltype", self.symbol.model.type);
-        sym.setAttribute("destination", self.symbol.destination);
-		if(self.pageType!='sym'){
-		sym.setAttribute("optionsimulation",JSON.stringify(self.optionsimulation));
-        sym.setAttribute("itproject", self.itProject);
-        }
+        sym.setAttribute("symbol", JSON.stringify(self.symbol)); 
+      
     }
 
  self.getSymbol = function () {
@@ -198,7 +171,7 @@ self.paste = function (clipboardText) {
         let data = JSON.parse(clipboardText);
 
         if (!data.copyList?.length) {
-            // "لا توجد عناصر للصق";
+            // No items to paste, exit the function;
             return;
         }
 
@@ -214,11 +187,11 @@ self.paste = function (clipboardText) {
         for (const item of data.copyList) {
             if (!item.node) continue;
 
-            // إنشاء حاوية مؤقتة في نفس مساحة اسم SVG
+            // create  temp SVG
             const tempSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             tempSvg.innerHTML = item.node;
             
-            // نقل جميع العناصر
+            // transfer all child nodes from tempSvg to the main svgContainer
             while (tempSvg.firstChild) {
                 const node = tempSvg.firstChild;
                 svgContainer.appendChild(node);
@@ -267,7 +240,7 @@ self.paste = function (clipboardText) {
 self.getDataSym = function(data) {
     if (data && typeof data === 'object' && data.dirs) {
         self.dataSyms = data;
-        console.log('✅ dataSyms updated:', self.dataSyms);
+        console.log('dataSyms updated:', self.dataSyms);
         
         // refresh the symbols panel if it's already open 
         if (typeof symbolsPanel !== 'undefined') {
@@ -276,7 +249,7 @@ self.getDataSym = function(data) {
         return self.dataSyms;
     }
     
-    console.warn('⚠️ Invalid or missing data in getDataSym');
+    console.warn('Invalid or missing data in getDataSym');
     return null;
 };
 
@@ -302,7 +275,7 @@ self.getDataSym = function(data) {
             return;
         }
         
-        // تخزين الـ resolve لاستخدامه عند وصول الرد
+        // use the resolve function to return the files to the caller
         self._symFilesResolve = resolve;
         self._symFilesDir = dir;
         
@@ -332,7 +305,7 @@ self.redSymFilesFromWorkSpace = function() {
 self.saveData=function(data){
 
              var content = self.getSymbol();
-             // ✅ إرسال المحتوى المحدّث لـ VS Code
+             // send the content to the extension for saving
              self.pendingSave =true;
              if (typeof vscode !== 'undefined') {
                  vscode.postMessage({

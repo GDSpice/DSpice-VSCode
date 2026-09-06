@@ -481,6 +481,7 @@ webviewPanel.onDidDispose(() => {
 // Receive the file name from VS Code and update drawing.fileName
     if (msg.type === 'setFileName') {
         drawing.fileName = msg.fileName;
+        drawing.symbol.name = msg.fileName; // Update the symbol name as well
         console.log('File name updated to:', drawing.fileName);
     }
            

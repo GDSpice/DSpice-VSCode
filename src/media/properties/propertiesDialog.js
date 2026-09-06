@@ -610,9 +610,29 @@ function getDialog(setClick) {
                 function (result) {
                     mtable.select.setAttribute('modelfile', result.file);
                     mtable.select.setAttribute('modelname', result.model);
-                    mtable.select.setAttribute('dir', 'local');
+                    mtable.select.setAttribute('dir', 'library');
                     mtable.select.textContent = result.model;
                     modelSelected();
+                },
+                function () {
+                    console.log('Cancelled');
+                }
+            );
+            break;
+        }
+
+        case 'openEditorListModelsSym': {
+            drawing.getListModel(
+                {
+                    file: drawing.symbol.model.file,
+                    model: drawing.symbol.model.name
+                },
+                function (result) {
+                    drawing.symbol.model.file = result.file;
+                    drawing.symbol.model.name = result.model;
+                    drawing.symbol.model.dir = 'library';
+                    drawing.symbol.model.local = true;
+                    pageSelect();
                 },
                 function () {
                     console.log('Cancelled');

@@ -49,9 +49,15 @@ function pageSelect() {
         defaultData.sections[0].rows.push(
             { label: "Name", type: "text", value: drawing.symbol.name },
             { label: "Reference", type: "text", value: drawing.symbol.reference },  //, readonly: true
-            { label: "Model.type", type: "dropdown", value: drawing.symbol.model.type, options: ['SPICE'] },
-            { label: "Model.name", type: "dropdown", value: drawing.symbol.model.name, options: spiceElements }
+            { label: "Device.type", type: "dropdown", value: drawing.symbol.device.type, options: ['SPICE'] },
+            { label: "Device.name", type: "dropdown", value: drawing.symbol.device.name, options: spiceElements }
         );
+
+        if(spiceUseModels.includes(drawing.symbol.device.name)){
+            defaultData.sections[0].rows.push({ label: "Model.name", type: "text", value: drawing.symbol.model.name });
+            defaultData.sections[0].rows.push({ label: 'Model.other', type: "Button", value: 'Find similar model', setClick:'openEditorListModelsSym' });
+        }
+
     }
   
     mtable.type = "page";
@@ -73,7 +79,10 @@ mtable.select.height = propertiesData.sections[0].rows[1].value;
         
     }*/
 
-    drawing.symbol.model.name = propertiesData.sections[0].rows[5].value;
+    if(drawing.symbol.device.name !== propertiesData.sections[0].rows[5].value){
+        drawing.symbol.device.name = propertiesData.sections[0].rows[5].value;
+        pageSelect();
+    }
     drawing.symbol.reference = propertiesData.sections[0].rows[3].value ? propertiesData.sections[0].rows[3].value : Ref[propertiesData.sections[0].rows[5].value];
     if (controlRefSymbol())
     {
