@@ -168,6 +168,21 @@ body.innerHTML = `
      </svg>
    </button>
  </div>
+  <div class="toolbar-group" id="grpModel">
+   <button class="toolbar-btn" id="btnModel" title="Add Model (D)">
+     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+       <polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+       <text x="12" y="17" text-anchor="middle" font-size="8" font-weight="bold" font-family="Arial, sans-serif" fill="currentColor" stroke="none">M</text>
+     </svg>
+   </button>
+   <button class="toolbar-btn" id="btnCommand" title="Command Line (Q)">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+       <polyline points="4 17 10 11 4 5"/>
+       <line x1="12" y1="19" x2="20" y2="19"/>
+     </svg>
+   </button>
+ </div>
  
  <div class="toolbar-group" id="grpTransform">
    <button class="toolbar-btn" id="btnRotate" title="Rotate 90° (F)">
@@ -218,22 +233,6 @@ body.innerHTML = `
        <rect x="4" y="4" width="10" height="10" fill="#fde047" stroke="#333" stroke-width="1"/>
        <rect x="8" y="8" width="10" height="10" fill="#808080" stroke="#333" stroke-width="1"/>
        <path d="M16 20 L16 22 M16 22 L14 20 M16 22 L18 20" fill="none" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-     </svg>
-   </button>
- </div>
- <div class="toolbar-group" id="grpModel">
-   <button class="toolbar-btn" id="btnModel" title="Model Definition (D)">
-     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-       <polyline points="14 2 14 8 20 8"/>
-       <line x1="8" y1="13" x2="16" y2="13"/>
-       <line x1="8" y1="17" x2="16" y2="17"/>
-     </svg>
-   </button>
-   <button class="toolbar-btn" id="btnCommand" title="Command Line (Q)">
-     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-       <polyline points="4 17 10 11 4 5"/>
-       <line x1="12" y1="19" x2="20" y2="19"/>
      </svg>
    </button>
  </div>
@@ -485,6 +484,7 @@ document.getElementById('btnText').addEventListener('click',  () =>{self.activeB
 document.getElementById('btnPin').addEventListener('click',  () =>{self.activeBtnById('btnPin'); addShape('pin'); });
 document.getElementById('btnReference').addEventListener('click',  () =>{self.activeBtnById('btnReference'); addShape('ref'); });
 document.getElementById('btnParameter').addEventListener('click',  () =>{self.activeBtnById('btnParameter'); addShape('param'); });
+document.getElementById('btnModel').addEventListener('click',  () =>{self.activeBtnById('btnModel'); addShape('modelSpice'); });
 document.getElementById('btnRunAV').addEventListener('click',  () =>{ opAnalysis(); });
 document.getElementById('btnPlaceComponent').addEventListener('click',  () =>{ showSymbolPanel() });
 
@@ -628,6 +628,7 @@ document.addEventListener('keydown', (e) => {
     if (key === 'i') { if(drawing.pageType == 'dcs') return addShape('pin'); self.activeBtnSelect();}
     if (key === 'k') { if(drawing.pageType == 'dcs') return addShape('ref'); self.activeBtnSelect();}
     if (key === 'j') { if(drawing.pageType == 'dcs') return addShape('param'); self.activeBtnSelect();}
+    if (key === 'd') { if(drawing.pageType == 'dcs') return; addShape('modelSpice');  self.activeBtnSelect();}
     if (key === 'z') { if(drawing.pageType == 'sym') return;  addShape('probe');}
     if (key === 'p') { if(drawing.pageType == 'sym') return; showSymbolPanel();}
 });
