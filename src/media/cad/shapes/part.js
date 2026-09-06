@@ -770,25 +770,26 @@ function addName(part) {
  
 }
 
+
 function controlRefSymbol() {
     var result=false;
     if(drawing.pageType=='sym'){
-    var s = document.getElementsByName('ref');
+    var s = document.querySelector('[name="ref"]');
    
     if(drawing.symbol.reference.length>0)
     {
-       if(drawing.symbol.reference[0] != Ref[drawing.symbol.model.name]) 
+       if(drawing.symbol.reference[0] != Ref[drawing.symbol.device.name]) 
        {
-        drawing.symbol.reference = Ref[drawing.symbol.model.name] + drawing.symbol.reference.substring(1);
+        drawing.symbol.reference = Ref[drawing.symbol.device.name] + drawing.symbol.reference.substring(1);
         result=true;
        }
     } else {
-            drawing.symbol.reference = Ref[drawing.symbol.model.name];
+            drawing.symbol.reference = Ref[drawing.symbol.device.name];
             result=true;
     }
 
-    if(s.length>0)      
-        s[0].textContent = drawing.symbol.reference+ '?';
+    if(s)      
+        s.textContent = drawing.symbol.reference+ '?';
   }
   return result;
 }
@@ -796,11 +797,11 @@ function controlRefSymbol() {
 function controlRefPart(refElem) {
      
    
-     if((drawing.pageType=='sym') && s.length>0){
+     if(drawing.pageType=='sym') {
    
 
-         if(refElem.textContent[0] != Ref[drawing.symbol.model.name]) 
-           refElem.textContent = Ref[drawing.symbol.model.name] + refElem.textContent.substring(1);
+         if(refElem.textContent[0] != Ref[drawing.symbol.device.name]) 
+           refElem.textContent = Ref[drawing.symbol.device.name] + refElem.textContent.substring(1);
            refElem.textContent = refElem.textContent.replace('?', '');
            drawing.symbol.reference = refElem.textContent;
            refElem.textContent = drawing.symbol.reference + '?';

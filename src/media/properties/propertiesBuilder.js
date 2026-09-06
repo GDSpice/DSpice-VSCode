@@ -81,6 +81,8 @@ mtable.select.height = propertiesData.sections[0].rows[1].value;
 
     if(drawing.symbol.device.name !== propertiesData.sections[0].rows[5].value){
         drawing.symbol.device.name = propertiesData.sections[0].rows[5].value;
+        drawing.symbol.reference = propertiesData.sections[0].rows[3].value ? propertiesData.sections[0].rows[3].value : Ref[propertiesData.sections[0].rows[5].value];
+        controlRefSymbol();  
         pageSelect();
     }
     drawing.symbol.reference = propertiesData.sections[0].rows[3].value ? propertiesData.sections[0].rows[3].value : Ref[propertiesData.sections[0].rows[5].value];
