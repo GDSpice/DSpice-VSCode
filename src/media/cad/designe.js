@@ -68,8 +68,8 @@ function elemNotByDown() {
     case 'modelSpice':
     case 'ref':
 
-        if(multiRef() && drawing.shapes.design.name=='ref') return;
-        if(multiModel() && drawing.shapes.design.name=='modelSpice') return;
+        if(multiRef() && drawing.shapes.design.name=='ref') {drawing.activeBtnSelect(); return;}
+        if(multiModel() && drawing.shapes.design.name=='modelSpice') {drawing.activeBtnSelect(); return;}
         drawing.shapes.addElement(drawing.shapes.design.name);
         l=drawing.shapes.svgSym.lastChild;
         l.setAttribute("x", 10);
@@ -78,7 +78,6 @@ function elemNotByDown() {
         l.setAttribute('transform', 'rotate(0 10 10)');
         drawing.shapes.design.start = true;
         drawing.resize.setElement = drawing.shapes.svgSym.lastChild;
-        //deletMultiRef();
         break;
     }
 }

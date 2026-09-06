@@ -76,9 +76,6 @@ body.innerHTML = `
    <button class="toolbar-btn active" id="btnSelect" title="Select (V)">
      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>
    </button>
-   <button class="toolbar-btn" id="btnPan" title="Pan (H)">
-     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
-   </button>
  </div>
  <div class="toolbar-group" id="grpWire">
    <button class="toolbar-btn" id="btnWire" title="Wire (W)">
@@ -473,16 +470,21 @@ areaGlobal.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() =>
 toolbar.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); toolbar.classList.add('visible'); });
 toolbar.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => toolbar.classList.remove('visible'), 300); });
 
+document.getElementById('btnSelect').addEventListener('click',  () =>{self.activeBtnById('btnSelect'); });
 document.getElementById('btnZoomIn').addEventListener('click', () => {  self.zoomIn(); });
 document.getElementById('btnZoomOut').addEventListener('click', () => { self.zoomOut(); });
 document.getElementById('btnGrid').addEventListener('click', (e) => {  self.showGrid(!self.grid.showGrid); e.currentTarget.classList.toggle('active'); });
 document.getElementById('btnSnap').addEventListener('click', (e) => { e.currentTarget.classList.toggle('active'); });
-document.getElementById('btnEllipse').addEventListener('click',  () =>{ addShape('ellipse'); });
-document.getElementById('btnRectangle').addEventListener('click',  () =>{ addShape('rect'); });
-document.getElementById('btnPolyline').addEventListener('click',  () =>{ addShape('polyline'); });
-document.getElementById('btnPolygon').addEventListener('click',  () =>{ addShape('polygon'); });
-document.getElementById('btnArc').addEventListener('click',  () =>{ addShape('arc'); });
-document.getElementById('btnAV').addEventListener('click',  () =>{ addShape('probe'); });
+document.getElementById('btnEllipse').addEventListener('click',  () =>{self.activeBtnById('btnEllipse'); addShape('ellipse'); });
+document.getElementById('btnRectangle').addEventListener('click',  () =>{self.activeBtnById('btnRectangle'); addShape('rect'); });
+document.getElementById('btnPolyline').addEventListener('click',  () =>{self.activeBtnById('btnPolyline'); addShape('polyline'); });
+document.getElementById('btnPolygon').addEventListener('click',  () =>{self.activeBtnById('btnPolygon'); addShape('polygon'); });
+document.getElementById('btnArc').addEventListener('click',  () =>{self.activeBtnById('btnArc'); addShape('arc'); });
+document.getElementById('btnAV').addEventListener('click',  () =>{self.activeBtnById('btnAV'); addShape('probe'); });
+document.getElementById('btnText').addEventListener('click',  () =>{self.activeBtnById('btnText'); addShape('text');});
+document.getElementById('btnPin').addEventListener('click',  () =>{self.activeBtnById('btnPin'); addShape('pin'); });
+document.getElementById('btnReference').addEventListener('click',  () =>{self.activeBtnById('btnReference'); addShape('ref'); });
+document.getElementById('btnParameter').addEventListener('click',  () =>{self.activeBtnById('btnParameter'); addShape('param'); });
 document.getElementById('btnRunAV').addEventListener('click',  () =>{ opAnalysis(); });
 document.getElementById('btnPlaceComponent').addEventListener('click',  () =>{ showSymbolPanel() });
 
@@ -500,7 +502,7 @@ document.getElementById('btnSendBackward').addEventListener('click', () => {
 });
 
 const toolButtons = [
-  'btnSelect', 'btnPan', 'btnWire', 'btnBus', 'btnText',
+  'btnSelect', 'btnWire', 'btnBus', 'btnText',
   'btnRectangle', 'btnEllipse', 'btnArc', 'btnPolyline', 'btnPolygon',
   'btnVCC', 'btnPort', 'btnGND',
   'btnPin', 'btnReference', 'btnParameter',
@@ -511,7 +513,7 @@ const toolButtons = [
 ];
 
 const toolNames = [
-  'select', 'pan', 'wire', 'bus', 'component', 'text',
+  'select', 'wire', 'bus', 'component', 'text',
   'rectangle', 'ellipse', 'arc', 'polyline', 'polygon',
   'vcc', 'port', 'gnd',
   'pin', 'reference', 'parameter',
@@ -529,16 +531,6 @@ function isButtonEnabled(id) {
 }
 
 
-    
-
-toolButtons.forEach((id, index) => {
-    document.getElementById(id).addEventListener('click', () => {
-        if (!isButtonEnabled(id)) return;
-        toolButtons.forEach(b => document.getElementById(b).classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        if (self.drawing && self.drawing.setTool) self.drawing.setTool(toolNames[index]);
-    });
-});
 
 
 
@@ -631,6 +623,11 @@ document.addEventListener('keydown', (e) => {
     if (key === 'l') { addShape('polyline');}
     if (key === 'y') { addShape('polygon');}
     if (key === 'r') { addShape('rect');}
+    if (key === 't') { addShape('text'); self.activeBtnSelect();}
+    if (key === 'v') { self.activeBtnSelect();}
+    if (key === 'i') { if(drawing.pageType == 'dcs') return addShape('pin'); self.activeBtnSelect();}
+    if (key === 'k') { if(drawing.pageType == 'dcs') return addShape('ref'); self.activeBtnSelect();}
+    if (key === 'j') { if(drawing.pageType == 'dcs') return addShape('param'); self.activeBtnSelect();}
     if (key === 'z') { if(drawing.pageType == 'sym') return;  addShape('probe');}
     if (key === 'p') { if(drawing.pageType == 'sym') return; showSymbolPanel();}
 });
@@ -649,10 +646,33 @@ self.updateButtonsState = function() {
 };
 
 self.activeBtnSelect = function(){
-    toolButtons.forEach(b => document.getElementById(b).classList.remove('active'));
+    toolButtons.forEach(b => {
+        document.getElementById(b).classList.remove('active');
+    });
     const selectBtn = document.getElementById('btnSelect');
     if (selectBtn) selectBtn.classList.add('active');
 }
+
+self.activeBtnById = function(id){
+    toolButtons.forEach(b => {
+        document.getElementById(b).classList.remove('active');
+    });
+    const selectBtn = document.getElementById(id);
+    if (selectBtn) selectBtn.classList.add('active');
+}
+
+
+/*
+toolButtons.forEach((id, index) => {
+    document.getElementById(id).addEventListener('click', () => {
+        if (!isButtonEnabled(id)) return;
+        toolButtons.forEach(b => document.getElementById(b).classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        if (self.drawing && self.drawing.setTool) self.drawing.setTool(toolNames[index]);
+    });
+});
+*/
+
 }
 
 
@@ -667,11 +687,10 @@ console.log(svgs[1]); // محتوى أول ملف
 }
 
 async function showSymbolPanel() {
-         //drawing.updateDataSymbols();
-
+         drawing.updateDataSymbols();
 
       if (typeof symbolsPanel !== 'undefined') {
-          //  symbolsPanel.show(); // if symbolsPanel is already defined, toggle its visibility
+            symbolsPanel.show(); // if symbolsPanel is already defined, toggle its visibility
         }
       
 }
