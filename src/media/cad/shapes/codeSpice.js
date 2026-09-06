@@ -15,6 +15,28 @@
  const twoTerminal = ['Resistor', 'Capacitor','Inductor','Voltage Source','Current Source','Diode'];
  const spiceUseModels = ['Diode','BJT(NPN)','BJT(PNP)','MOSFET(N)','MOSFET(P)','JFET(N)','JFET(P)','MESFET(N)','MESFET(P)','Subckt'];
 
+ //-------------------------Class and function for resize shapes------------------------//
+
+ function setModelSpice(result,setClick) {
+  if(drawing.pageType === 'sym'  && setClick === 'model') {
+    drawing.symbol.model.file = result.file;
+    drawing.symbol.model.name = result.model;
+    drawing.symbol.model.dir = 'library';
+    drawing.symbol.model.local = true;
+  } else if(setClick === 'symbol') {
+    	var listLabel = document.querySelectorAll('#sym [name="modelSpice"]');
+	  if(listLabel.length>=1) {
+    listLabel[0].setAttribute('modelname', result.model);
+    listLabel[0].setAttribute('modelfile', result.file);
+    listLabel[0].setAttribute('dir', 'library');
+    listLabel[0].setAttribute('local', 'true');
+    listLabel[0].textContent = result.model;
+   }
+  }
+
+ }
+
+
 //-------------------------Class and function for resize shapes------------------------//
 function addCodeSpice(elem) {
     var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'foreignObject');

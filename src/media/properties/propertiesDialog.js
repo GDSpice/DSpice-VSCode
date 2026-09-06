@@ -580,7 +580,7 @@ function updatePreview() {
     }
 }
 
-// Double-click on drawing area to show properties
+// clik button in properties to open dialog (for example for signal selection or model selection)
 function getDialog(setClick) {
     switch (setClick) {
         case 'ioPosProbe': {
@@ -611,7 +611,9 @@ function getDialog(setClick) {
                     mtable.select.setAttribute('modelfile', result.file);
                     mtable.select.setAttribute('modelname', result.model);
                     mtable.select.setAttribute('dir', 'library');
+                    mtable.select.setAttribute('local', 'true');
                     mtable.select.textContent = result.model;
+                    setModelSpice(result, 'model');
                     modelSelected();
                 },
                 function () {
@@ -632,6 +634,7 @@ function getDialog(setClick) {
                     drawing.symbol.model.name = result.model;
                     drawing.symbol.model.dir = 'library';
                     drawing.symbol.model.local = true;
+                    setModelSpice(result, 'symbol');
                     pageSelect();
                 },
                 function () {
