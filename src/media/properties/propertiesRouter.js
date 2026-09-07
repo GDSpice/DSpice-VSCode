@@ -16,6 +16,7 @@
 var mtable = {};
 function showDescriptionElemSelectInPanel(select) {
 
+    mtable.resize = drawing.resize;
        
  
         if (select) {

@@ -739,8 +739,6 @@ function modifiedcodeHTML() {
 
 
 //-------Text description ---------------------------------------------------
-//https://htmldog.com/references/css/properties/font-weight/
-/**/
 
 function setPosText() {
     var x = mtable.select.getAttribute("x");
@@ -874,7 +872,7 @@ function partSelect() {
                     { label: "Name", type: "text", value: part.firstChild.getAttribute("symbolname"), readonly: true },
                     { label: "File", type: "text", value: part.getAttribute("symbolfile"), readonly: true },
                     { label: "Directory", type: "text", value: part.getAttribute("directory") },
-                    { label: "Local library", type: "text", value: part.getAttribute("liblocale"), readonly: true },
+                   /* { label: "Local library", type: "text", value: part.getAttribute("liblocale"), readonly: true },*/
                     { label: "Reference", type: "text", value: part.getAttribute("sref") }
                 ]
             },
@@ -882,11 +880,7 @@ function partSelect() {
                 title: "Model Properties",
                 collapsed: false,
                 showReset: true,
-                rows: [
-                    { label: "Name", type: "text", value: part.getAttribute("model"), readonly: true }
-                   // { label: "Parameters", type: "Button", value: 'show', setClick: 'showParams()' },
-                   // { label: "File", type: "Button", value: 'show', setClick: 'openEditor("' + part.getAttribute("model") + '","' + part.getAttribute("directory") + '")' }
-                ]
+                rows: []
             }
         ]
     };

@@ -82,7 +82,7 @@ this.resize.grid=this.grid;
         catch(e)
           {self.symbol={name:"New Symbol",reference:"X",device:{type:"SPICE",name:"None"},model:{name:"None",file:"None",dir:"None",local:false},description:{webPage:'',info:''}};}
 		
-        if(!self.symbol)
+        if(self.symbol.device==null)
           {self.symbol={name:"New Symbol",reference:"X",device:{type:"SPICE",name:"None"},model:{name:"None",file:"None",dir:"None",local:false},description:{webPage:'',info:''}};}
         self.active();
     }

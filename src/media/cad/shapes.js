@@ -374,7 +374,8 @@ function fshapes(svg, setDrawing, width, height) {
                 selectElementsInRect(self, self.selectAll);
             self.selectAll.used = false;
             refNetWithPart();
-			      showPolarity(drawing.showPolarity);
+			showPolarity(drawing.showPolarity);
+            drawing.partUp = false;
 		//	      getListElementsAddToPageDescription();
         }
 
@@ -851,11 +852,10 @@ function fshapes(svg, setDrawing, width, height) {
                 return true;
             }
 
-     //  console.log("gggg");
+
        var els = document.getElementsByClassName("codeHTML");
-        for (var i = els.length-1; i >=0 ; i--){ console.log("dsdsfdsqf");
+        for (var i = els.length-1; i >=0 ; i--){ 
             if (pointInRect(els[i], self.offset)) {
-                  console.log("select codeHtml");
                   self.setCritElem = els[i];
                   return true;
             }

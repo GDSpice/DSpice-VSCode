@@ -758,15 +758,11 @@ function addName(part) {
 
     part.setAttribute("sref", newName);
     part.setAttribute("directory", drawing.dir);
-    part.setAttribute("liblocale", drawing.libLocale);
     part.setAttribute("symbolfile", drawing.symbolfile);
-    part.setAttribute("model", model);
 
     updateRefParts();
 
-   console.log( drawing.dir);
-   console.log( drawing.libLocale);
-   console.log( drawing.symbolfile);
+
  
 }
 

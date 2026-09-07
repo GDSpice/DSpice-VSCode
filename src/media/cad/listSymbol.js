@@ -266,17 +266,20 @@ function addListSymbToPageLibs(list){
   rrr += '</ul>';
   document.getElementById("componentsPanel").innerHTML = rrr;
   const listContainer = document.getElementById("componentsPanel"); 
+  
   listContainer.addEventListener('click', function(e) {
-
+   if(drawing.partUp) return;
     const btn = e.target.closest('.button_lib');
     const link = e.target.closest('a');
     if (btn) {
         const index = parseInt(btn.getAttribute('data-index'));
         addSymToPage(index);
+        drawing.partUp = true;
     } else if (link) {
         e.preventDefault();
         const index = parseInt(link.getAttribute('data-index'));
         addSymToPage(index);
+        drawing.partUp = true;
     }
  });
 
