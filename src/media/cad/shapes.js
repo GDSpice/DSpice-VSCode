@@ -740,7 +740,7 @@ function fshapes(svg, setDrawing, width, height) {
 			break;
 
         }
-
+      if(element!="net")
         drawing.activeBtnSelect();
 
     }

@@ -3,7 +3,7 @@
 Name:        body.js
 Author:      d.fathi
 Created:     05/07/2021
-Update:      30/08/2026
+Update:      07/09/2026
 Copyright:   (c) DSpice 2026
 Licence:     free
 #---------------------------------------------------------------------------------------------------
@@ -469,7 +469,7 @@ areaGlobal.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() =>
 toolbar.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); toolbar.classList.add('visible'); });
 toolbar.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => toolbar.classList.remove('visible'), 300); });
 
-document.getElementById('btnSelect').addEventListener('click',  () =>{self.activeBtnById('btnSelect'); });
+document.getElementById('btnSelect').addEventListener('click',  () =>{self.activeBtnById('btnSelect');  self.shapes.design.mouse = false;  self.shapes.design.start = false; });
 document.getElementById('btnZoomIn').addEventListener('click', () => {  self.zoomIn(); });
 document.getElementById('btnZoomOut').addEventListener('click', () => { self.zoomOut(); });
 document.getElementById('btnGrid').addEventListener('click', (e) => {  self.showGrid(!self.grid.showGrid); e.currentTarget.classList.toggle('active'); });
@@ -486,6 +486,8 @@ document.getElementById('btnReference').addEventListener('click',  () =>{self.ac
 document.getElementById('btnParameter').addEventListener('click',  () =>{self.activeBtnById('btnParameter'); addShape('param'); });
 document.getElementById('btnModel').addEventListener('click',  () =>{self.activeBtnById('btnModel'); addShape('modelSpice'); });
 document.getElementById('btnRunAV').addEventListener('click',  () =>{ opAnalysis(); });
+
+document.getElementById('btnWire').addEventListener('click',  () =>{self.activeBtnById('btnWire'); addShape('net'); });
 document.getElementById('btnPlaceComponent').addEventListener('click',  () =>{ showSymbolPanel() });
 
 document.getElementById('btnBringToFront').addEventListener('click', () => {
@@ -537,6 +539,7 @@ function isButtonEnabled(id) {
 document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
     const key = e.key.toLowerCase();
+    console.log(`Key pressed: ${key}, Ctrl: ${e.ctrlKey}, Shift: ${e.shiftKey}`);
     const isCtrl = e.ctrlKey || e.metaKey;
     const isShift = e.shiftKey;
     const keyMap = { 
@@ -624,13 +627,19 @@ document.addEventListener('keydown', (e) => {
     if (key === 'y') { addShape('polygon');}
     if (key === 'r') { addShape('rect');}
     if (key === 't') { addShape('text'); self.activeBtnSelect();}
-    if (key === 'v') { self.activeBtnSelect();}
-    if (key === 'i') { if(drawing.pageType == 'dcs') return addShape('pin'); self.activeBtnSelect();}
-    if (key === 'k') { if(drawing.pageType == 'dcs') return addShape('ref'); self.activeBtnSelect();}
-    if (key === 'j') { if(drawing.pageType == 'dcs') return addShape('param'); self.activeBtnSelect();}
+    if (key === 'i') { if(drawing.pageType == 'dcs') return; addShape('pin'); self.activeBtnSelect();}
+    if (key === 'k') { if(drawing.pageType == 'dcs') return; addShape('ref'); self.activeBtnSelect();}
+    if (key === 'j') { if(drawing.pageType == 'dcs') return; addShape('param'); self.activeBtnSelect();}
     if (key === 'd') { if(drawing.pageType == 'dcs') return; addShape('modelSpice');  self.activeBtnSelect();}
     if (key === 'z') { if(drawing.pageType == 'sym') return;  addShape('probe');}
+    if (key === 'w') { if(drawing.pageType == 'sym') return;  addShape('net');} 
+    if ((key === 'escape') || (key === 'end') || (key === 'v')) { 
+      self.activeBtnSelect();       
+      self.shapes.design.mouse = false;
+      self.shapes.design.start = false;
+    }
     if (key === 'p') { if(drawing.pageType == 'sym') return; showSymbolPanel();}
+
 });
 
 
@@ -663,16 +672,7 @@ self.activeBtnById = function(id){
 }
 
 
-/*
-toolButtons.forEach((id, index) => {
-    document.getElementById(id).addEventListener('click', () => {
-        if (!isButtonEnabled(id)) return;
-        toolButtons.forEach(b => document.getElementById(b).classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        if (self.drawing && self.drawing.setTool) self.drawing.setTool(toolNames[index]);
-    });
-});
-*/
+document.getElementById("btnBus").style.display = "none";
 
 }
 
