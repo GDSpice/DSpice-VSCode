@@ -871,31 +871,35 @@ function partSelect() {
                 rows: [
                     { label: "Name", type: "text", value: part.firstChild.getAttribute("symbolname"), readonly: true },
                     { label: "File", type: "text", value: part.getAttribute("symbolfile"), readonly: true },
-                    { label: "Directory", type: "text", value: part.getAttribute("directory") },
+                    { label: "Directory", type: "text", value: part.getAttribute("directory"), readonly: true },
                    /* { label: "Local library", type: "text", value: part.getAttribute("liblocale"), readonly: true },*/
                     { label: "Reference", type: "text", value: part.getAttribute("sref") }
                 ]
-            },
+            }/*,
                         {
                 title: "Model Properties",
                 collapsed: false,
                 showReset: true,
                 rows: []
-            }
+            }*/
         ]
     };
     }
 
-    var elem=getPartModel(part);
+    var sym=getPartModel(part);
 
-    if(elem){
-         defaultData.sections[1].rows.push(
-            {label: "Model", type: "dropdownedit", value: elem.getAttribute("modelname"), options: elem.getAttribute("modellist").split(',')}
-         );
+    if(sym){
+        defaultData.sections[0].rows.push({ label: "Device.type", type: "dropdown", value: sym.device.type, options: ['SPICE'] });
+        defaultData.sections[0].rows.push({ label: "Device.name", type: "text", value: sym.device.name, readonly: true });
+
+        if(spiceUseModels.includes(sym.device.name)){
+            defaultData.sections[0].rows.push({ label: "Model.name", type: "text", value: sym.model.name });
+            defaultData.sections[0].rows.push({ label: 'Model.other', type: "Button", value: 'Find similar model', setClick:'openEditorListModelsPart' });
+        }
     }
 
     mtable.type = "part";
-    mtable.model=elem;  //data[0]
+    mtable.sym=sym;  //data[0]
     propertiesData = JSON.parse(JSON.stringify(defaultData));
     buildPanel();
 }
@@ -926,16 +930,16 @@ function modifiedPart() {
         return;
     }
     
-    part.setAttribute("directory", propertiesData.sections[0].rows[2].value);
-    part.setAttribute("sref", propertiesData.sections[0].rows[4].value);
 
-    var elem=getPartModel(part);
+    part.setAttribute("sref", propertiesData.sections[0].rows[3].value);
 
-    if(elem){
-        elem.setAttribute("modelname", propertiesData.sections[1].rows[1].value);
-        elem.textContent=propertiesData.sections[1].rows[1].value;
-    }
-    
+   if(propertiesData.sections[0].rows.length > 6) {
+     if(mtable.sym.model.name != propertiesData.sections[0].rows[6].value){
+         mtable.sym.model.name = propertiesData.sections[0].rows[6].value;
+         setPartModel(mtable.select, mtable.sym);
+     }
+   }
+
     if( controlPartRef(part)){
         partSelect();
         return;

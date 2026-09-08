@@ -841,17 +841,44 @@ function controlRefPart(refElem) {
 
 function getPartModel(part) {
 
-    var collection = part.children;
+    
 
+
+    var symbol=JSON.parse(part.firstChild.getAttribute("symbol"));
+
+    if((symbol==null) || (symbol.device==null)) {
+        symbol={name:"New Symbol",reference:"X",device:{type:"SPICE",name:"None"},model:{name:"None",file:"None",dir:"None",local:false},description:{webPage:'',info:''}};
+        symbol.device={type:"SPICE",name:part.getAttribute("model")}
+        var collection = part.children;
+        for (var i = 0; i < collection.length; i++)
+               {
+                   if (collection[i].getAttribute("name") == "modelSpice") {
+                       var c = collection[i];
+                       symbol.model={name:c.getAttribute('modelname'),file:c.getAttribute('modelfile'),dir:"library",local:true};
+                       break;
+                   }
+                }
+         part.firstChild.setAttribute("symbol", JSON.stringify(symbol)); 
+             
+            }
+               
+    return symbol;
+              
+}
+
+function  setPartModel(part, sym) {
+    part.setAttribute("symbol", JSON.stringify(sym)); 
+    var collection = part.children;
     for (var i = 0; i < collection.length; i++)
                {
                    if (collection[i].getAttribute("name") == "modelSpice") {
-                       return collection[i]
+                       var c = collection[i];
+                       c.setAttribute('modelname', sym.model.name);
+                       c.setAttribute('modelfile', sym.model.file);
+                       c.textContent = sym.model.name;
+                       break;
                    }
                 }
-               
-    return null;
-              
 }
 
 

@@ -643,5 +643,26 @@ function getDialog(setClick) {
             );
             break;
         }
+
+        case 'openEditorListModelsPart': {
+            drawing.getListModel(
+                {
+                    file: mtable.sym.model.file,
+                    model: mtable.sym.model.name
+                },
+                function (result) {
+                    mtable.sym.model.file = result.file;
+                    mtable.sym.model.name = result.model;
+                    mtable.sym.model.dir = 'library';
+                    mtable.sym.model.local = true;
+                    setPartModel(mtable.select, mtable.sym);
+                    pageSelect();
+                },
+                function () {
+                    console.log('Cancelled');
+                }
+            );
+            break;
+        }
     }
 }
