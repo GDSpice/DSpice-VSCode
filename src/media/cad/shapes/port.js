@@ -19,7 +19,7 @@ function addPort(){
     drawing.libLocale=true;
     drawing.symbolfile='PORT';
     drawing.shapes.part=port_description+port_polygon+port_pin+port_polyline;
-    drawing.add('part');
+    drawing.shapes.addElement('part');
     addShape('part');
 }
 

@@ -1,23 +1,32 @@
 {
-  "name": "DSpice",
-  "displayName": "DSpice",
-  "version": "0.1.0",
-  "publisher": "dspice",
+  "name": "dspice-circuit-simulator",
+  "displayName": "DSpice - Circuit Simulator",
+  "version": "0.1.1",
+  "publisher": "dspice-vscode",
+  "icon": "image/logo.png",
   "engines": {
     "vscode": "^1.74.0"
   },
+  "license": "SEE LICENSE IN LICENSE",
   "main": "./extension.js",
   "activationEvents": [
     "onCustomEditor:dspiceEditor.dcsEditor",
     "onCustomEditor:dspiceEditor.symEditor"
   ],
   "files": [
+    "LICENSE",
+    "README.md",
+    "FEATURES.md",
+    "CHANGELOG.md",
     "extension.js",
     "dspiceEditor.js",
     "symbolsSync.js",
+    "librarySync.js",
     "data.json",
+    "image/logo.png",
     "media/**/*",
     "symbols/**/*",
+    "lib/**/*",
     "ngspice/**/*"
   ],
   "contributes": {
@@ -55,5 +64,13 @@
         }
       }
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GDSpice/DSpice-VSCode"
+  },
+  "bugs": {
+    "url": "https://github.com/GDSpice/DSpice-VSCode/issues"
+  },
+  "homepage": "https://github.com/GDSpice/DSpice-VSCode"
 }

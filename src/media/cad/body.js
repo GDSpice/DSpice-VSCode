@@ -184,30 +184,47 @@ body.innerHTML = `
    </button>
  </div>
  
- <div class="toolbar-group" id="grpTransform">
-   <button class="toolbar-btn" id="btnRotate" title="Rotate 90° (F)">
-     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-       <polygon points="4,20 4,8 12,20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-       <polygon points="12,20 20,20 12,12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-       <path d="M16 6 A 6 6 0 0 1 18 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
-       <polyline points="15,9 18,12 21,9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
-     </svg>
-   </button>
-   <button class="toolbar-btn" id="btnFlipVertical" title="Flip Vertical (Shift+V)">
-     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-       <polygon points="4,20 10,4 10,20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-       <polygon points="20,20 14,4 14,20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-       <line x1="12" y1="2" x2="12" y2="22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
-     </svg>
-   </button>
-   <button class="toolbar-btn" id="btnFlipHorizontal" title="Flip Horizontal (Shift+H)">
-     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-       <polygon points="4,11 4,3 12,3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-       <polygon points="4,13 4,21 12,21" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-       <line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-     </svg>
-   </button>
- </div>
+<div class="toolbar-group" id="grpTransform">
+  <button class="toolbar-btn" id="btnRotate" title="Rotate 90° (Shift+R)">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://w3.org">
+      <path d="M 37 11 L 37 89 A 5 5 0 0 1 31 94 L 8 94 A 5 5 0 0 1 3 89 L 31 16 A 5 5 0 0 1 37 11 Z" 
+            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 50 67 L 92 94 A 5 5 0 0 1 89 99 L 50 99 A 5 5 0 0 1 45 94 L 45 72 A 5 5 0 0 1 50 67 Z" 
+            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 45 72 L 45 58 M 45 72 L 59 72" 
+            stroke="#000000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 87 63 A 36 36 0 0 0 62 17" 
+            stroke="#000000" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M 72 27 L 55 13 L 73 2" 
+            stroke="#000000" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </button>
+
+
+  <button class="toolbar-btn" id="btnFlipVertical" title="Flip Vertical (Shift+V)">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://w3.org">
+      <path d="M 94 41 L 6 41 A 5 5 0 0 1 2 35 L 89 5 A 5 5 0 0 1 97 9 L 97 35 A 5 5 0 0 1 94 41 Z" 
+            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="5" y1="50" x2="95" y2="50" stroke="#000000" stroke-width="6" stroke-linecap="round"/>
+      <path d="M 94 59 L 6 59 A 5 5 0 0 0 2 65 L 89 95 A 5 5 0 0 0 97 91 L 97 65 A 5 5 0 0 0 94 59 Z" 
+            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <button class="toolbar-btn" id="btnFlipHorizontal" title="Flip Horizontal (Shift+H)">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://w3.org">
+      <path d="M 41 6 L 41 94 A 5 5 0 0 1 35 98 L 5 11 A 5 5 0 0 1 9 3 L 35 3 A 5 5 0 0 1 41 6 Z" 
+            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="50" y1="5" x2="50" y2="95" stroke="#000000" stroke-width="6" stroke-linecap="round"/>
+      <path d="M 59 6 L 59 94 A 5 5 0 0 0 65 98 L 95 11 A 5 5 0 0 0 91 3 L 65 3 A 5 5 0 0 0 59 6 Z" 
+            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+
+
+
+
  <div class="toolbar-group">
    <button class="toolbar-btn" id="btnBringToFront" title="Bring to Front (Ctrl+Shift+])">
      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -489,6 +506,13 @@ document.getElementById('btnRunAV').addEventListener('click',  () =>{ opAnalysis
 
 document.getElementById('btnWire').addEventListener('click',  () =>{self.activeBtnById('btnWire'); addShape('net'); });
 document.getElementById('btnPlaceComponent').addEventListener('click',  () =>{ showSymbolPanel() });
+document.getElementById('btnGND').addEventListener('click',  () =>{self.activeBtnById('btnGND');  addGnd();});
+document.getElementById('btnVCC').addEventListener('click',  () =>{self.activeBtnById('btnVCC');  addVBar(); });
+document.getElementById('btnPort').addEventListener('click',  () =>{self.activeBtnById('btnPort');  addPort(); });
+
+document.getElementById('btnRotate').addEventListener('click',  () =>{  rotatePart(); });
+document.getElementById('btnFlipVertical').addEventListener('click',  () =>{ flipVerticallyPart(); });
+document.getElementById('btnFlipHorizontal').addEventListener('click',  () =>{  flipHorizontalPart(); });
 
 document.getElementById('btnBringToFront').addEventListener('click', () => {
     if (self.drawing && self.drawing.bringToFront) self.drawing.bringToFront();
@@ -579,24 +603,7 @@ document.addEventListener('keydown', (e) => {
         return;
     }
     
-    if (isShift && key === 'v') {
-        if (isButtonEnabled('btnFlipVertical')) {
-            toolButtons.forEach(b => document.getElementById(b).classList.remove('active'));
-            document.getElementById('btnFlipVertical').classList.add('active');
-            if (self.drawing && self.drawing.setTool) self.drawing.setTool('flipVertical');
-        }
-        e.preventDefault();
-        return;
-    }
-    if (isShift && key === 'h') {
-        if (isButtonEnabled('btnFlipHorizontal')) {
-            toolButtons.forEach(b => document.getElementById(b).classList.remove('active'));
-            document.getElementById('btnFlipHorizontal').classList.add('active');
-            if (self.drawing && self.drawing.setTool) self.drawing.setTool('flipHorizontal');
-        }
-        e.preventDefault();
-        return;
-    }
+
     
     if (keyMap[key] !== undefined && !isShift) {
         const targetId = keyMap[key];
@@ -639,6 +646,13 @@ document.addEventListener('keydown', (e) => {
       self.shapes.design.start = false;
     }
     if (key === 'p') { if(drawing.pageType == 'sym') return; showSymbolPanel();}
+    if (key === 'n') { if(drawing.pageType == 'sym') return;  addGnd(); self.activeBtnSelect();}
+    if (key === 'u') { if(drawing.pageType == 'sym') return;  addVBar(); self.activeBtnSelect();}
+    if (key === 'o') { if(drawing.pageType == 'sym') return;  addPort(); self.activeBtnSelect();}
+
+    if (isShift && key === 'r') {  rotatePart(); };
+    if (isShift && key === 'v'){ flipVerticallyPart(); };
+    if (isShift && key === 'h'){  flipHorizontalPart(); };
 
 });
 

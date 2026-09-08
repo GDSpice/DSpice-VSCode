@@ -18,6 +18,6 @@ function addVBar(){
     drawing.libLocale=true;
     drawing.symbolfile='VBAR';
     drawing.shapes.part=vbar_description+vbar_pin+vbar_polyline+vbar_text;
-    drawing.add('part');
+    drawing.shapes.addElement('part');
     addShape('part');
 }

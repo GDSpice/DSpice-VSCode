@@ -215,11 +215,11 @@ function getListParams(part) {
       var paramList = [];
       var collection = part.children;
 
-      var elem=getPartModel(part);
-
+    /*  var elem=getPartModel(part);
       if(elem){
         return [elem.getAttribute("modelname")];
-      }
+      }*/
+     
         for (var i = 0; i < collection.length; i++)
             if (collection[i].getAttribute("name") == "param")
                 paramList.push(collection[i].textContent);
@@ -236,12 +236,13 @@ function netList() {
     var list = [];
     for (var i = 0; i < parts.length; i++)
         if (!strToBool(parts[i].firstChild.getAttribute('std'))) {
+            var sym=getPartModel(parts[i]);
             list.push({
                 part: parts[i],
-                model: parts[i].getAttribute('model'),
-                type: parts[i].firstChild.getAttribute('modeltype'),
+                model: sym.model.name,
+                type: sym.device.name,
                 ref: parts[i].getAttribute('sref'),
-                directory: parts[i].getAttribute('directory'),
+                directory: sym.model.dir,
                 pins: netListPins(parts[i]),
                 pinsName: getListPins(parts[i]).map(pin => pin.elem.childNodes[2].textContent),
                 params: getListParams(parts[i])

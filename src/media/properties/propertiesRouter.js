@@ -17,6 +17,10 @@ var mtable = {};
 function showDescriptionElemSelectInPanel(select) {
 
     mtable.resize = drawing.resize;
+
+    drawing.selectPart= false;
+    drawing.selectAnalysis= false;
+    updateButtonsState(drawing);
        
  
         if (select) {
@@ -48,6 +52,8 @@ function showDescriptionElemSelectInPanel(select) {
 				break;
 
 	         case 'analysis':
+                drawing.selectAnalysis= true;
+                updateButtonsState(drawing);
 	            analysisSelect();
 	            break;
 
@@ -77,6 +83,8 @@ function showDescriptionElemSelectInPanel(select) {
                 break;
 
             case "part":
+                drawing.selectPart= true;
+                updateButtonsState(drawing);
                 partSelect();
                 break;
 
