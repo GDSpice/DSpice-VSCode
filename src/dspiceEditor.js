@@ -334,12 +334,12 @@ webviewPanel.onDidDispose(() => {
         const symbolsPanelJs = webview.asWebviewUri(vscode.Uri.joinPath(dialogPath, 'symbolsPanel.js'));
         const signalDialogJs = webview.asWebviewUri(vscode.Uri.joinPath(dialogPath, 'signalDialog.js'));
         const listModelsDialogJs = webview.asWebviewUri(vscode.Uri.joinPath(dialogPath, 'listModelsDialog.js'));
+        const codeEditorDialogJs = webview.asWebviewUri(vscode.Uri.joinPath(dialogPath, 'codeEditorDialog.js'));
         const drawingJs = webview.asWebviewUri(vscode.Uri.joinPath(cadPath, 'drawing.js'));
         const stdJs= webview.asWebviewUri(vscode.Uri.joinPath(cadPath,'std.js'));
         const plotlyJs =webview.asWebviewUri(vscode.Uri.joinPath(mediaPath,'pack','plotly-latest.min.js'));
         const htmlCodeCss = webview.asWebviewUri(vscode.Uri.joinPath(mediaPath, 'css', 'HTMLcode.css'));
-
-
+    
         // Define the library path for ngspice
         const libraryPath = path.join(this.context.extensionPath, 'library');
         const extensionPath = this.context.extensionPath;
@@ -400,6 +400,7 @@ webviewPanel.onDidDispose(() => {
     <script nonce="${nonce}" src="${symbolsPanelJs}"></script>
     <script nonce="${nonce}" src="${signalDialogJs}"></script>
     <script nonce="${nonce}" src="${listModelsDialogJs}"></script>
+    <script nonce="${nonce}" src="${codeEditorDialogJs}"></script>
     <script nonce="${nonce}" src="${rulerJs}"></script>
     <script nonce="${nonce}" src="${gridJs}"></script>
     <script nonce="${nonce}" src="${bodyJs}"></script>

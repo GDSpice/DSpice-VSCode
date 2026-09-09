@@ -583,6 +583,16 @@ function updatePreview() {
 // clik button in properties to open dialog (for example for signal selection or model selection)
 function getDialog(setClick) {
     switch (setClick) {
+        case 'openEditCSS':{
+             const originalText = mtable.select.getAttribute("style");
+              
+              drawing.getCodeEditor(
+    originalText,
+    'css',
+    function(result) { mtable.select.setAttribute("style",result);},
+    function() { console.log('Cancelled'); }
+);
+        }
         case 'ioPosProbe': {
             var str = mtable.select.childNodes[2].textContent.split('=');
             try {

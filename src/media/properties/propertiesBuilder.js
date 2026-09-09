@@ -120,7 +120,7 @@ function rectSelect() {
                     { label: "Pos.y", type: "number", value: parseInt(mtable.select.getAttribute("y")) },
                     { label: "Stroke", type: "color", value: rgb2hex(mtable.select.style.stroke), color: rgb2hex(mtable.select.style.stroke) },
                     { label: "Fill", type: "color", value: rgb2hex(mtable.select.style.fill), color: rgb2hex(mtable.select.style.fill) },
-                    { label: "Style", type: "Button", value: 'CSS Code', setClick:'openEditCSS()' }
+                    { label: "Style", type: "Button", value: 'CSS Code', setClick:'openEditCSS' }
                 ]
             }
         ]
@@ -163,7 +163,7 @@ function ellipseSelect() {
                     { label: "Pos.y", type: "number", value: parseInt(mtable.select.getAttribute("cy")) },
                     { label: "Stroke", type: "color", value: rgb2hex(mtable.select.style.stroke), color: rgb2hex(mtable.select.style.stroke) },
                     { label: "Fill", type: "color", value: rgb2hex(mtable.select.style.fill), color: rgb2hex(mtable.select.style.fill) },
-                    { label: "Style", type: "Button", value: 'CSS Code', setClick:'openEditCSS()' }
+                    { label: "Style", type: "Button", value: 'CSS Code', setClick:'openEditCSS' }
                 ]
             }
         ]
@@ -208,7 +208,7 @@ function arcSelect() {
                     { label: "Start angle(°)", type: "number", value: getDeg(mtable.select.getAttribute("startangle")) },
                     { label: "End angle(°)", type: "number", value: getDeg(mtable.select.getAttribute("endangle")) },
                     { label: "Stroke", type: "color", value: rgb2hex(mtable.select.style.stroke), color: rgb2hex(mtable.select.style.stroke) },
-                    { label: "Style", type: "Button", value: 'CSS Code', setClick:'openEditCSS()' }
+                    { label: "Style", type: "Button", value: 'CSS Code', setClick:'openEditCSS' }
                 ]
             }
         ]
@@ -244,7 +244,7 @@ function polylineSelect() {
                 showReset: true,
                 rows: [
                     { label: "Stroke", type: "color", value: rgb2hex(mtable.select.style.stroke), color: rgb2hex(mtable.select.style.stroke) },
-                    { label: "Style", type: "Button", value: 'CSS Code', setClick:'openEditCSS()' }
+                    { label: "Style", type: "Button", value: 'CSS Code', setClick:'openEditCSS' }
                 ]
             }
         ]
@@ -277,7 +277,7 @@ function polygonSelect() {
                 rows: [
                     { label: "Stroke", type: "color", value: rgb2hex(mtable.select.style.stroke), color: rgb2hex(mtable.select.style.stroke) },
                     { label: "Fill", type: "color", value: rgb2hex(mtable.select.style.fill), color: rgb2hex(mtable.select.style.fill) },
-                    { label: "Style", type: "Button", value: 'CSS Code', setClick:'openEditCSS()' }
+                    { label: "Style", type: "Button", value: 'CSS Code', setClick:'openEditCSS' }
                 ]
             }
         ]

@@ -356,6 +356,16 @@ self.execOp = function(spiceCode) {
              listModelsDialog.show();
          };
 
+// *************Get Code Editor Dialog*******************************//
+self.getCodeEditor = function(code, language, onSubmit, onCancel) {
+    if (typeof codeEditorDialog === 'undefined' || !codeEditorDialog) {
+        codeEditorDialog = new fCodeEditorDialog(self);
+    }
+    codeEditorDialog.setCallbacks(onSubmit, onCancel);
+    codeEditorDialog.initData(code, language); // language: 'html' or 'css'
+    codeEditorDialog.show();
+};
+
 //*************Create properties and symbols panel*******************//
 propertiesPanel = new fpropertiesPanel(self);
 symbolsPanel = new fsymbolsPanel(self);
