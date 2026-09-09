@@ -1,3 +1,15 @@
+/*
+#--------------------------------------------------------------------------------------------
+# Name:        drawing.js
+# Author:      d.fathi
+# Created:     05/06/2021
+# Update:      09/09/2026
+# Copyright:   (c) DSpice 2026
+# Licence:     free
+#--------------------------------------------------------------------------------------------
+*/
+
+
 //--------------------------------Class  of drawing-------------------------------------------//
 function fdrawing(div) {
 var self = this;
@@ -48,28 +60,35 @@ this.resize.grid=this.grid;
  this.zoomOut = function () {
      self.grid.zoomOut();
  }
+
  document.getElementById("areaGlobal").addEventListener("scroll", self.changPositionRuler);
+
  self.setSize = function (w, h) {
      var r = (h) + 'px'
      document.getElementById("areaGlobal").style.height = r;
  }
 
- //*******file action**** **********************//
-	self.active=function()
+//*******file action**************************//
+ self.setFileType = function (type) {
+     self.pageType = type;
+     console.log('File type set to:', type);
+     if (self.updateToolbar) self.updateToolbar();
+ }
+ 
+self.active=function()
 	{
 		clearSelectElms(self.shapes);
         self.resize.deletEllipse();
 		refNetWithPart();
 	}
 
-        self.setSymbolDescription = function () {
+self.setSymbolDescription = function () {
         var sym = document.getElementById("sym").firstChild;
         var width = sym.getAttribute("width");
         var height = sym.getAttribute("height");
         var zoom = parseFloat(sym.getAttribute("zoom"));
         var scrollLeft = parseInt(sym.getAttribute("left"));
         var scrollTop = parseInt(sym.getAttribute("top"));
-
         self.grid.zoom = zoom;
         self.grid.pageSize(width, height);
         self.grid.area.areaGlobal.scrollTo({
@@ -87,7 +106,7 @@ this.resize.grid=this.grid;
         self.active();
     }
 
-    self.getSymbolDescription = function () {
+self.getSymbolDescription = function () {
 
         sym = document.getElementById("sym").firstChild;
         sym.setAttribute("width", self.grid.width);
@@ -124,19 +143,30 @@ this.resize.grid=this.grid;
          
     }  else { 
         self.setSymbolDescription();
-        self.getSymbolDescription();
 	    plotsOpenDataLayoutInDiv();
         modifiedClassText();
         updateHtmlCode();
         modifiedModelNameParts();
     }
         
+}
 
+self.saveData=function(data){
 
- }
+             var content = self.getSymbol();
+             // send the content to the extension for saving
+             self.pendingSave =true;
+             if (typeof vscode !== 'undefined') {
+                 vscode.postMessage({
+                     type: 'contentChanged',
+                     content: content
+                 });
+            }
+}
+
 
 //*************Creat copy and paste function******************//
-    self.copy = function () {
+self.copy = function () {
     var copyList = [];
 
         if (self.shapes.lsg.elms.length > 0) {
@@ -209,7 +239,7 @@ self.paste = function (clipboardText) {
     }
 };
 
-    self.cut = function () {
+self.cut = function () {
         self.copy();
         if (self.shapes.lsg.elms.length > 0) {
             for (var i = 0; i < self.shapes.lsg.elms.length; i++)
@@ -226,9 +256,10 @@ self.paste = function (clipboardText) {
 
     };
 
+
 //*****update data symbols from extension.js to drawing.js*********//
-//***** */
- self.updateDataSymbols = function () {
+
+self.updateDataSymbols = function () {
     console.log(' Requesting symbols data update...');
     if (typeof vscode !== 'undefined') {
         vscode.postMessage({ type: 'updateDataSymbols' });
@@ -253,14 +284,9 @@ self.getDataSym = function(data) {
     return null;
 };
 
- self.setFileType = function (type) {
-     self.pageType = type;
-     console.log('File type set to:', type);
-     if (self.updateToolbar) self.updateToolbar();
- }
- 
 
- self.redSymFiles = function(index) {
+
+self.redSymFiles = function(index) {
     return new Promise((resolve, reject) => {
         if (!self.dataSyms || !self.dataSyms.dirs || index < 0 || index >= self.dataSyms.dirs.length) {
             reject('Invalid index or dataSyms not loaded');
@@ -301,19 +327,7 @@ self.redSymFilesFromWorkSpace = function() {
     });
 };
         
-// 
-self.saveData=function(data){
-
-             var content = self.getSymbol();
-             // send the content to the extension for saving
-             self.pendingSave =true;
-             if (typeof vscode !== 'undefined') {
-                 vscode.postMessage({
-                     type: 'contentChanged',
-                     content: content
-                 });
-            }
-}
+//************execute SPICE code and return the result to the caller*************
 
 self.execOp = function(spiceCode) {
     return new Promise((resolve, reject) => {
@@ -332,8 +346,8 @@ self.execOp = function(spiceCode) {
 };
 
 
-         // Get List Models Dialog
-         self.getListModel = function(previousResult, onSubmit, onCancel) {
+// *************Get List Models Dialog*******************************//
+ self.getListModel = function(previousResult, onSubmit, onCancel) {
              if (typeof listModelsDialog === 'undefined' || !listModelsDialog) {
                  listModelsDialog = new fListModelsDialog(self);
              }
@@ -342,16 +356,17 @@ self.execOp = function(spiceCode) {
              listModelsDialog.show();
          };
 
-         // Create properties panel
-         propertiesPanel = new fpropertiesPanel(self);
+//*************Create properties and symbols panel*******************//
+propertiesPanel = new fpropertiesPanel(self);
+symbolsPanel = new fsymbolsPanel(self);
 
          
          
-         self.grid.zoom = 3;
-         self.grid.pageSize(1500, 1500);
-         self.grid.includeGridChange();
+//self.grid.zoom = 3;
+//self.grid.pageSize(1500, 1500);
+//self.grid.includeGridChange();
 
-         symbolsPanel = new fsymbolsPanel(self);
+         
 }
 //-------------------------------------------------creat page of drawing circuit or symbol-----------------------------------//
 let drawing;

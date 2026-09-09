@@ -3,6 +3,7 @@
 Name:        librarySync.js
 Author:      d.fathi
 Created:     05/09/2026
+Updated:     09/09/2026
 Copyright:   (c) DSpice 2026
 Licence:     free
 #---------------------------------------------------------------------------------------------------
@@ -19,38 +20,43 @@ class LibrarySync {
      * @param {string} extensionPath - The extension root path
      * @returns {Array<{name: string, fullPath: string}>}
      */
-    static getLibraryFiles(extensionPath) {
-        const libDir = path.join(extensionPath, 'lib');
-        const libFiles = [];
+static getLibraryFiles(extensionPath) {
+    const libDir = path.join(extensionPath, 'library');
+    const libFiles = [];
 
-        if (!fs.existsSync(libDir)) {
-            console.warn('⚠️ lib directory not found:', libDir);
-            return libFiles;
-        }
+    if (!fs.existsSync(libDir)) {
+        console.warn('⚠️ library directory not found:', libDir);
+        return libFiles;
+    }
 
+    function scanDir(dir, baseDir) {
         try {
-            const entries = fs.readdirSync(libDir, { withFileTypes: true });
+            const entries = fs.readdirSync(dir, { withFileTypes: true });
             for (const entry of entries) {
-                const fullPath = path.join(libDir, entry.name);
-                if (entry.isFile() && entry.name.toLowerCase().endsWith('.lib')) {
+                const fullPath = path.join(dir, entry.name);
+                if (entry.isDirectory()) {
+                    // Recursively scan subdirectory
+                    scanDir(fullPath, baseDir);
+                } else if (entry.isFile() && entry.name.toLowerCase().endsWith('.lib')) {
+                    // Get relative path from library root (e.g. "semiconductor/bjt/2n555.lib")
+                    const relativePath = path.relative(baseDir, fullPath);
                     libFiles.push({
                         name: entry.name,
-                        fullPath: fullPath
+                        fullPath: fullPath,
+                        relativePath: relativePath
                     });
                 }
             }
         } catch (err) {
-            console.error('❌ Error scanning lib directory:', err);
+            console.error('❌ Error scanning directory:', dir, err);
         }
-
-        return libFiles;
     }
 
-    /**
-     * Parse a SPICE library file and extract models and subcircuits
-     * @param {string} filePath - Full path to the .lib file
-     * @returns {{rawContent: string, models: string[], subckts: string[], error?: string}}
-     */
+    scanDir(libDir, libDir);
+    return libFiles;
+}
+
+
 /**
  * Parse a SPICE library file and extract models and subcircuits
  * @param {string} filePath - Full path to the .lib file
@@ -73,41 +79,41 @@ static getSpiceModels(filePath) {
         result.rawContent = content;
 
         const lines = content.split(/\r?\n/);
-        let insideSubckt = false;  // ✅ تتبع ما إذا كنا داخل SUBCKT
+        let insideSubckt = false;  // Track whether we are inside a SUBCKT
 
         for (let i = 0; i < lines.length; i++) {
             const trimmedLine = lines[i].trim();
             
-            // تخطي الأسطر الفارغة والتعليقات
+            // Skip blank lines and comments
             if (trimmedLine === '' || trimmedLine.startsWith('*') || trimmedLine.startsWith(';')) {
                 continue;
             }
 
-            // الكشف عن بداية .SUBCKT
+            // Detect the start of a .SUBCKT block
             const subcktMatch = trimmedLine.match(/^\.SUBCKT\s+([A-Za-z0-9_\-\.]+)/i);
             if (subcktMatch) {
                 const subcktName = subcktMatch[1];
-                insideSubckt = true;  // ✅ دخلنا داخل SUBCKT
-                // منع التكرار
+                insideSubckt = true;  // Entered a SUBCKT block
+                // Avoid duplicates
                 if (!result.subckts.includes(subcktName)) {
                     result.subckts.push(subcktName);
                 }
                 continue;
             }
 
-            // الكشف عن نهاية .SUBCKT
+            // Detect the end of a .SUBCKT block
             if (trimmedLine.match(/^\.ENDS/i)) {
-                insideSubckt = false;  // ✅ خرجنا من SUBCKT
+                insideSubckt = false;  // Exited the SUBCKT block
                 continue;
             }
 
-            // الكشف عن .MODEL - فقط إذا كنا خارج SUBCKT
-            // ✅ تجاهل النماذج الداخلية
+            // Detect .MODEL only when outside a SUBCKT block
+            // Ignore models defined inside subcircuits
             if (!insideSubckt) {
                 const modelMatch = trimmedLine.match(/^\.MODEL\s+([A-Za-z0-9_\-\.]+)/i);
                 if (modelMatch) {
                     const modelName = modelMatch[1];
-                    // منع التكرار
+                    // Avoid duplicates
                     if (!result.models.includes(modelName)) {
                         result.models.push(modelName);
                     }

@@ -341,7 +341,7 @@ webviewPanel.onDidDispose(() => {
 
 
         // Define the library path for ngspice
-        const libraryPath = path.join(this.context.extensionPath, 'lib', 'library.lib');
+        const libraryPath = path.join(this.context.extensionPath, 'library');
         const extensionPath = this.context.extensionPath;
         const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
         const workspacePath = workspaceFolder ? workspaceFolder.uri.fsPath : '';

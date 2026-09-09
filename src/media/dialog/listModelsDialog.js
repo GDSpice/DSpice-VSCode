@@ -399,7 +399,8 @@ function fListModelsDialog(self) {
                 selfDialog.libFiles = msg.libFiles || [];
                 selfDialog.populateLibSelect();
                 if (selfDialog.previousResult && selfDialog.previousResult.file) {
-                    var fileIndex = selfDialog.libFiles.findIndex(function(f) { return f.name === selfDialog.previousResult.file; });
+                    var fileIndex = selfDialog.libFiles.findIndex(function(f) {   return f.name === selfDialog.previousResult.file || 
+                   f.relativePath === selfDialog.previousResult.file;  });
                     if (fileIndex >= 0) {
                         selfDialog.previousFileIndex = fileIndex;
                         if (libSelect) libSelect.value = fileIndex;
@@ -451,7 +452,7 @@ function fListModelsDialog(self) {
         selfDialog.libFiles.forEach(function(file, index) {
             var opt = document.createElement('option');
             opt.value = index;
-            opt.textContent = file.name;
+            opt.textContent = file.relativePath || file.name;
             libSelect.appendChild(opt);
         });
     };
