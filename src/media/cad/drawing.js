@@ -101,7 +101,7 @@ self.setSymbolDescription = function () {
         catch(e)
           {self.symbol={name:"New Symbol",reference:"X",device:{type:"SPICE",name:"None"},model:{name:"None",file:"None",dir:"None",local:false},description:{webPage:'',info:''}};}
 		
-        if(self.symbol.device==null)
+        if (!self.symbol || !self.symbol.device) 
           {self.symbol={name:"New Symbol",reference:"X",device:{type:"SPICE",name:"None"},model:{name:"None",file:"None",dir:"None",local:false},description:{webPage:'',info:''}};}
         self.active();
     }
