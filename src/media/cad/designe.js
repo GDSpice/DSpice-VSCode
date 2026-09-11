@@ -246,13 +246,10 @@ function designMouseMouve(self, pos) {
 
 function designMouseUp(self, pos) {
 	if((drawing.shapes.design.name=='net') && (drawing.shapes.design.start))
-	return;
+	  return;
 
-	if(drawing.shapes.design.mouse) {
+	if(drawing.shapes.design.mouse) 
  	  drawing.saveData('Add :'+drawing.shapes.design.name);
-      updateLableOfParts();
-    }
-    
     
     drawing.shapes.design.mouse = false;
     drawing.shapes.design.start = false;

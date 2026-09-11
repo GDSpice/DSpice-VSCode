@@ -146,7 +146,6 @@ self.getSymbolDescription = function () {
 	    plotsOpenDataLayoutInDiv();
         modifiedClassText();
         updateHtmlCode();
-        modifiedModelNameParts();
     }
         
 }

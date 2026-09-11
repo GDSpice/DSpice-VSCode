@@ -28,7 +28,8 @@ function getType(self) {
         self.length = 4;
         break;
 	case "part":
-	    getTypeElemPart(self);
+	    self.type = 0;
+        self.length = 0;
 		break;
     case "arc":
         self.type = 1;
@@ -90,9 +91,7 @@ function setInitPos(self) {
         self.ellps[0].y = parseInt(self.setElement.getAttribute("y"));
         break;
 
-	  case "part":
-        initPosInPart(self);
-        break;
+
 
     case "ellipse":
         self.ellps[0].x = -parseInt(self.setElement.getAttribute("rx")) + parseInt(self.setElement.getAttribute("cx"));
@@ -150,10 +149,6 @@ function setInitPos(self) {
 function setPosSize(self) {
     var el = self.setElement;  //tagName
     switch (el.getAttribute("name")) {
-
-	  case "part":
-	     updatePosInPart(self);
-	  	break;
 
       case "rect":
       case "image":

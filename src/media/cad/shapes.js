@@ -57,7 +57,6 @@ function evtDown(self) {
         self.offset.y -= parseInt(self.selectedElement.getAttribute("y"));
         self.offset.x = self.pr * Math.round(self.offset.x / self.pr);
         self.offset.y = self.pr * Math.round(self.offset.y / self.pr);
-        partInfo();
         break;
 
    case "probe":

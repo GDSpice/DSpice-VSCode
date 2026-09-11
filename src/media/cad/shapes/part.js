@@ -3,10 +3,10 @@
 # Name:        part.js
 # Author:      d.fathi
 # Created:     08/08/2021
-# Update:      27/08/2024
-# Copyright:   (c) PyAMS 2024
-# Licence:     free
-#-------------------------------------------------------------------------------------------------
+# Update:      11/09/2026
+# Copyright:   (c) DSpice 2026
+# Licence:     free 
+#-------------------------------------------------------------------------------
 */
 
 function newPart(self, part) {
@@ -227,34 +227,9 @@ function addRefToPart(){
     newElement.textContent ='label';
 
     elem.appendChild(newElement);
-    updateRefParts()
+    updateRefParts();
 }
 
-function addLabToPart(){
-    if(!itPartSelect()) 
-          return;
-   
-    var elem = drawing.resize.setElement;
-    var els = elem.children;
-    for(var i=0; i<els.length; i++)
-       if(els[i].getAttribute("name")=='label') 
-          return;
-
-    var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-    newElement.style.fill = "#11a229";
-    newElement.style.fontSize = "10";
-    newElement.style.fontFamily = "Times New Roman";
-    newElement.setAttribute("class", "draggable");
-    newElement.setAttribute("name",'label');
-    newElement.setAttribute("x", 20);
-    newElement.setAttribute("y", 10);
-    newElement.setAttribute("r", 0);
-    newElement.setAttribute("rtemp", 0);
-    newElement.setAttribute("class", "var");
-    newElement.setAttribute('transform', 'rotate(0 100 100)');
-    elem.appendChild(newElement);
-    updateLableOfParts();
-}
 
 function addParamToPart(){
     if(!itPartSelect()) 
@@ -415,7 +390,8 @@ function rotatePart() {
                     setArcPoints(e, a);
                     e.setAttribute("d", arcToAttribute(a, 0, 0));
 
-                    /* e.setAttribute("cx",cy);
+                    /* 
+                    e.setAttribute("cx",cy);
                     e.setAttribute("cy",cx);
                     var rx = e.getAttribute("rx");
                     var ry = e.getAttribute("ry");
@@ -674,8 +650,8 @@ function flipVerticallyPart() {
 function pointInRect(self, offset) {
     var xo = parseInt(self.getAttribute("x"));
     var yo = parseInt(self.getAttribute("y"));
-    var x = parseInt(self.getAttribute("width")) + xo;
-    var y = parseInt(self.getAttribute("height")) + yo;
+    var x =  parseInt(self.getAttribute("width"))+xo;
+    var y =  parseInt(self.getAttribute("height"))+yo;
     return (xo < offset.x) && (yo < offset.y) && (x > offset.x) && (y > offset.y);
 }
 
@@ -721,31 +697,17 @@ function updateRefParts() {
     }
 }
 
-function updateLableOfParts(){
-   if(drawing.pageType=='sym') return;
 
-   var s = document.getElementsByName('label');
-
-   for (var i = 0; i < s.length; i++) {
-         var parElem = s[i].parentElement;
-         var model=parElem.getAttribute("model");
-         var type_=parElem.firstChild.getAttribute("type");
-         if(model=="standard")
-            s[i].textContent =type_;
-         else 
-            s[i].textContent =model;
-    }
-}
 
 function addName(part) {
     var s = document.getElementsByClassName('part');
     var x = part.firstChild.getAttribute("reference");
     var model=part.firstChild.getAttribute("modelname");
-    
+     
     var n = 1;
     var i = 0;
     var newName = x + n;
-
+    
     while (i < s.length - 1) {
         var p = s[i].getAttribute('sref');
         if (p == newName) {
@@ -755,15 +717,12 @@ function addName(part) {
         }
         i++;
     }
-
+    
     part.setAttribute("sref", newName);
     part.setAttribute("directory", drawing.dir);
     part.setAttribute("symbolfile", drawing.symbolfile);
 
     updateRefParts();
-
-
- 
 }
 
 
@@ -833,16 +792,12 @@ function controlRefPart(refElem) {
             }
         }
 
-
-            parElem.setAttribute('sref', ref);
-            refElem.textContent = ref;
+        parElem.setAttribute('sref', ref);
+        refElem.textContent = ref;
     }
 }
 
 function getPartModel(part) {
-
-    
-
 
     var symbol=JSON.parse(part.firstChild.getAttribute("symbol"));
 
@@ -850,17 +805,15 @@ function getPartModel(part) {
         symbol={name:"New Symbol",reference:"X",device:{type:"SPICE",name:"None"},model:{name:"None",file:"None",dir:"None",local:false},description:{webPage:'',info:''}};
         symbol.device={type:"SPICE",name:part.getAttribute("model")}
         var collection = part.children;
-        for (var i = 0; i < collection.length; i++)
-               {
+        for (var i = 0; i < collection.length; i++){
                    if (collection[i].getAttribute("name") == "modelSpice") {
                        var c = collection[i];
                        symbol.model={name:c.getAttribute('modelname'),file:c.getAttribute('modelfile'),dir:"library",local:true};
                        break;
                    }
-                }
-         part.firstChild.setAttribute("symbol", JSON.stringify(symbol)); 
-             
-            }
+         }
+        part.firstChild.setAttribute("symbol", JSON.stringify(symbol));  
+        }
                
     return symbol;
               
@@ -941,477 +894,4 @@ function controlPartRef(part) {
                 }
 
     return false;
-}
-
-
-
-
-
-//***********************************get & set modified params of part***************************************************
-function findParamGetValue(params, nameVal, val) {
-    var t = params.split(' ');
-    for (var i = 0; i < t.length; i++) {
-        var k = t[i].split('=')
-            if (k.length == 2) {
-                if (k[0] == nameVal)
-                    val = k[1]
-            }
-    }
-    return val;
-}
-function setParams(p) {
-    if (mtable.select.getAttribute("name") == 'part') {
-        mtable.select.setAttribute("lparam", p);
-        var elem = mtable.select;
-        var collection = mtable.select.children;
-        for (var i = 0; i < collection.length; i++)
-            if (collection[i].getAttribute("name") == "param") {
-
-                var arr = collection[i].textContent.split("=");
-                arr[1] = findParamGetValue(p, arr[0], arr[1]);
-                collection[i].textContent = arr[0] + '=' + arr[1];
-            }
-    }
-}
-
-function getParams() {
-    var lparam = ' ';
-    if (mtable.select.getAttribute("name") == 'part') {
-
-        if (mtable.select.getAttribute("lparam"))
-            lparam = mtable.select.getAttribute("lparam");
-
-        var collection = mtable.select.children;
-        for (var i = 0; i < collection.length; i++)
-            if (collection[i].getAttribute("name") == "param")
-                lparam = lparam + '  ' + collection[i].textContent;
-    }
-
-    return lparam;
-}
-
-
-//************************************* part info *********************************************************
-function partInfo(){
-
-   /*var result=['',''];
-   if (drawing.resize.setElement) {
-        var elem = drawing.resize.setElement;
-        if (elem.getAttribute("name") == 'part') {
-          var description = elem.firstChild.getAttribute("description");
-          try {  
-            description  = JSON.parse(description);
-            result= [description.webPage,description.info]
-        }
-          catch(err) { description={webPage:'',info:''}; }
-          result= [description.webPage,description.info]
-        }
-    }
-    window.foo.partInfo(result); 
-    */
-}
-
-
-
-
-//*****************************************Part description *****************************/
-
-
-
-async function openEditor(modelname,directory) {
-
-        // window.foo.getCode(modelname,directory)
-          //const editedText = await window.electron.editText(modelname,directory);
-          findModel(modelname,directory);
-      }
-
-
-function modifiedModelNameParts(){
-    var listp = document.getElementsByName('part');
-    for(var i=1;i<listp.length;i++)
-      if(listp[i].getAttribute("modelname")){
-        var modelname = listp[i].getAttribute("modelname");
-        listp[i].setAttribute("symbolfile", modelname + '.sym');
-        listp[i].firstChild.setAttribute("model", modelname);
-        listp[i].setAttribute("model", modelname);
-        listp[i].removeAttribute("modelname");
-    }
-}
-
-function getPartPyAMSDescription(self) {
-
-
-
-    if(mtable.select.getAttribute("directory")=='standard'){
-        mtable.table = [{
-            name: 'Symbol.name',
-            value: mtable.select.firstChild.getAttribute("symbolname"),
-            type: "text",
-            condition: [['readonly', 'true']]
-        },{
-            name: 'Symbol.file',
-            value: mtable.select.getAttribute("directory"),
-            type: "text",
-            condition: [['readonly', 'true']]
-        }]
-
-        self.creat();
-        return;
-    }
-    
-    mtable.table = [{
-            name: 'Symbol.name',
-            value: mtable.select.firstChild.getAttribute("symbolname"),
-            type: "text",
-            condition: [['readonly', 'true']]
-        },{
-            name: 'Symbol.file',
-            value: mtable.select.getAttribute("symbolfile"),
-            type: "text",
-            condition: [['readonly', 'true']]
-        }, {
-            name: 'Symbol.directory',
-            value: mtable.select.getAttribute("directory"),
-            type: "text",
-            condition: [['readonly', 'true']]
-        }, {
-            name: 'Symbol.reference',
-            value: mtable.select.getAttribute("sref"),
-            type: "text"
-        }, {
-            name: 'Model.name',
-            value: mtable.select.getAttribute("model"),
-            type: "text",
-            condition: [['readonly', 'true']],
-   
-        }, {
-            name: 'Model.parameters',
-            value: 'show',
-            type: "Button",
-            setClick: 'showParams()'
-        }
-		, {
-            name: 'Model.file',
-            value: 'show',
-            type: "Button",
-            setClick: 'openEditor("' + mtable.select.getAttribute("model") + '","' +mtable.select.getAttribute("directory")+ '")'
-        }
-    ];
-   
-
-    self.creat();
-
-}
-
-function setPartPyAMSDescription(pos,e) {
-    var collection = mtable.select.children;
-    switch (pos) {
-    case 3:
-        mtable.select.setAttribute("sref", e.value);
-        break;
-    }
-
-    for (var i = 0; i < collection.length; i++)
-        if (collection[i].getAttribute("name") == "ref") {
-            collection[i].textContent = mtable.select.getAttribute("sref");
-        }
-
-    if (pos >= 3) {
-        var desc = mtable.table[pos]
-            collection[desc.pos].textContent = desc.param + '=' + e.value;
-    }
-
-}
-
-//**************************************
-
-
-function getModelsPath() {
-
-    var parts = document.getElementsByName('part');
-
-    for (var i = 0; i < parts.length; i++)
-        if (!strToBool(parts[i].firstChild.getAttribute('std'))) {
-            var folder= mtable.select.getAttribute("directory");
-              if(folder!='Project[Models]')
-                return `\nimport sys\nsys.path.append(r'${drawing.modelsPath}')\n`
-          
-        }
-    return ` `;
-}
-
-
-///******************************
-
-function addVarToPart(x, y, text_, par) {
-    var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'g');
-    var xo = x - 2;
-    var yo = y - 2;
-    var x1 = x - 2;
-    var y1 = y + 2;
-    var x2 = x + 2;
-    var y2 = y + 3;
-
-    newElement.setAttribute('name', par);
-    newElement.setAttribute('x', x);
-    newElement.setAttribute('y', y);
-    var newElement1 = document.createElementNS("http://www.w3.org/2000/svg", 'polyline');
-    newElement1.setAttribute("points", xo + "," + yo + " " + x + "," + y + " " + x1 + "," + y1);
-    newElement1.style.stroke = "#ff0000";
-    newElement1.style.fill = "none";
-    newElement1.style.strokeWidth = "1px";
-    newElement.appendChild(newElement1);
-
-    var newElement3 = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-    newElement3.style.fontSize = "8px";
-    newElement3.style.fontFamily = "Times New Roman";
-    newElement3.style.display = "block";
-    newElement3.setAttribute('x', x2);
-    newElement3.setAttribute('y', y2);
-    newElement3.textContent = text_;
-    newElement3.setAttribute('transform', 'rotate(0 ' + x2 + ' ' + y2 + ')');
-    newElement.appendChild(newElement3);
-
-    if (par == 'outvar') {
-        e = newElement.childNodes[1];
-        var bbox = e.getBBox();
-        var w = bbox.width;
-        var h = bbox.height;
-        x2 = x2 - w;
-        e.setAttribute('transform', 'rotate(0 ' + x2 + ' ' + y2 + ')');
-    }
-
-    if (par == 'outvar') {
-
-        var newElement2 = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-        newElement2.style.stroke = "#000000";
-        newElement2.style.fill = "#000000";
-        newElement2.style.strokeWidth = "1px";
-        newElement2.setAttribute("width", 4);
-        newElement2.setAttribute("height", 4);
-        newElement2.setAttribute("x", 0);
-        newElement2.setAttribute("y", 0);
-
-        newElement.appendChild(newElement2);
-
-    } else {
-
-        var newElement1 = document.createElementNS("http://www.w3.org/2000/svg", 'polygon');
-        newElement1.setAttribute("points", xo + "," + yo + " " + x + "," + y + " " + x1 + "," + y1);
-        newElement1.style.stroke = "#000000";
-        newElement1.style.fill = "#000000";
-        newElement1.style.strokeWidth = "1px";
-        newElement.appendChild(newElement1);
-    }
-
-    return newElement;
-}
-
-function addParmInOut() {
-    if (drawing.resize.setElement) {
-        elem = drawing.resize.setElement;
-        var name = elem.getAttribute("name");
-        if (name == 'part') {
-            w = parseInt(elem.getAttribute("width"));
-            h = parseInt(elem.getAttribute("height"));
-
-            var collection = elem.children;
-
-            var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'g');
-            newElement.setAttribute("name", "addparam");
-            newElement.setAttribute("type", "simple");
-            newElement.setAttribute("width", w);
-            newElement.setAttribute("height", h);
-
-            var newElement2 = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-            newElement2.style.stroke = "#bbbbbb";
-            newElement2.style.fill = "#bbbbbb";
-            newElement2.style.strokeWidth = "1px";
-            newElement2.setAttribute("width", w - 3);
-            newElement2.setAttribute("height", h - 3);
-            newElement2.setAttribute("x", -3);
-            newElement2.setAttribute("y", -3);
-
-            newElement.appendChild(newElement2);
-
-            var newElement2 = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-            newElement2.style.stroke = "#000000";
-            newElement2.style.fill = "#ffffff";
-            newElement2.style.strokeWidth = "1px";
-            newElement2.setAttribute("width", w);
-            newElement2.setAttribute("height", h);
-            newElement2.setAttribute("x", 0);
-            newElement2.setAttribute("y", 0);
-
-            newElement.appendChild(newElement2);
-
-            for (var i = 0; i <= 10; i++)
-                newElement.appendChild(addVarToPart(0, 5 + 10 * i, 'In' + i, 'invar'));
-
-            for (var i = 0; i <= 10; i++)
-                newElement.appendChild(addVarToPart(w, 5 + 10 * i, 'Out' + i, 'outvar'));
-            elem.insertBefore(newElement, elem.firstChild);
-
-            updateInOutVar(elem.firstChild);
-
-        }
-    }
-}
-
-function setVarPos(x, y, par, elem) {
-
-    var xo = x - 5;
-    var yo = y - 5;
-    var x1 = x - 5;
-    var y1 = y + 5;
-    var x2 = x + 2;
-    var y2 = y + 3;
-
-    elem.setAttribute('name', par);
-    elem.setAttribute('x', x);
-    elem.setAttribute('y', y);
-
-    var e = elem.childNodes[0];
-    e.setAttribute("points", xo + "," + yo + " " + x + "," + y + " " + x1 + "," + y1);
-    e.style.stroke = "#ff0000";
-    e.style.fill = "none";
-    e.style.strokeWidth = "1px";
-
-    var e = elem.childNodes[1];
-    e.setAttribute('x', x2);
-    e.setAttribute('y', y2);
-    e.setAttribute('transform', 'rotate(0 ' + x2 + ' ' + y2 + ')');
-
-    if (par == 'outvar') {
-        var bbox = e.getBBox();
-        var w = bbox.width;
-        var h = bbox.height;
-        var x3 = x2 - w - 8;
-        e.setAttribute('x', x3);
-        e.setAttribute('transform', 'rotate(0 ' + x3 + ' ' + y2 + ')');
-    }
-
-    var xo = x - 5;
-    var yo = y - 5;
-    var x1 = x - 5;
-    var y1 = y + 5;
-
-    var e = elem.childNodes[2];
-
-    if (par == 'outvar') {
-        e.setAttribute("x", x);
-        e.setAttribute("y", y - 2);
-    }
-
-    e.setAttribute("points", xo + "," + yo + " " + x + "," + y + " " + x1 + "," + y1);
-
-}
-
-function updateInOutVar(elem) {
-    var collection = elem.children;
-    w = parseInt(elem.children[1].getAttribute("width"));
-    h = parseInt(elem.children[1].getAttribute("height"));
-
-    x = parseInt(elem.children[1].getAttribute("x"));
-    y = parseInt(elem.children[1].getAttribute("y"));
-    var in_ = 0;
-    var out_ = 0;
-    for (var i = 0; i < collection.length; i++) {
-        if (collection[i].getAttribute('name') == 'invar') {
-            setVarPos(x, y + 5 + 15 * in_, 'invar', collection[i]);
-            in_++;
-        }
-
-        if (collection[i].getAttribute('name') == 'outvar') {
-            setVarPos(x + w, y + 5 + 15 * out_, 'outvar', collection[i]);
-            out_++;
-        }
-
-    }
-    mh = Math.max(5 + 15 * in_, 5 + 15 * out_);
-    if (h <= mh) {
-        elem.children[0].setAttribute("height", mh - 3);
-        elem.children[1].setAttribute("height", mh);
-    }
-
-}
-
-function getListVars(part) {
-    var vars = [];
-    var x = parseInt(part.getAttribute("x"));
-    var y = parseInt(part.getAttribute("y"));
-
-    var e = part.firstChild;
-    if (e.getAttribute("name") != "addparam")
-        return vars;
-    updateInOutVar(e);
-
-    var collection = part.firstChild.children;
-    for (var i = 0; i <= collection.length - 1; i++) {
-        var elem = collection[i];
-        name_ = elem.getAttribute("name");
-        switch (name_) {
-        case "invar":
-        case "outvar":
-
-            var x0 = parseInt(elem.getAttribute("x"));
-            var y0 = parseInt(elem.getAttribute("y"));
-            vars.push({
-                x: x0 + x,
-                y: y0 + y,
-                typeXDir: false,
-                typeIn: name_ == "invar",
-                elem: elem
-            });
-            break;
-        }
-    }
-    return vars;
-}
-
-function getTypeElemPart(self) {
-    var e = self.setElement.firstChild;
-    if (e.getAttribute("name") == "addparam") {
-        self.type = 1;
-        self.length = 4;
-    } else {
-        self.type = 0;
-        self.length = 0;
-    }
-}
-
-function initPosInPart(self) {
-    var e = self.setElement.firstChild;
-    if (e.getAttribute("name") != "addparam")
-        return;
-    var x = parseInt(self.setElement.getAttribute("x"));
-    var y = parseInt(self.setElement.getAttribute("y"));
-    var r = e.children[1];
-    self.type = 1;
-
-    self.width = parseInt(r.getAttribute("width"));
-    self.height = parseInt(r.getAttribute("height"));
-    self.ellps[0].x = x + parseInt(r.getAttribute("x"));
-    self.ellps[0].y = y + parseInt(r.getAttribute("y"));
-
-}
-
-function updatePosInPart(self) {
-    var e = self.setElement.firstChild;
-    if (e.getAttribute("name") != "addparam")
-        return;
-    var x =  - parseInt(self.setElement.getAttribute("x")) + self.ellps[0].x;
-    var y = -parseInt(self.setElement.getAttribute("y")) + self.ellps[0].y;
-    var r = e.children[1];
-    r.setAttribute("width", Math.abs(self.ellps[0].x - self.ellps[2].x));
-    r.setAttribute("height", Math.abs(self.ellps[0].y - self.ellps[3].y));
-    r.setAttribute("x", x);
-    r.setAttribute("y", y);
-    var r = e.children[0];
-    r.setAttribute("width", Math.abs(self.ellps[0].x - self.ellps[2].x) - 3);
-    r.setAttribute("height", Math.abs(self.ellps[0].y - self.ellps[3].y) - 3);
-    r.setAttribute("x", x - 3);
-    r.setAttribute("y", y - 3);
-    updateInOutVar(e);
-
 }
