@@ -366,6 +366,16 @@ self.getCodeEditor = function(code, language, onSubmit, onCancel) {
     codeEditorDialog.show();
 };
 
+// ************* Get SPICE Netlist Editor Dialog (self=this) *******************************//
+self.getSpiceNetlistEditor = function(netlist, onSubmit, onCancel) {
+    if (typeof spiceNetlistDialog === 'undefined' || !spiceNetlistDialog) {
+        spiceNetlistDialog = new fSpiceNetlistDialog(self);
+    }
+    spiceNetlistDialog.setCallbacks(onSubmit, onCancel);
+    spiceNetlistDialog.initData(netlist);
+    spiceNetlistDialog.show();
+};
+
 //*************Create properties and symbols panel*******************//
 propertiesPanel = new fpropertiesPanel(self);
 symbolsPanel = new fsymbolsPanel(self);

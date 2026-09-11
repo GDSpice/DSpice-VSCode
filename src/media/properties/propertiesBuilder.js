@@ -58,6 +58,15 @@ function pageSelect() {
             defaultData.sections[0].rows.push({ label: 'Model.other', type: "Button", value: 'Find similar model', setClick:'openEditorListModelsSym' });
         }
 
+    } else {
+        defaultData.sections.push(            {
+                title: "Circuit Properties",
+                collapsed: false,
+                showReset: true,
+                rows: [
+                    { label: "Netliste", type: "Button", value: 'show' , setClick:'openNetlistEditor' }
+                ]
+            })
     }
   
     mtable.type = "page";

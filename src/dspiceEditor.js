@@ -335,6 +335,7 @@ webviewPanel.onDidDispose(() => {
         const signalDialogJs = webview.asWebviewUri(vscode.Uri.joinPath(dialogPath, 'signalDialog.js'));
         const listModelsDialogJs = webview.asWebviewUri(vscode.Uri.joinPath(dialogPath, 'listModelsDialog.js'));
         const codeEditorDialogJs = webview.asWebviewUri(vscode.Uri.joinPath(dialogPath, 'codeEditorDialog.js'));
+        const spiceNetlistDialogJs = webview.asWebviewUri(vscode.Uri.joinPath(dialogPath, 'spiceNetlistDialog.js'));
         const drawingJs = webview.asWebviewUri(vscode.Uri.joinPath(cadPath, 'drawing.js'));
         const stdJs= webview.asWebviewUri(vscode.Uri.joinPath(cadPath,'std.js'));
         const plotlyJs =webview.asWebviewUri(vscode.Uri.joinPath(mediaPath,'pack','plotly-latest.min.js'));
@@ -401,6 +402,7 @@ webviewPanel.onDidDispose(() => {
     <script nonce="${nonce}" src="${signalDialogJs}"></script>
     <script nonce="${nonce}" src="${listModelsDialogJs}"></script>
     <script nonce="${nonce}" src="${codeEditorDialogJs}"></script>
+    <script nonce="${nonce}" src="${spiceNetlistDialogJs}"></script>
     <script nonce="${nonce}" src="${rulerJs}"></script>
     <script nonce="${nonce}" src="${gridJs}"></script>
     <script nonce="${nonce}" src="${bodyJs}"></script>
@@ -582,5 +584,4 @@ function formatValue(value) {
 }
 
 module.exports = DSpiceEditorProvider;
-
 

@@ -674,5 +674,21 @@ function getDialog(setClick) {
             );
             break;
         }
+
+        case 'openNetlistEditor':
+            {
+                var data=getNetlistSpice();
+                console.log(data);
+                drawing.getSpiceNetlistEditor(
+                    data,
+                    function (result) {
+                        console.log(result);
+                    },
+                    function () {
+                        console.log('Canceled');
+                    }
+                );
+            }
+            break;
     }
 }
