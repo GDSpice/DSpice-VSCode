@@ -175,7 +175,7 @@ function refNetWithPart()
 		 netId++;
 		} else if((collection[i].getAttribute("name")=='part')||(collection[i].getAttribute("name")=='oscilloscope'))
 		{
-		  partsDesc.push({part:collection[i],pins:getListPins(collection[i]),vars:getListVars(collection[i])});
+		  partsDesc.push({part:collection[i],pins:getListPins(collection[i])});
 		}
 	}
 
@@ -213,62 +213,18 @@ function refNetWithPart()
 		}
 	}
 
-//*****************************Vars***********************************************//
-   for(var i=0; i<partsDesc.length; i++)
-	  for(var j=0; j<partsDesc[i].vars.length; j++)
-	  {
-		 partsDesc[i].vars[j].elem.childNodes[0].style.display="block";
-		 partsDesc[i].vars[j].elem.childNodes[2].style.display="none";
-	  }
-
-
-	for(var i=0; i<partsDesc.length; i++)
-	{
-		var vars=partsDesc[i].vars;
-		for(var j=0; j<netId; j++)
-		{
-		   var netElem=document.getElementById(j);
-		   var p=getArrayPoints(netElem);
-		   var l=p.length-1;
-		   for(var n=0; n<vars.length; n++){ //
-		   //alert(vars[n].x);
-		  // alert(vars[n].y);
-			   if((vars[n].x==p[0].x)&&(vars[n].y==p[0].y))
-			    {
-				   vars[n].elem.childNodes[0].style.display="none";
-				   vars[n].elem.childNodes[2].style.display="block";
-                   vars[n].elem.setAttribute('netId',j);
-				   vars[n].elem.setAttribute('netIdPos',0);
-
-
-			    } else if((vars[n].x==p[l].x)&&(vars[n].y==p[l].y))
-			    {
-				   vars[n].elem.childNodes[0].style.display="none";
-				   vars[n].elem.childNodes[2].style.display="block";
-                   vars[n].elem.setAttribute('netId',j);
-				   vars[n].elem.setAttribute('netIdPos',l);
-
-			    }
-		   }
-		}
-	}
 
 
 //********************************************************************************//
 
 drawing.maxIdNet=netId;
 drawing.pins=[];
-drawing.vars=[];
+
 
 for(var i=0; i<partsDesc.length; i++)
 	for(var j=0; j<partsDesc[i].pins.length; j++)
 		if(partsDesc[i].pins[j].elem.childNodes[1].style.display=="block")
 		  drawing.pins.push(partsDesc[i].pins[j]);
-
-for(var i=0; i<partsDesc.length; i++)
-	for(var j=0; j<partsDesc[i].vars.length; j++)
-		if(partsDesc[i].vars[j].elem.childNodes[0].style.display=="block")
-		  drawing.vars.push(partsDesc[i].vars[j]);
 
 nodes();
 getNetRef();
@@ -293,17 +249,7 @@ function itConnect(elem,p)
 		 return true;
 	   }
 
-  var vars=drawing.vars;
-  var l=p.length-1;
 
-  for(var n=0; n<vars.length; n++)
-	if((vars[n].x==p[l].x)&&(vars[n].y==p[l].y))
-	   {
-		 p.pop();
-		 p.pop();
-		 elem.setAttribute("points",polylineToAttribute(p, 0, 0));
-		 return true;
-	   }
 
 
   var v=itConnectNetByNode(p[l].x,p[l].y,parseInt(elem.id));
@@ -328,15 +274,6 @@ function netAddInThisPos(pos)
 		 return true;
 	   }
 
-
-	var vars=drawing.vars;
-	for(var n=0; n<vars.length; n++)
-	  if((vars[n].x==pos.x)&&(vars[n].y==pos.y))
-	   {
-		 drawing.shapes.setNetXDir=vars[n].typeXDir;
-		 addShape('net');
-		 return true;
-	   }
 	 return false;
 }
 
@@ -357,15 +294,6 @@ function netItIsPosOfPin(pos)
 		 pins[n].elem.childNodes[1].style.fill = "none";
 
 
-	var vars=drawing.vars;
-	for(var n=0; n<vars.length; n++)
-	  if((vars[n].x==pos.x)&&(vars[n].y==pos.y))
-	    {
-		 vars[n].elem.childNodes[0].style.fill = "#ff0000";
-		 return true;
-	    }
-	   else
-		 vars[n].elem.childNodes[0].style.fill = "none";
 
 
 	 return false;
