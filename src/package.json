@@ -1,7 +1,7 @@
 {
   "name": "dspice-circuit-simulator",
   "displayName": "DSpice - Circuit Simulator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "dspice-vscode",
   "icon": "image/logo.png",
   "engines": {
@@ -26,7 +26,7 @@
     "image/logo.png",
     "media/**/*",
     "symbols/**/*",
-    "lib/**/*",
+    "library/**/*",
     "ngspice/**/*"
   ],
   "contributes": {

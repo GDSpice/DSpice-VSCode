@@ -18,7 +18,7 @@ function addCodeHtml(elem) {
                     <path d="M12 3 L3 10 V21 H9 V15 H15 V21 H21 V10 Z"/>
                 </svg>
             </button>
-           <button class="ch-toolbar-button" title="Modified" onclick="modifyAction()">
+           <button class="ch-toolbar-button" title="Modified" >
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
                 </svg>
@@ -34,6 +34,9 @@ function addCodeHtml(elem) {
     newElement.firstChild.style.height =200+'px';
     newElement.firstChild.style.width =222+'px';
     elem.appendChild(newElement);
+
+
+
 }
 
 
@@ -85,6 +88,12 @@ function updateHtmlCode(){
     
    i++;
  }
+
+     document.querySelectorAll(".ch-toolbar-button[title='Modified']")
+    .forEach(button => {
+        button.addEventListener("click", modifyAction);
+    });
+
 }
 
 function setHtmlCode(text){
@@ -115,5 +124,5 @@ function goHome(){
 }
 
 function modifyAction(){
-  openEditHtml();
+  getDialog('openEditHtml')
 }
