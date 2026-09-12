@@ -292,10 +292,7 @@ function netItIsPosOfPin(pos)
 	    }
 	   else
 		 pins[n].elem.childNodes[1].style.fill = "none";
-
-
-
-
+		
 	 return false;
 }
 

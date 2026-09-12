@@ -436,7 +436,7 @@ function fpropertiesPanel(self) {
                 content.appendChild(rowDiv);
             });
 
-            if (section.showReset) {
+          /*  if (section.showReset) {
                 var resetBtn = document.createElement('button');
                 resetBtn.className = 'prop-reset-btn';
                 resetBtn.textContent = 'Reset Default Style';
@@ -448,7 +448,7 @@ function fpropertiesPanel(self) {
                     }
                 });
                 content.appendChild(resetBtn);
-            }
+            }*/
 
             sectionDiv.appendChild(content);
             body.appendChild(sectionDiv);
@@ -583,16 +583,39 @@ function updatePreview() {
 // clik button in properties to open dialog (for example for signal selection or model selection)
 function getDialog(setClick) {
     switch (setClick) {
-        case 'openEditCSS':{
-             const originalText = mtable.select.getAttribute("style");
-              
-              drawing.getCodeEditor(
-    originalText,
-    'css',
-    function(result) { mtable.select.setAttribute("style",result);},
-    function() { console.log('Cancelled'); }
-);
-        }
+    case 'openEditCSS': {
+        const originalText = mtable.select.getAttribute('style');
+
+        drawing.getCodeEditor(
+            originalText,
+            'css',
+            function (result) {
+                mtable.select.setAttribute('style', result);
+            },
+            function () {
+                console.log('Cancelled');
+            }
+        );
+
+        break;
+    }
+
+    case 'openEditHtml': {
+        const originalText = mtable.select.firstChild.firstChild.getAttribute('code');
+
+        drawing.getCodeEditor(
+            originalText,
+            'html',
+            function (result) {
+                setHtmlCode(result);
+            },
+            function () {
+                console.log('Cancelled');
+            }
+        );
+
+        break;
+    }
         case 'ioPosProbe': {
             var str = mtable.select.childNodes[2].textContent.split('=');
             try {
