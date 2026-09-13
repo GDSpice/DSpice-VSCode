@@ -139,7 +139,8 @@ function findNetAttchment(elem)
 
 function getNetRef()
 {
-	   nets=document.getElementsByName('net');
+	
+	   nets=document.querySelectorAll('[name="net"]');
 	   var j=0;
 	  
 		for(var i=0; i<nets.length; i++)
@@ -169,7 +170,7 @@ function modifiedNetRefColor()
 
 function  modifiedRefNetParent()
 {
- nets=document.getElementsByName('net');
+ nets=document.querySelectorAll('[name="net"]');
  for(var i=0; i<nets.length; i++)
     {
 		var a=strToBool(nets[i].getAttribute("parent"));
@@ -198,7 +199,7 @@ function  modifiedRefNetParent()
 
 function  modifiedColorNetParent()
 {
- nets=document.getElementsByName('net');
+ nets=document.querySelectorAll('[name="net"]');
  for(var i=0; i<nets.length; i++)
     {
 		var a=strToBool(nets[i].getAttribute("parentcolor"));
@@ -221,7 +222,7 @@ function refSelectedColorNet(elem){
 	var r=elem.getAttribute("setcolor");
 	var o=elem.getAttribute("ref"); 
 	
-	nets=document.getElementsByName('net');
+	nets=document.querySelectorAll('[name="net"]');
  for(var i=0; i<nets.length; i++)
     {
 		if(o==nets[i].getAttribute("ref"))
@@ -241,7 +242,7 @@ function modifiedRefNetWithStdPart()
 {
 
 // Update Nets with GND references
- var parts=document.getElementsByName('part');
+ var parts=document.getElementsByClassName('part');
  var netIds=[];
  for(var i=0; i<parts.length;i++)
 	 if((parts[i].getAttribute('directory')=='standard') && parts[i].getAttribute('model')=='GND'){
@@ -251,7 +252,7 @@ function modifiedRefNetWithStdPart()
                   netIds.push(pins[n].elem.getAttribute('netId'));  				   
 			    } 
 }
-var nets=document.getElementsByName('net');
+var nets=document.querySelectorAll('[name="net"]');
 
 for(var i=0; i<netIds.length;i++){
 	var net=document.getElementById(netIds[i])

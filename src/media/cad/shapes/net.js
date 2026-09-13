@@ -327,7 +327,7 @@ function movePartWithConnectNets(self)
 function getNetRefs()
 {
 	var n=[];
-		var s = document.getElementsByClassName('net');
+		var s = document.querySelectorAll('[name="net"]');
 		for (var j = 0; j < s.length; j++) {
 			a=s[j].getAttribute("ref");
 			if((a!='0') && (!n.includes(a))){

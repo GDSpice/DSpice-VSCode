@@ -33,7 +33,7 @@ function  getPosRef(probe)
 			
 		if (probe.nod) {
 
-		var s = document.getElementsByClassName('net');
+		var s = document.querySelectorAll('[name="net"]');
 		for (var j = 0; j < s.length; j++) {
 			elem=s[j];
 			ref=elem.getAttribute("ref");
