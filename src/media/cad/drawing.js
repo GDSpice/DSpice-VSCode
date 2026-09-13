@@ -107,15 +107,14 @@ self.setSymbolDescription = function () {
     }
 
 self.getSymbolDescription = function () {
-
-        sym = document.getElementById("sym").firstChild;
+        var sym = document.getElementById("sym").firstChild;
+        [...sym.attributes].forEach(attr => {sym.removeAttribute(attr.name);});
         sym.setAttribute("width", self.grid.width);
         sym.setAttribute("height", self.grid.height);
         sym.setAttribute("zoom", self.grid.zoom);
         sym.setAttribute("left", self.grid.area.areaGlobal.scrollLeft);
         sym.setAttribute("top", self.grid.area.areaGlobal.scrollTop);
-        sym.setAttribute("symbol", JSON.stringify(self.symbol)); 
-      
+        sym.setAttribute("symbol", JSON.stringify(self.symbol));  
     }
 
  self.getSymbol = function () {

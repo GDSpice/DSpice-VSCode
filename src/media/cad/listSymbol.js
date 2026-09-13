@@ -249,10 +249,11 @@ function addListSymbToPageLibs(list){
   for(var i=0; i < list.length; i++){
     var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'g');
     getPartForList(newElement, list[i]);
-    
+    var symbol=JSON.parse(newElement.firstChild.getAttribute("symbol"));
+
     var w = parseInt(newElement.getAttribute("width"));
     var h = parseInt(newElement.getAttribute("height"));
-    var title = setSizeStr(newElement.firstChild.getAttribute("symbolname"));
+    var title = setSizeStr(symbol.name);
 
 
     rrr += "<li style='border:1px solid #ccc; background:#f9f9f9; border-radius:3px; aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 4px;'>"
