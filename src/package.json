@@ -13,6 +13,35 @@
     "onCustomEditor:dspiceEditor.dcsEditor",
     "onCustomEditor:dspiceEditor.symEditor"
   ],
+    "keywords": [
+    "spice",
+    "circuit",
+    "simulator",
+    "electronics",
+    "ngspice",
+    "analog",
+    "digital",
+    "schematic",
+    "eda",
+    "dcs",
+    "DCSCircuit",
+    "sym",
+    "SymbolFile",
+    "waveform",
+    "simulation",
+    "BJT",
+    "MOSFET",
+    "diode",
+    "OP-AMP"
+  ],
+  
+  "categories": [
+    "Other",
+    "Programming Languages",
+    "Visualization",
+    "Education"
+    
+  ],
   "files": [
     "LICENSE",
     "README.md",
