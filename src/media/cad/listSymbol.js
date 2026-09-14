@@ -215,6 +215,7 @@ function getPartForList(self, part) {
 
 var listSymbols=[];
 
+
 function getPageLibDesc(){
   document.getElementById("componentsPanel").innerHTML = 
     '<div style="display:flex; flex-direction:column; height:100%;">' +
@@ -334,7 +335,7 @@ function addSymToPage(index)
 	var dir=sel.options[sel.selectedIndex].getAttribute('dir');
 
 	if(listSymbols.length>index)
-	  addPart(listSymbols[index],dir,true,listSymbols[index].name);
+	  addPart(listSymbols[index],dir);
 
     var collection = document.getElementsByName("pin");
 
@@ -350,8 +351,6 @@ async function changeListSym(){
     selctedSymbolIndex = index; // update the global variable to reflect the selected index
     const files_ = await drawing.redSymFiles(index);
     addListSymbToPageLibs(files_);
-    
-
 }
 
 async function updateSymbolsPanel() {

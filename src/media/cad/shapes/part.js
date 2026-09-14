@@ -701,18 +701,18 @@ function updateRefParts() {
 
 function addName(part) {
     var s = document.getElementsByClassName('part');
-    var x = part.firstChild.getAttribute("reference");
-    var model=part.firstChild.getAttribute("modelname");
-     
+    var sym=JSON.parse(part.firstChild.getAttribute("symbol"));
+    var x = sym.reference;
+    
     var n = 1;
     var i = 0;
-    var newName = x + n;
+    var newName = x+n;
     
     while (i < s.length - 1) {
         var p = s[i].getAttribute('sref');
         if (p == newName) {
             n++;
-            newName = x + n;
+            newName = x+n;
             i = -1;
         }
         i++;
@@ -720,8 +720,6 @@ function addName(part) {
     
     part.setAttribute("sref", newName);
     part.setAttribute("directory", drawing.dir);
-    part.setAttribute("symbolfile", drawing.symbolfile);
-
     updateRefParts();
 }
 

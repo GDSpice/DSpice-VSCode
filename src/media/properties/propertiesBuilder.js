@@ -813,8 +813,9 @@ function modifiedText() {
 
 function partSelect() {
     var part = mtable.select;
+    var sym =JSON.parse(mtable.select.firstChild.getAttribute("symbol"));
 
-    if(mtable.select.getAttribute("directory")=='standard'){
+    if(sym.device.type=='std'){
         if(part.firstChild.getAttribute("symbolname")=="Port"){
 
         defaultData = {
@@ -856,32 +857,30 @@ function partSelect() {
 
     } else
          defaultData = {
-        header: { title: "Part", subtitle: "Selected" },
+        header: { title: "Symbol", subtitle: "Selected" },
         sections: [
             {
                 title: "Basic Properties",
                 collapsed: false,
                 showReset: true,
                 rows: [
-                    { label: "Symbol.name", type: "text", value: part.firstChild.getAttribute("symbolname"), readonly: true },
-                    { label: "Symbol.file", type: "text", value: part.getAttribute("directory"), readonly: true }
+                    { label: "Name", type: "text", value: sym.name, readonly: true },
+                    { label: "Directory", type: "text", value: 'Std', readonly: true }
                 ]
             }
         ]
     };
     } else{
     defaultData = {
-        header: { title: "Part", subtitle: "Selected" },
+        header: { title: "Symbol", subtitle: "Selected" },
         sections: [
             {
-                title: "Symbol Properties",
+                title: "Basic Properties",
                 collapsed: false,
                 showReset: true,
                 rows: [
-                    { label: "Name", type: "text", value: part.firstChild.getAttribute("symbolname"), readonly: true },
-                    { label: "File", type: "text", value: part.getAttribute("symbolfile"), readonly: true },
+                    { label: "Name", type: "text", value: sym.name, readonly: true },
                     { label: "Directory", type: "text", value: part.getAttribute("directory"), readonly: true },
-                   /* { label: "Local library", type: "text", value: part.getAttribute("liblocale"), readonly: true },*/
                     { label: "Reference", type: "text", value: part.getAttribute("sref") }
                 ]
             }/*,
@@ -940,7 +939,7 @@ function modifiedPart() {
     }
     
 
-    part.setAttribute("sref", propertiesData.sections[0].rows[3].value);
+    part.setAttribute("sref", propertiesData.sections[0].rows[2].value);
 
    if(propertiesData.sections[0].rows.length > 6) {
      if(mtable.sym.model.name != propertiesData.sections[0].rows[6].value){

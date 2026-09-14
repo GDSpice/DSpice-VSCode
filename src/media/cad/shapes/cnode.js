@@ -244,8 +244,10 @@ function modifiedRefNetWithStdPart()
 // Update Nets with GND references
  var parts=document.getElementsByClassName('part');
  var netIds=[];
- for(var i=0; i<parts.length;i++)
-	 if((parts[i].getAttribute('directory')=='standard') && parts[i].getAttribute('model')=='GND'){
+ for(var i=0; i<parts.length;i++){
+     var sym =JSON.parse(parts[i].firstChild.getAttribute("symbol"));
+	 if((sym.device.type!='std') && sym.name!='GND')
+		continue;
         pins=getListPins(parts[i]);
 		   for(var n=0; n<pins.length; n++){
 			   if(pins[n].elem.childNodes[1].style.display=="none") 
