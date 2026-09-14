@@ -49,11 +49,11 @@ function updateInternalParts(element){
     var sref = element.getAttribute("sref");
     var sym=JSON.parse(element.firstChild.getAttribute("symbol"));
 
- /*   if(element.getAttribute("model")=="Port"){
+   if(sym.name=="Port"){
         var pin = element.querySelector('[name="pin"]');
         pin.childNodes[2].textContent= sref;
         portRotate(element);
-    }*/
+    }
 
     if(sym.name=="VBar"){
         var text = element.querySelector('[name="text"]');

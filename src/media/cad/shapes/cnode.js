@@ -267,8 +267,8 @@ for(var i=0; i<netIds.length;i++){
 }
 
 // Update Nets with Port references
- var ports=[];
-/* for(var i=0; i<parts.length;i++)
+ /*var ports=[];
+for(var i=0; i<parts.length;i++)
 	 if((parts[i].getAttribute('directory')=='standard') && parts[i].getAttribute('model')=='Port'){
         pins=getListPins(parts[i]);
 		   for(var n=0; n<pins.length; n++){
@@ -291,8 +291,8 @@ for(var i=0; i<netIds.length;i++){
  var vbars=[];
  for(var i=0; i<parts.length;i++){
      var sym =JSON.parse(parts[i].firstChild.getAttribute("symbol"));
-	 	if((sym.device.type=='std') && sym.name=='VBar'){
-        pins=getListPins(parts[i]);
+	 	if((sym.device.type=='std') &&  ((sym.name=='VBar')||(sym.name=='Port'))){
+           pins=getListPins(parts[i]);
 		   for(var n=0; n<pins.length; n++){
 			   if(pins[n].elem.childNodes[1].style.display=="none") 
                   vbars.push({id:pins[n].elem.getAttribute('netId'),name:parts[i].getAttribute("sref")});  				   
