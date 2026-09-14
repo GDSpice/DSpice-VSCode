@@ -43,18 +43,19 @@ function endDrawing()
 
 function updateInternalParts(element){
 
-    if(element.getAttribute("directory")!='standard')
+    if(element.getAttribute("directory")!='std')
             return;
     
     var sref = element.getAttribute("sref");
+    var sym=JSON.parse(element.firstChild.getAttribute("symbol"));
 
-    if(element.getAttribute("model")=="Port"){
+ /*   if(element.getAttribute("model")=="Port"){
         var pin = element.querySelector('[name="pin"]');
         pin.childNodes[2].textContent= sref;
         portRotate(element);
-    }
+    }*/
 
-    if(element.getAttribute("model")=="VBar"){
+    if(sym.name=="VBar"){
         var text = element.querySelector('[name="text"]');
         text.textContent= sref;
     }

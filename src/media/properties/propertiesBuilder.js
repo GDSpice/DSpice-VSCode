@@ -814,8 +814,10 @@ function modifiedText() {
 function partSelect() {
     var part = mtable.select;
     var sym =JSON.parse(mtable.select.firstChild.getAttribute("symbol"));
+    var std=false;
 
     if(sym.device.type=='std'){
+        std=true;
         if(part.firstChild.getAttribute("symbolname")=="Port"){
 
         defaultData = {
@@ -836,7 +838,7 @@ function partSelect() {
     };
 
 
-    } else  if(part.firstChild.getAttribute("symbolname")=="VBar"){
+    } else  if(sym.name=="VBar"){
 
         defaultData = {
           header: { title: "Part", subtitle: "Selected" },
@@ -846,9 +848,9 @@ function partSelect() {
                 collapsed: false,
                 showReset: true,
                 rows: [
-                    { label: "Symbol.type", type: "text", value: part.firstChild.getAttribute("symbolname"), readonly: true },
-                    { label: "Symbol.file", type: "text", value: part.getAttribute("directory"), readonly: true },
-                    { label: "Symbol.name", type: "text", value: part.getAttribute("sref") }
+                    { label: "Name", type: "text", value: sym.name, readonly: true },
+                    { label: "Directory", type: "text", value: part.getAttribute("directory"), readonly: true },
+                    { label: "Reference", type: "text", value: part.getAttribute("sref") }
                 ]
             }
         ]
@@ -896,7 +898,7 @@ function partSelect() {
 
     var sym=getPartModel(part);
 
-    if(sym){
+    if(sym && !std){
         defaultData.sections[0].rows.push({ label: "Device.type", type: "dropdown", value: sym.device.type, options: ['SPICE'] });
         defaultData.sections[0].rows.push({ label: "Device.name", type: "text", value: sym.device.name, readonly: true });
 
@@ -916,9 +918,10 @@ function modifiedPart() {
 
 
     var part = mtable.select;
+    var sym =JSON.parse(mtable.select.firstChild.getAttribute("symbol"));
 
-    if(part.getAttribute("directory")=='standard'){
-        if(part.firstChild.getAttribute("symbolname")=="Port"){
+    if(sym.device.type=='std'){
+      /*  if(part.firstChild.getAttribute("symbolname")=="Port"){
                 part.firstChild.setAttribute("reference", propertiesData.sections[0].rows[2].value);
                 part.setAttribute("sref", propertiesData.sections[0].rows[2].value);
                 part.firstChild.setAttribute("direction", propertiesData.sections[0].rows[3].value);
@@ -926,10 +929,9 @@ function modifiedPart() {
                 pin.childNodes[2].textContent= propertiesData.sections[0].rows[2].value;
                 portRotate(mtable.select);
                 information(drawing.resize);
-        }
+        }*/
 
-                if(part.firstChild.getAttribute("symbolname")=="VBar"){
-                part.firstChild.setAttribute("reference", propertiesData.sections[0].rows[2].value);
+                if(sym.name=="VBar"){
                 part.setAttribute("sref", propertiesData.sections[0].rows[2].value);
                 var text = part.querySelector('[name="text"]');
                 text.textContent= propertiesData.sections[0].rows[2].value;

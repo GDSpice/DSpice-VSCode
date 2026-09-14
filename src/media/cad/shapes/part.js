@@ -717,6 +717,9 @@ function addName(part) {
         }
         i++;
     }
+
+ //   if((sym.device.type=='std') && sym.name=='GND')
+  //      newName='0';
     
     part.setAttribute("sref", newName);
     part.setAttribute("directory", drawing.dir);

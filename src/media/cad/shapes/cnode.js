@@ -246,13 +246,14 @@ function modifiedRefNetWithStdPart()
  var netIds=[];
  for(var i=0; i<parts.length;i++){
      var sym =JSON.parse(parts[i].firstChild.getAttribute("symbol"));
-	 if((sym.device.type!='std') && sym.name!='GND')
-		continue;
+	 if((sym.device.type=='std') && sym.name=='GND'){
+		
         pins=getListPins(parts[i]);
 		   for(var n=0; n<pins.length; n++){
 			   if(pins[n].elem.childNodes[1].style.display=="none") 
                   netIds.push(pins[n].elem.getAttribute('netId'));  				   
 			    } 
+			}
 }
 var nets=document.querySelectorAll('[name="net"]');
 
@@ -267,7 +268,7 @@ for(var i=0; i<netIds.length;i++){
 
 // Update Nets with Port references
  var ports=[];
- for(var i=0; i<parts.length;i++)
+/* for(var i=0; i<parts.length;i++)
 	 if((parts[i].getAttribute('directory')=='standard') && parts[i].getAttribute('model')=='Port'){
         pins=getListPins(parts[i]);
 		   for(var n=0; n<pins.length; n++){
@@ -284,17 +285,19 @@ for(var i=0; i<netIds.length;i++){
 		if(nets[j].getAttribute('ref')==ref)
 			nets[j].setAttribute('ref',ports[i].name);
 			
-}
+}*/
 
 // Update Nets with VBar references
  var vbars=[];
- for(var i=0; i<parts.length;i++)
-	 if((parts[i].getAttribute('directory')=='standard') && parts[i].getAttribute('model')=='VBar'){
+ for(var i=0; i<parts.length;i++){
+     var sym =JSON.parse(parts[i].firstChild.getAttribute("symbol"));
+	 	if((sym.device.type=='std') && sym.name=='VBar'){
         pins=getListPins(parts[i]);
 		   for(var n=0; n<pins.length; n++){
 			   if(pins[n].elem.childNodes[1].style.display=="none") 
                   vbars.push({id:pins[n].elem.getAttribute('netId'),name:parts[i].getAttribute("sref")});  				   
 			    } 
+			}
  }
 
  
@@ -305,9 +308,8 @@ for(var i=0; i<netIds.length;i++){
 		if(nets[j].getAttribute('ref')==ref)
 			nets[j].setAttribute('ref',vbars[i].name);
 			
-}
+ }
 
-	
- 
+
 }
 
