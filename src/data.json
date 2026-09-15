@@ -24,7 +24,8 @@
         "Mutual Inductor.sym",
         "CCS.sym",
         "VCS.sym",
-        "VC Switch.sym"
+        "VC Switch.sym",
+        "CCVS.sym"
     ],
     "Source": [
         "DCCurrent.sym",
