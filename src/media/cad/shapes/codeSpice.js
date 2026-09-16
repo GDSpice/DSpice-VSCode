@@ -235,8 +235,9 @@ function netList() {
     var parts = document.getElementsByClassName('part');
     var list = [];
     for (var i = 0; i < parts.length; i++)
-        if (!strToBool(parts[i].firstChild.getAttribute('std'))) {
+         {
             var sym=getPartModel(parts[i]);
+            if(sym.device.type!='std')
             list.push({
                 part: parts[i],
                 model: sym.model.name,

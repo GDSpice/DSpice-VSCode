@@ -634,6 +634,16 @@ function getDialog(setClick) {
             break;
         }
 
+        case 'ioProbe': {
+            var str = mtable.select.childNodes[2].textContent.split('=');
+            try {
+                opAnalysis();
+            } catch (error) {
+                console.log('Error', error.message);
+            }
+            break;
+        }
+
         case 'openEditorListModels': {
             drawing.getListModel(
                 {

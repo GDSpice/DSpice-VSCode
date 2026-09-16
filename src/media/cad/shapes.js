@@ -606,7 +606,7 @@ function fshapes(svg, setDrawing, width, height) {
             newElement.setAttribute("points", xo + "," + yo + " " + x + "," + y);
             newElement.style.stroke = "#0000ff";
             if (element == 'net')
-                newElement.style.stroke = "#000000";
+                newElement.style.stroke = "#630811";
             newElement.style.fill = "none";
             newElement.style.strokeWidth = "1px";
             newElement.setAttribute("class", "polyline");

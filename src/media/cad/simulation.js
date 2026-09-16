@@ -25,6 +25,8 @@ var libarayPath='';
         structProbe(elem)
         }
       }
+    
+    drawing.saveData('Op analysis');
 }).catch(err => {
     console.error('Simulation failed:', err);
 });

@@ -67,8 +67,8 @@ function nodes()
 	var r = 2; // / self.zoom;
     for (var i = 0; i < rect.length; i++) {
         var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
-        newElement.style.stroke = "#000000";
-        newElement.style.fill = "#000000";
+        newElement.style.stroke = "#630811";
+        newElement.style.fill = "#630811";
         newElement.style.strokeWidth = "1px";
         newElement.setAttribute("cx", rect[i].x);
         newElement.setAttribute("cy", rect[i].y);
@@ -139,7 +139,9 @@ function findNetAttchment(elem)
 
 function getNetRef()
 {
-	
+	    var s = document.querySelectorAll('[name="net"]');
+        for (var i = 0; i < s.length; i++) 
+            s[i].style.stroke = "#630811";
 	   nets=document.querySelectorAll('[name="net"]');
 	   var j=0;
 	  
@@ -155,7 +157,7 @@ function getNetRef()
 			 var node='N0'+j;
 			 nets[i].setAttribute("ref",node);
 			 findNetAttchment(nets[i]);
-			 nets[i].style.stroke = "#000000";
+			 nets[i].style.stroke = "#630811";
 			}
 		}	
 			
