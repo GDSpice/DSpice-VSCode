@@ -4,24 +4,21 @@ DSpice is a professional, cross-platform circuit design and simulation environme
 
 ## What’s New 
 
-**v0.1.2 (Current)**
+**v0.1.3 (Current)**
 
 ### Added
-- **SPICE Netlist Editor:** Introduced a new dialog for editing SPICE netlist files with full syntax highlighting.
-- **Enhanced Code Editor:** Added a dedicated dialog for editing HTML/CSS code files with syntax highlighting, VSCode Dark+ theme alignment, improved scrollbar handling, and active line highlighting.
-- **Library Model Picker:** Enabled selecting SPICE models directly from bundled libraries, including support for nested directory scanning for `.lib` files.
-- **Toolbar & Shortcuts:** Added a new "Model" toolbar button and a 'D' keyboard shortcut for quick SPICE model creation.
-- **Clipboard Commands:** Added native support for Copy, Cut, and Paste operations within the editor.
-- **Shape Tools:** Updated and refined toolbar buttons for arc, ellipse, polygon, rect, and polyline drawing.
+
+- **Package Metadata:** Added keywords to the extension package for better discoverability in the VS Code marketplace.
 
 ### Changed
-- **SPICE Model Handling:** Centralized and improved the application of SPICE model metadata to symbols and drawing elements. The properties panel now seamlessly displays device/model fields and supports a "Find similar model" action.
-- **Symbol Storage:** Enhanced symbol handling to store data as JSON with robust device and model support.
+- **Schematic Symbols:** Updated voltage and current source symbols, Vbar (Vcc), and basic circuit elements to use device names consistently.
+- **GND Behavior:** Improved GND symbol updating logic based on its attachment position in the circuit.
+- **Theming Support:** Updated Operating Point (OP) analysis and wire colors to ensure proper visibility and contrast across all VS Code themes.
+- **Terminology:** Renamed "lib" references to "library" throughout the project for better clarity and consistency.
 
 ### Fixed
-- **Code Editor:** Resolved text misalignment issues during typing between the textarea and highlight layer.
-- **Symbol Rendering:** Fixed various issues related to symbol references, device names, and null symbol handling.
-- **Circuit Interaction:** Improved probe editing and positioning accuracy within the circuit canvas.
+- **Wire Naming:** Resolved wire renaming issues, specifically for Input, Output, and Bidirectional ports.
+- **Wire Rendering:** Fixed general wire naming and color display inconsistencies in the canvas.
 
 ## Key Features
 - **Graphical Schematic Designer:** Intuitive interface for drawing and designing circuit schematics.

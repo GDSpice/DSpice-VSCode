@@ -2,7 +2,21 @@
 
 All notable changes to DSpice will be documented in this file.
 
-## [0.1.2] - 2026-09-13
+## [0.1.3] - 2026-09-16
+### Added
+- **Package Metadata:** Added keywords to the extension package for better discoverability in the VS Code marketplace.
+
+### Changed
+- **Schematic Symbols:** Updated voltage and current source symbols, Vbar (Vcc), and basic circuit elements to use device names consistently.
+- **GND Behavior:** Improved GND symbol updating logic based on its attachment position in the circuit.
+- **Theming Support:** Updated Operating Point (OP) analysis and wire colors to ensure proper visibility and contrast across all VS Code themes.
+- **Terminology:** Renamed "lib" references to "library" throughout the project for better clarity and consistency.
+
+### Fixed
+- **Wire Naming:** Resolved wire renaming issues, specifically for Input, Output, and Bidirectional ports.
+- **Wire Rendering:** Fixed general wire naming and color display inconsistencies in the canvas.
+
+## [0.1.2] - 2026-09-12
 ### Added
 - **SPICE Netlist Editor:** Introduced a new dialog for editing SPICE netlist files with full syntax highlighting.
 - **Enhanced Code Editor:** Added a dedicated dialog for editing HTML/CSS code files with syntax highlighting, VSCode Dark+ theme alignment, improved scrollbar handling, and active line highlighting.
@@ -22,7 +36,7 @@ All notable changes to DSpice will be documented in this file.
 
 ## [0.1.1] - 2026-09-08
 ### Added
-- **Enhanced Custom Editors:** Native visual editing support for ``.dcs`` (Circuit Schematics) and ``.sym`` (Component Symbols) files directly within VS Code.
+- **Enhanced Custom Editors:** Native visual editing support for `.dcs` (Circuit Schematics) and `.sym` (Component Symbols) files directly within VS Code.
 - **Interactive Drawing Canvas:** Introduced a full-featured graphical environment equipped with zoom, pan, grid snapping, and a dynamic context-aware toolbar.
 - **Seamless IDE Integration:** Deep integration with VS Code's native features, including full support for Undo/Redo history and clipboard operations (Copy/Cut/Paste).
 - **New Properties Panel:** Added an intuitive side panel for real-time component configuration and attribute editing.
