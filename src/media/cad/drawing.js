@@ -374,6 +374,16 @@ self.getSpiceNetlistEditor = function(netlist, onSubmit, onCancel) {
     spiceNetlistDialog.show();
 };
 
+// *************Get Process Analysis Dialog*******************************//
+self.getProcessAnalysis = function(onSubmit, onCancel) {
+    if (typeof processAnalysisDialog === 'undefined' || !processAnalysisDialog) {
+        processAnalysisDialog = new fProcessAnalysisDialog(self);
+    }
+    processAnalysisDialog.setCallbacks(onSubmit, onCancel);
+    processAnalysisDialog.initData();
+    processAnalysisDialog.show();
+};
+
 //*************Create properties and symbols panel*******************//
 propertiesPanel = new fpropertiesPanel(self);
 symbolsPanel = new fsymbolsPanel(self);

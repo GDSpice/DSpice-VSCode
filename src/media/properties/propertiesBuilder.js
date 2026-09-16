@@ -1039,7 +1039,7 @@ function analysisSelect() {
               collapsed: false,
               showReset: true,
                 rows: [ { label: 'Type', type: "dropdown", value: analy.type, options: ['DC Sweep', 'Time Domain','AC Analysis'] },
-                        { label: 'Simulation', type: "Button", value: 'Run ▶', setClick: 'runAnalysis()' }] 
+                        { label: 'Simulation', type: "Button", value: 'Run ▶', setClick: 'runAnalysis' }] 
             }
         ]
     };
