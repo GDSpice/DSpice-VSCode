@@ -837,7 +837,7 @@ function fshapes(svg, setDrawing, width, height) {
             }
 
 
-		//var els = document.querySelectorAll('[name="analysis"]');
+		var els = document.querySelectorAll('[name="analysis"]');
         for (var i = els.length-1; i >=0 ; i--)
             if (pointInRect(els[i], self.offset)) {
                 self.setCritElem = els[i];
