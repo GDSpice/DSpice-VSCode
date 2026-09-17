@@ -387,10 +387,6 @@ function fProcessAnalysisDialog(self) {
         selfDialog.onCancel = onCancel || null; 
     };
 
-    // Initialize
-    this.initData = function() {
-        selfDialog.resetDialog();
-    };
 
     this.resetDialog = function() {
         selfDialog.isRunning = false;
@@ -468,21 +464,31 @@ function fProcessAnalysisDialog(self) {
     };
 
     // Simulation control
-    this.startSimulation = function() {
-        selfDialog.isRunning = true;
-        selfDialog.resetDialog();
-        selfDialog.setStatus('running');
-        selfDialog.appendLog('Starting ngspice simulation process...', 'info');
-        selfDialog.startElapsedTimer();
-        
-        if (startBtn) startBtn.disabled = true;
-        if (stopBtn) stopBtn.disabled = false;
-        if (okBtn) okBtn.disabled = true;
-        
-        // Send message to extension to start simulation
-        if (typeof vscode !== 'undefined') {
-            vscode.postMessage({ type: 'startSimulation' });
-        }
+   // Initialize with SPICE code
+   this.initData = function(spiceCode) {
+       selfDialog.spiceCode = spiceCode || '';
+       selfDialog.resetDialog();
+    };
+
+   // Start simulation with code
+   this.startSimulation = function() {
+       selfDialog.isRunning = true;
+       selfDialog.resetDialog();
+       selfDialog.setStatus('running');
+       selfDialog.appendLog('Starting ngspice simulation process...', 'info');
+       selfDialog.startElapsedTimer();
+    
+       if (startBtn) startBtn.disabled = true;
+       if (stopBtn) stopBtn.disabled = false;
+       if (okBtn) okBtn.disabled = true;
+    
+       // Send message to extension to start simulation with code
+       if (typeof vscode !== 'undefined') {
+           vscode.postMessage({ 
+             type: 'startSimulation',
+             code: selfDialog.spiceCode
+          });
+       }
     };
 
     this.stopSimulation = function() {

@@ -725,16 +725,7 @@ function getDialog(setClick) {
             break;
 
         case 'runAnalysis':
-            {
-                drawing.getProcessAnalysis(
-                    function (result) {
-                        console.log(result);
-                    },
-                    function () {
-                        console.log('Canceled');
-                    }
-                );
-            }
+            runSimulation();
             break;
     }
 }

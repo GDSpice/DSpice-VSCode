@@ -374,14 +374,43 @@ self.getSpiceNetlistEditor = function(netlist, onSubmit, onCancel) {
     spiceNetlistDialog.show();
 };
 
-// *************Get Process Analysis Dialog*******************************//
-self.getProcessAnalysis = function(onSubmit, onCancel) {
-    if (typeof processAnalysisDialog === 'undefined' || !processAnalysisDialog) {
-        processAnalysisDialog = new fProcessAnalysisDialog(self);
+// *************Run Analysis with Dialog*******************************//
+self.runAnalysis = function(spiceCode) {
+    return new Promise((resolve, reject) => {
+        if (typeof processAnalysisDialog === 'undefined' || !processAnalysisDialog) {
+            processAnalysisDialog = new fProcessAnalysisDialog(self);
+        }
+        
+        processAnalysisDialog.setCallbacks(
+            function(result) {  // onSubmit (OK clicked)
+                // Get results from extension
+                if (typeof vscode !== 'undefined') {
+                    vscode.postMessage({ type: 'getSimulationResults' });
+                    
+                    // Wait for results
+                    self._simulationResolve = resolve;
+                    self._simulationReject = reject;
+                } else {
+                    resolve(result);
+                }
+            },
+            function() {  // onCancel
+                reject('Analysis cancelled');
+            }
+        );
+        
+        processAnalysisDialog.initData(spiceCode);
+        processAnalysisDialog.show();
+    });
+};
+
+// In message handler or add to existing one
+self.handleSimulationResults = function(data) {
+    if (self._simulationResolve) {
+        self._simulationResolve(data);
+        self._simulationResolve = null;
+        self._simulationReject = null;
     }
-    processAnalysisDialog.setCallbacks(onSubmit, onCancel);
-    processAnalysisDialog.initData();
-    processAnalysisDialog.show();
 };
 
 //*************Create properties and symbols panel*******************//

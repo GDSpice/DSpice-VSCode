@@ -33,3 +33,22 @@ var libarayPath='';
 
  }
 
+
+
+ // In your analysis code
+async function runSimulation() {
+    const spiceNetlist = generateSpiceNetlist(); // Your netlist generation
+    
+    try {
+        const results = await drawing.runAnalysis(spiceNetlist.code);
+        console.log('Simulation results:', results);
+        
+        // Process results...
+        if (results.success) {
+            // Show plots, etc.
+        }
+    } catch (err) {
+        console.error('Simulation failed:', err);
+    }
+}
+

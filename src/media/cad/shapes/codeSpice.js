@@ -214,11 +214,12 @@ function getListParams(part) {
 
       var paramList = [];
       var collection = part.children;
+      var sym=getPartModel(part);
 
-    /*  var elem=getPartModel(part);
-      if(elem){
-        return [elem.getAttribute("modelname")];
-      }*/
+      if(spiceUseModels.includes(sym.device.name))
+        paramList.push(sym.model.name);
+
+
      
         for (var i = 0; i < collection.length; i++)
             if (collection[i].getAttribute("name") == "param")
@@ -438,7 +439,8 @@ function getNewStruct(name,nodes,index,netListData,color)
 }
 
 
-  function  getSourceSpiceForAnalysis(){
+
+  function  generateSpiceNetlist(){
 
     var nodes=getNetRefs();
     var netListData = netList();
@@ -494,7 +496,7 @@ function getNewStruct(name,nodes,index,netListData,color)
 
 
 
-   var code = `*\n\n.include "${libarayPath}"\n\n`;
+   var code = `*\n\n.include "D:\\project\\DSpice-VScode\\library\\bjt_npn.lib"\n\n`;
 
   netListData.forEach(el => {
     code += `${el.ref}   ${el.pins.join(' ')}   ${el.params.join('  ')}\n`;
