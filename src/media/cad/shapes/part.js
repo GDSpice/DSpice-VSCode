@@ -750,6 +750,66 @@ function controlRefSymbol() {
   return result;
 }
 
+function controlPartRef(part) {
+
+   var sym=JSON.parse(part.firstChild.getAttribute("symbol"));
+    var modelname=sym.device.name;
+    var partRef = part.getAttribute('sref');
+  
+
+        if( partRef.length>1)
+        {
+            if(partRef[0] != Ref[modelname]) 
+              {
+               partRef = Ref[modelname] + partRef.substring(1); 
+               var collection = part.children;
+               for (var i = 0; i < collection.length; i++)
+               {
+                   console.log(collection[i].getAttribute("name"));
+                   if (collection[i].getAttribute("name") == "ref") {
+                       collection[i].textContent = partRef;
+                   }
+                }
+                part.setAttribute('sref', partRef);
+               return true;
+              }
+        } else {
+          
+            var parts = document.getElementsByName('part');
+            var x = sym.reference;
+            var n = 1;
+            var i = 0;
+            partRef = x + n;
+            while (i < parts.length - 1) {
+                var p = parts[i].getAttribute('sref');
+                if ((p == partRef)) {
+                    n++;
+                    partRef= x + n;
+                    i = -1;
+                }
+                i++;
+            }
+            part.setAttribute('sref', partRef);
+            var collection = part.children;
+            for (var i = 0; i < collection.length; i++)
+                if (collection[i].getAttribute("name") == "ref") {
+                    collection[i].textContent = partRef;
+                }
+            return true;
+    }
+    
+    var collection = part.children;
+               for (var i = 0; i < collection.length; i++)
+               {
+                   console.log(collection[i].getAttribute("name"));
+                   if (collection[i].getAttribute("name") == "ref") {
+                       collection[i].textContent = partRef;
+                   }
+                }
+
+    return false;
+}
+
 function controlRefPart(refElem) {
      
    
@@ -766,7 +826,8 @@ function controlRefPart(refElem) {
       
         var parElem = refElem.parentElement;
         var ref = refElem.textContent;
-        var modelname=parElem.getAttribute("model");
+        var sym=JSON.parse(parElem.firstChild.getAttribute("symbol"));
+        var modelname=sym.device.name;
 
         if( ref.length>1)
         {
@@ -778,7 +839,7 @@ function controlRefPart(refElem) {
         } else {
             ref = Ref[modelname];
             var parts = document.getElementsByName('part');
-            var x = parElem.firstChild.getAttribute("reference");
+            var x = sym.reference;
             var n = 1;
             var i = 0;
             ref = x + n;
@@ -805,6 +866,7 @@ function getPartModel(part) {
     if((symbol==null) || (symbol.device==null)) {
         symbol={name:"New Symbol",reference:"X",device:{type:"SPICE",name:"None"},model:{name:"None",file:"None",dir:"None",local:false},description:{webPage:'',info:''}};
         symbol.device={type:"SPICE",name:part.getAttribute("model")}
+        symbol.name=part.getAttribute("model");
         var collection = part.children;
         for (var i = 0; i < collection.length; i++){
                    if (collection[i].getAttribute("name") == "modelSpice") {
@@ -838,61 +900,3 @@ function  setPartModel(part, sym) {
 
 
 
-function controlPartRef(part) {
-   
-    var modelname=part.getAttribute("model");
-    var partRef = part.getAttribute('sref');
-  
-
-        if( partRef.length>1)
-        {
-            if(partRef[0] != Ref[modelname]) 
-              {
-               partRef = Ref[modelname] + partRef.substring(1); 
-               var collection = part.children;
-               for (var i = 0; i < collection.length; i++)
-               {
-                   console.log(collection[i].getAttribute("name"));
-                   if (collection[i].getAttribute("name") == "ref") {
-                       collection[i].textContent = partRef;
-                   }
-                }
-                part.setAttribute('sref', partRef);
-               return true;
-              }
-        } else {
-          
-            var parts = document.getElementsByName('part');
-            var x = part.firstChild.getAttribute("reference");
-            var n = 1;
-            var i = 0;
-            partRef = x + n;
-            while (i < parts.length - 1) {
-                var p = parts[i].getAttribute('sref');
-                if ((p == partRef)) {
-                    n++;
-                    partRef= x + n;
-                    i = -1;
-                }
-                i++;
-            }
-            part.setAttribute('sref', partRef);
-            var collection = part.children;
-            for (var i = 0; i < collection.length; i++)
-                if (collection[i].getAttribute("name") == "ref") {
-                    collection[i].textContent = partRef;
-                }
-            return true;
-    }
-    
-    var collection = part.children;
-               for (var i = 0; i < collection.length; i++)
-               {
-                   console.log(collection[i].getAttribute("name"));
-                   if (collection[i].getAttribute("name") == "ref") {
-                       collection[i].textContent = partRef;
-                   }
-                }
-
-    return false;
-}
