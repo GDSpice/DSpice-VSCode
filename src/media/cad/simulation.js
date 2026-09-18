@@ -1,5 +1,19 @@
+
+/*
+#--------------------------------------------------------------------------------------------------
+Name:        simulation.js
+Author:      d.fathi
+Created:     05/09/2026
+Updated:     17/09/2026
+Copyright:   (c) DSpice 2026
+Licence:     free
+#---------------------------------------------------------------------------------------------------
+*/
+
+
+
 var libarayPath='';
- 
+ // op Simulation
  function opAnalysis(){
 
    codeSpice= getSourceSpiceForOp();
@@ -35,20 +49,20 @@ var libarayPath='';
 
 
 
- // In your analysis code
+ // analysis simulation
+
 async function runSimulation() {
-    const spiceNetlist = generateSpiceNetlist(); // Your netlist generation
+    const spice = generateSpiceNetlist();
     
     try {
-        const results = await drawing.runAnalysis(spiceNetlist.code);
-        console.log('Simulation results:', results);
+        const results = await drawing.runAnalysis(spice.code);
+        console.log('Simulation results:', results); 
         
-        // Process results...
-        if (results.success) {
-            // Show plots, etc.
+        if (results && results.success) {
+            console.log('stdout:', results.stdout);
+            console.log('parsed results:', results.results);
         }
     } catch (err) {
         console.error('Simulation failed:', err);
     }
 }
-

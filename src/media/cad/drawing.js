@@ -377,24 +377,28 @@ self.getSpiceNetlistEditor = function(netlist, onSubmit, onCancel) {
 // *************Run Analysis with Dialog*******************************//
 self.runAnalysis = function(spiceCode) {
     return new Promise((resolve, reject) => {
+        // Store resolvers for later
+        self._simulationResolve = resolve;
+        self._simulationReject = reject;
+        self._simulationSpiceCode = spiceCode;
+        
         if (typeof processAnalysisDialog === 'undefined' || !processAnalysisDialog) {
             processAnalysisDialog = new fProcessAnalysisDialog(self);
         }
         
         processAnalysisDialog.setCallbacks(
             function(result) {  // onSubmit (OK clicked)
-                // Get results from extension
+                // Request results from extension
                 if (typeof vscode !== 'undefined') {
                     vscode.postMessage({ type: 'getSimulationResults' });
-                    
-                    // Wait for results
-                    self._simulationResolve = resolve;
-                    self._simulationReject = reject;
                 } else {
+                    // Fallback if no vscode
                     resolve(result);
                 }
             },
             function() {  // onCancel
+                self._simulationResolve = null;
+                self._simulationReject = null;
                 reject('Analysis cancelled');
             }
         );
@@ -404,7 +408,7 @@ self.runAnalysis = function(spiceCode) {
     });
 };
 
-// In message handler or add to existing one
+// Handle simulation results from extension
 self.handleSimulationResults = function(data) {
     if (self._simulationResolve) {
         self._simulationResolve(data);
@@ -412,7 +416,6 @@ self.handleSimulationResults = function(data) {
         self._simulationReject = null;
     }
 };
-
 //*************Create properties and symbols panel*******************//
 propertiesPanel = new fpropertiesPanel(self);
 symbolsPanel = new fsymbolsPanel(self);

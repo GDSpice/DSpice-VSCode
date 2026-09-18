@@ -351,6 +351,7 @@ case 'stopSimulation':
     }
     break;
 
+
 case 'getSimulationResults':
     webviewPanel.webview.postMessage({
         type: 'simulationResults',
@@ -650,6 +651,10 @@ webviewPanel.onDidDispose(() => {
         }
         drawing._execOpResolve = null;
         drawing._execOpReject = null;
+    }
+} else if (msg.type === 'simulationResults') {
+    if (typeof drawing !== 'undefined' && drawing.handleSimulationResults) {
+        drawing.handleSimulationResults(msg.data);
     }
 }
 // Execute copy, cut, and paste commands

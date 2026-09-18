@@ -567,20 +567,29 @@ function fProcessAnalysisDialog(self) {
             case 'simulationProgress':
                 selfDialog.setProgress(msg.progress);
                 break;
+
             case 'simulationLog':
                 selfDialog.appendLog(msg.message, msg.logType || 'info');
                 break;
+
             case 'simulationComplete':
                 selfDialog.completeSimulation(msg.data);
                 break;
+
             case 'simulationError':
                 selfDialog.errorSimulation(msg.error);
+                break;
+
+            case 'simulationComplete':
+               selfDialog.completeSimulation(msg.data);
+               selfDialog.simulationResults = msg.data;
                 break;
         }
     };
 
     // Initialize events
     this.init = function() {
+
         selfDialog.cacheDOM();
         var dialog = document.getElementById('processAnalysisDialog');
         var header = document.getElementById('processAnalysisDialogHeader');
@@ -620,7 +629,7 @@ function fProcessAnalysisDialog(self) {
             dialog.style.top = newY + 'px';
         });
         
-        document.addEventListener('mouseup', function() { isDragging = false; });
+        document.addEventListener('mouseup', function() {isDragging = false;});
 
         // Listen for messages from VS Code
         window.addEventListener('message', selfDialog.messageHandler);

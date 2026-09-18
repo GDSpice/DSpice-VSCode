@@ -1,6 +1,6 @@
 /*
 #--------------------------------------------------------------------------------------------------
-Name:        properties_dialog.js
+Name:        propertiesDialog.js
 Author:      d.fathi
 Created:     30/08/2026
 Copyright:   (c) DSpice 2026
@@ -471,6 +471,12 @@ function fpropertiesPanel(self) {
         }
     };
 
+
+    this.setData = function(data) {
+        selfPanel.currentData = data;
+        selfPanel.buildContent(data);
+    }
+
     // Hide panel
     this.hide = function() {
         var panel = document.getElementById('propertiesPanel');
@@ -570,7 +576,7 @@ function buildPanel() {
     if (!propertiesPanel) {
         propertiesPanel = new fpropertiesPanel(drawing);
     }
-    propertiesPanel.show(propertiesData);
+    propertiesPanel.setData(propertiesData);
 }
 
 // Update preview function (calls changeSelect from descriptionElemSelect.js)

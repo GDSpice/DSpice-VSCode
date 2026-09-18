@@ -209,6 +209,26 @@ function netListPins(part) {
     return listPinsName;
 }
 
+
+function  getLibsFromSym() {
+    var parts = document.getElementsByClassName('part');
+    var lib = [];
+    for (var i = 0; i < parts.length; i++)
+         {
+            var sym=getPartModel(parts[i]);
+            if(sym.device.type!='std'){
+              if(spiceUseModels.includes(sym.device.name) && !lib.includes(sym.model.file))
+                lib.push(sym.model.file);
+            }
+
+        }
+    for (var i=0; i< lib.length; i++)
+      lib[i]=drawing.libraryPath+"\\"+lib[i];
+    return lib;
+}
+
+
+
 function getListParams(part) {
     
 
@@ -219,13 +239,11 @@ function getListParams(part) {
       if(spiceUseModels.includes(sym.device.name))
         paramList.push(sym.model.name);
 
-
-     
-        for (var i = 0; i < collection.length; i++)
+      for (var i = 0; i < collection.length; i++)
             if (collection[i].getAttribute("name") == "param")
                 paramList.push(collection[i].textContent);
     
-        return paramList;
+      return paramList;
 
 }
 
@@ -496,9 +514,14 @@ function getNewStruct(name,nodes,index,netListData,color)
 
 
 
-   var code = `*\n\n.include "D:\\project\\DSpice-VScode\\library\\bjt_npn.lib"\n\n`;
+   var code = `*\n\n`;
+   var lib=getLibsFromSym();
 
-  netListData.forEach(el => {
+   lib.forEach(l => {
+    code += `.include "${l}" \n`;
+    });
+
+   netListData.forEach(el => {
     code += `${el.ref}   ${el.pins.join(' ')}   ${el.params.join('  ')}\n`;
     });
 
@@ -578,7 +601,12 @@ function getNewStruct(name,nodes,index,netListData,color)
   function getNetlistSpice(){
 
     var netListData = netList();
-    var code = `*\n\n.include "${libarayPath}"\n\n`;
+    var code = `*\n\n`;
+    var lib=getLibsFromSym();
+
+    lib.forEach(l => {
+     code += `.include "${l}" \n`;
+     });
     
     netListData.forEach(el => {
     code += `${el.ref}   ${el.pins.join(' ')}   ${el.params.join('  ')}\n`;
