@@ -151,7 +151,7 @@ case 'execOp':
             // delete the temporary circuit file after execution
             try { fs.unlinkSync(circuitFile); } catch (err) {}
             
-            const results = parseSpiceResults(stdout, stderr);
+            const results = parseSpiceResults_(stdout, stderr);
             
             webviewPanel.webview.postMessage({
                 type: 'execOpResult',
@@ -694,7 +694,7 @@ function getNonce() {
     return text;
 }
 
-function parseSpiceResults(stdout, stderr) {
+function parseSpiceResults_(stdout, stderr) {
     const results = {
         results: [],
         errors: [],
