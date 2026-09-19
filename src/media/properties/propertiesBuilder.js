@@ -1096,7 +1096,7 @@ function analysisSelect() {
             var func='';
         defaultData.sections[2].rows.push( { label: r[i].name +  func, type: "axeproperty", value: r[i].color, color: r[i].color, setChange: 'colorOutput('+i+',this)', setClick: 'removeOutput('+i+')' });
     }
-    defaultData.sections[2].rows.push({ label: 'Add output', type: "Button", value: 'Add', setClick: 'getParamAnalysis(0,0)' });
+    defaultData.sections[2].rows.push({ label: 'Add output', type: "Button", value: 'Add', setClick: 'addOutputY' });
     
     // X axe prpperty-----------------------------------------------------------------------------------
     defaultData.sections.push({ title: "X axe output", collapsed: false, showReset: true, rows: [] });
@@ -1105,7 +1105,7 @@ function analysisSelect() {
      else
             var func='';
     if(x.used)defaultData.sections[3].rows.push({ label: x.name+ func, type: "axeproperty", value: x.color, color: x.color, setChange: 'colorOutput(-1,this)' , setClick: 'removeOutput(-1)' });
-    defaultData.sections[3].rows.push({ label: 'Add X axe', type: "Button", value: x.used?'Modify':'Add', setClick: 'getParamAnalysis(1,0)' });
+    defaultData.sections[3].rows.push({ label: 'Add X axe', type: "Button", value: x.used?'Modify':'Add', setClick: 'addOutputX' });
 
     // Layout property-----------------------------------------------------------------------------------
     defaultData.sections.push({ title: "Layout property", collapsed: false, showReset: true, rows: [] });

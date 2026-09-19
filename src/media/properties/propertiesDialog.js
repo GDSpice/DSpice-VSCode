@@ -751,8 +751,95 @@ function getDialog(setClick) {
             break;
         }
 
+        case 'addOutputY': {
+   
+            try {
+                if (!signalDialog) signalDialog = new fSignalDialog();
+                var analy=JSON.parse(mtable.select.getAttribute("description"));
+                const result = getElementListSpice();
+                signalDialog.initData(result, 'Non', analy.type=='AC Analysis');
+                signalDialog.onSubmit = function (result) {
+                    ioSetPosProbe('Y',result.selectedSignal,result.selectedFunction)
+                };
+                signalDialog.show();
+            } catch (error) {
+                console.log('Error', error.message);
+            }
+            break;
+        }
+
+        case 'addOutputX': {
+   
+            try {
+                if (!signalDialog) signalDialog = new fSignalDialog();
+                var analy=JSON.parse(mtable.select.getAttribute("description"));
+                const result = getElementListSpice();
+                signalDialog.initData(result, 'Non', analy.type=='AC Analysis');
+                signalDialog.onSubmit = function (result) {
+                    ioSetPosProbe('X',result.selectedSignal,result.selectedFunction)
+                };
+                signalDialog.show();
+            } catch (error) {
+                console.log('Error', error.message);
+            }
+            break;
+        }
+
         case 'runAnalysis':
             runSimulation();
-            break;
+            break;  
     }
+}
+
+
+function ioSetPosProbe(pos,name,func) {
+
+    var nodes=getNetRefs();
+    var probe=parseSignal(name, nodes);
+
+    if(mtable.type=='analysis'){
+      var analy=JSON.parse(mtable.select.getAttribute("description"));
+      if(analy.type=='DC Sweep'){
+         var dc=analy.dcsweep;
+         var r=dc.yAxe;
+	       var x=dc.xAxe;
+       } else if(analy.type=='Time Domain') {
+         var tr=analy.time
+         var r=tr.yAxe;
+         var x=tr.xAxe;
+      } else if(analy.type=='AC Analysis') {
+         var ac=analy.ac;
+         var r=ac.yAxe;
+         var x=ac.xAxe;  
+       }
+
+    }
+
+
+    if(pos=='Y')
+    {
+      var output={name:name,unit:probe.unit,type:probe.type,color:'#000000',pos:1};
+      if(func &&  (analy.type=='AC Analysis')) output.func=func;
+      r.push(output);
+      mtable.select.setAttribute("description", JSON.stringify(analy));
+      mtable.typeUsedYOutput=null;
+      analysisSelect();
+      return;
+    }
+  
+    if(pos=='X')
+    {
+       x.name=name;
+       x.unit=probe.unit;
+       x.type=probe.type;
+       x.used=true;
+
+      if(func &&  (analy.type=='AC Analysis')) x.func=func;
+
+      mtable.select.setAttribute("description", JSON.stringify(analy));
+      mtable.typeUsedXOutput=null;
+      analysisSelect();
+      return;
+    }
+  
 }
