@@ -730,6 +730,27 @@ function getDialog(setClick) {
             }
             break;
 
+
+        case 'dcPramAnalysis': {
+            try {
+                if (!elementDialog) elementDialog = new fElementDialog();
+                const result = getEleForDCAnalys();
+                var analy=JSON.parse(mtable.select.getAttribute("description"));
+                elementDialog.initData(result,analy.dcsweep.param, false);
+                elementDialog.onSubmit = function (result) {
+                    analy.dcsweep.param=result;
+                    analy.dcsweep.unit='V';
+                    mtable.select.setAttribute("description", JSON.stringify(analy));
+                    mtable.typeUsedDC=null;
+                    analysisSelect();
+                };
+                elementDialog.show();
+            } catch (error) {
+                console.log('Error', error.message);
+            }
+            break;
+        }
+
         case 'runAnalysis':
             runSimulation();
             break;

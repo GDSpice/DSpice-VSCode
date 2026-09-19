@@ -171,24 +171,22 @@ function getEleForDCAnalys() {
       { name: 'param', items: ['Temp'] }
     ];
  
-  var s=document.getElementsByName('part');
+  var s=document.getElementsByClassName('part');
   for(var i=0; i<s.length; i++){
     var part=s[i];
     var ref=part.getAttribute("sref");
-    var modeltype=part.firstChild.getAttribute("modeltype");
-    var modelname=part.firstChild.getAttribute("modelname");
-    console.log(modelname);
-    console.log(modeltype);
-    if(modeltype=='SPICE' && modelname=='Voltage Source') {
+    var sym=getPartModel(part);
+    var devicetype=sym.device.type;
+    var devicename=sym.device.name;
+    if(devicetype=='SPICE' && devicename=='Voltage Source') {
       list[0].groups[0].items.push(ref);
-   } else if(modeltype=='SPICE' && modelname=='Current Source') {
+   } else if(devicetype=='SPICE' && devicename=='Current Source') {
       list[0].groups[1].items.push(ref);
-   } else if(modeltype=='SPICE' && modelname=='Resistor') {
+   } else if(devicetype=='SPICE' && devicename=='Resistor') {
       list[1].items.push(ref);
    };
   }
 
-  console.log("Element list: ", list);
   return list;
 }
 

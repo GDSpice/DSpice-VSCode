@@ -678,8 +678,9 @@ function probeSelect() {
                 rows: [
                     { label: "Pos.x", type: "number", value: parseInt(mtable.select.getAttribute("x")) },
                     { label: "Pos.y", type: "number", value: parseInt(mtable.select.getAttribute("y")) },
-                    { label: "OP", type: "Button", value: 'Run ▶', setClick: 'ioProbe' },
-                    { label: "Select signal", type: "Button", value: 'Show list', setClick: 'ioPosProbe' }           
+                    { label: "Select signal", type: "Button", value: 'Show list', setClick: 'ioPosProbe' },     
+                    { label: "OP", type: "Button", value: 'Run ▶', setClick: 'ioProbe' }
+                          
                 ]
             }
         ]
@@ -1044,10 +1045,10 @@ function analysisSelect() {
         ]
     };
 
-    if(analy.type=='DC Sweep'){
+    if(analy.type=='DC Sweep'){ 
       var dc=analy.dcsweep;
       defaultData.sections.push({ title: "DC Sweep Properties", collapsed: false, showReset: true, rows: [] });
-      defaultData.sections[1].rows.push( { label: 'Paramater', type: "Button", value: dc.param, setClick: 'getParamAnalysis("dc","'+dc.param+'")' });
+      defaultData.sections[1].rows.push( { label: 'Paramater', type: "Button", value: dc.param, setClick: 'dcPramAnalysis' });
       defaultData.sections[1].rows.push( { label: 'Start', type: "text", value: dc.start });
       defaultData.sections[1].rows.push( { label: 'Step', type: "text", value: dc.step });
       defaultData.sections[1].rows.push( { label: 'Stop', type: "text", value: dc.stop });
