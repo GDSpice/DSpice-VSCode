@@ -423,7 +423,12 @@ function fpropertiesPanel(self) {
                         deleteBtn.className = 'prop-axis-delete';
                         deleteBtn.innerHTML = '🗑';
                         deleteBtn.title = 'Delete';
-                        if (row.setClick) deleteBtn.setAttribute('onclick', row.setClick);
+                       // if (row.setClick) deleteBtn.setAttribute('onclick', row.setClick);
+
+                        deleteBtn.addEventListener('click', function(e) {
+                            data.sections[sectionIndex].rows[rowIndex].delete=true;
+                             updatePreview();
+                        });
 
                         axisWrapper.appendChild(axisColorPicker);
                         axisWrapper.appendChild(axisColorText);

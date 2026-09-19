@@ -1094,7 +1094,7 @@ function analysisSelect() {
             var func='  :' +r[i].func;
         else
             var func='';
-        defaultData.sections[2].rows.push( { label: r[i].name +  func, type: "axeproperty", value: r[i].color, color: r[i].color, setChange: 'colorOutput('+i+',this)', setClick: 'removeOutput('+i+')' });
+        defaultData.sections[2].rows.push( { label: r[i].name +  func, type: "axeproperty", value: r[i].color, color: r[i].color, delete: false, setChange: 'colorOutput('+i+',this)', setClick: 'removeOutput('+i+')' });
     }
     defaultData.sections[2].rows.push({ label: 'Add output', type: "Button", value: 'Add', setClick: 'addOutputY' });
     
@@ -1106,11 +1106,11 @@ function analysisSelect() {
             var func='';
     if(x.used)defaultData.sections[3].rows.push({ label: x.name+ func, type: "axeproperty", value: x.color, color: x.color, setChange: 'colorOutput(-1,this)' , setClick: 'removeOutput(-1)' });
     defaultData.sections[3].rows.push({ label: 'Add X axe', type: "Button", value: x.used?'Modify':'Add', setClick: 'addOutputX' });
-
+/*
     // Layout property-----------------------------------------------------------------------------------
     defaultData.sections.push({ title: "Layout property", collapsed: false, showReset: true, rows: [] });
     defaultData.sections[4].rows.push({ label: 'Layout', type: "Button", value: 'Modify', setClick: 'modifiedLayout()' });
-
+*/
 
     mtable.type = "analysis";
     propertiesData = JSON.parse(JSON.stringify(defaultData));
@@ -1171,9 +1171,24 @@ function modifiedAnalysis() {
          r[i].color=propertiesData.sections[2].rows[i].color;
     }
 
+ mtable.select.setAttribute("description", JSON.stringify(analy));
+            
+ 
+ for(var i=0;i<r.length;i++)
+         if(propertiesData.sections[2].rows[i].delete){
+            removeOutput(i);
+            return;
+    }
+
+  for(var i=0;i<propertiesData.sections[3].rows.length;i++)
+         if(propertiesData.sections[3].rows[i].delete){
+            removeOutput(-1);
+    }
+
+
 
     
-        mtable.select.setAttribute("description", JSON.stringify(analy));
+       
     
 }
 
