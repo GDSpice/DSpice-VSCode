@@ -775,7 +775,7 @@ function controlPartRef(part) {
               }
         } else {
           
-            var parts = document.getElementsByName('part');
+            var parts = document.getElementsByClassName('part');
             var x = sym.reference;
             var n = 1;
             var i = 0;
@@ -838,7 +838,7 @@ function controlRefPart(refElem) {
               }
         } else {
             ref = Ref[modelname];
-            var parts = document.getElementsByName('part');
+            var parts = document.getElementsByClassName('part');
             var x = sym.reference;
             var n = 1;
             var i = 0;

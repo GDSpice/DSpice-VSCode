@@ -281,36 +281,3 @@ function updateAnalysis() {
 
 
 
-
-
-function getParamsToAnalysis() {
-    var parts = document.getElementsByName('part');
-    var list = [];
-    for (var i = 0; i < parts.length; i++)
-        if (!strToBool(parts[i].firstChild.getAttribute('std'))) {
-          if(modelParam.includes(parts[i].firstChild.getAttribute('type')))
-            list.push(parts[i].getAttribute('sref'));
-        }
-    list.push('Temp');
-    return list;
-}
-
-
-
-
-
-
-
-//---------------------------------get the analysis description-----------------------------------------------//
-function getAnaly()
-{
-
-	if(!drawing.resize.setElement.getAttribute("name")) return [false];
-	    elem=drawing.resize.setElement;
-  if(elem.getAttribute("name")=='analysis')
-      return [true,JSON.parse(elem.getAttribute("description"))];
-  else if(elem.getAttribute("name")== 'codePy')
-      return [true,elem.getAttribute("fpython")];
-	return [false]
-
-}

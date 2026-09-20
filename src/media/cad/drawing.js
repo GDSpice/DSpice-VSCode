@@ -442,8 +442,13 @@ window.addEventListener('resize', resizeCanvas, false);
 resizeCanvas();
 return d;
 }
-drawing=creatPage("content")
 
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+    drawing = creatPage("content");
+});
 
 
 

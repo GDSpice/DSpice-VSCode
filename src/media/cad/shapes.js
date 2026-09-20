@@ -829,12 +829,7 @@ function fshapes(svg, setDrawing, width, height) {
             }
 
 
-		var els = document.getElementsByName("oscilloscope");
-        for (var i = els.length-1; i >=0 ; i--)
-            if (pointInRect(els[i], self.offset)) {
-                self.setCritElem = els[i];
-                return true;
-            }
+
 
 
 		var els = document.querySelectorAll('[name="analysis"]');
@@ -844,12 +839,7 @@ function fshapes(svg, setDrawing, width, height) {
                 return true;
             }
 
-		var els = document.getElementsByName("codePy");
-        for (var i = els.length-1; i >=0 ; i--)
-            if (pointInRect(els[i], self.offset)) {
-                self.setCritElem = els[i];
-                return true;
-            }
+
 
 
        var els = document.getElementsByClassName("codeHTML");

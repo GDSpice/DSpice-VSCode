@@ -176,5 +176,6 @@ var elem=drawing.resize.setElement.lastChild.firstChild;
 Plotly.newPlot(elem, data, layout, plotConfig);
 Plotly.update(elem);
  modifedSizeAnalysis(drawing.resize.setElement);
+ plotsSaveDataLayoutInDiv();
  drawing.saveData(analy.type+' analysis');
 }

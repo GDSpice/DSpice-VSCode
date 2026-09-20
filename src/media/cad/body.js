@@ -487,7 +487,7 @@ toolbar.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); toolba
 toolbar.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => toolbar.classList.remove('visible'), 300); });
 
 document.getElementById('btnSelect').addEventListener('click',  () =>{self.activeBtnById('btnSelect');  self.shapes.design.mouse = false;  self.shapes.design.start = false; });
-document.getElementById('btnZoomIn').addEventListener('click', () => {  self.zoomIn(); });
+document.getElementById('btnZoomIn').addEventListener('click', () => { plotsOpenDataLayoutInDiv(); self.zoomIn(); });
 document.getElementById('btnZoomOut').addEventListener('click', () => { self.zoomOut(); });
 document.getElementById('btnGrid').addEventListener('click', (e) => {  self.showGrid(!self.grid.showGrid); e.currentTarget.classList.toggle('active'); });
 document.getElementById('btnSnap').addEventListener('click', (e) => { e.currentTarget.classList.toggle('active'); });

@@ -136,7 +136,7 @@ function addPlot(elem) {
     newElement.setAttribute("y", 0);
     newElement.setAttribute("width", 220);
     newElement.setAttribute("height", 180);
-    newElement.innerHTML = "<div name='plots' style='border-style: double;' ondblclick='showPlotInModel(this)'></div>";
+    newElement.innerHTML = "<div name='plots' style='border-style: double;' ></div>";
     elem.appendChild(newElement);
 }
 
@@ -197,39 +197,12 @@ function newPlots(element) {
 
 }
 
-function modifedSizeDivByoscilloscope(element) {
 
-    if (element.getAttribute("name") == "oscilloscope") {
-        var x = parseInt(element.getAttribute("x"));
-        var y = parseInt(element.getAttribute("y"));
-        var w = parseInt(element.getAttribute("width"));
-        var h = parseInt(element.getAttribute("height"));
-        element.setAttribute('transform', "translate(" + x + "," + y + ")");
-        element.lastChild.setAttribute("width", w);
-        element.lastChild.setAttribute("height", h);
-
-        var e = element.lastChild.firstChild;
-        var gd = e;
-        //Plotly.redraw(e);
-
-        e.style.width = w - 6;
-        e.style.height = h - 6;
-
-        update = {
-            width: w - 8,
-            height: h - 8
-        };
-        Plotly.relayout(e, update);
-		plotGetPos(element);
-    }
-
-
-}
 
 
 
 function plotsSaveDataLayoutInDiv() {
-    var listForPlot = document.getElementsByName('plots');
+    var listForPlot = document.querySelectorAll('[name="plots"]');
     for (var i = 0; i < listForPlot.length; i++) {
         var gd = listForPlot[i];
         layout = JSON.stringify(gd.layout);
@@ -240,40 +213,12 @@ function plotsSaveDataLayoutInDiv() {
     }
 }
 
-function plotGetPos(oscill) {
 
 
-
-		var rot=parseInt(oscill.getAttribute("rot"));
-        var height=parseInt(oscill.getAttribute("height"));
-		var width=parseInt(oscill.getAttribute("width"));
-		//------------------------Channel A--------------------------------
-		var elem = oscill.childNodes[0];
-		var h=parseInt(height*0.5/20)*5;
-		var w=parseInt(width*0.5/20)*5;
-		posPin(elem,w,h,width,height,rot);
-        //------------------------Channel B--------------------------------
-        var elem = oscill.childNodes[1];
-		var h=parseInt(height*3.5/20)*5;
-		var w=parseInt(width*3.5/20)*5;
-		posPin(elem,w,h,width,height,rot);
-        //----------------------------------------------------------------------------
-
-
-}
-function oscillRotation(type)
-{
-  var rot=parseInt(drawing.resize.setElement.getAttribute("rot"));
-  rot=rot+1;
-  if(rot>3)
-	  rot=0;
-  drawing.resize.setElement.setAttribute("rot",rot);
-  plotGetPos(drawing.resize.setElement);
-
-}
 
 function plotsOpenDataLayoutInDiv() {
-   var listForPlot = document.getElementsByName('plots');
+
+         var listForPlot = document.querySelectorAll('[name="plots"]');
     for (var i = 0; i < listForPlot.length; i++) {
 
         layout = JSON.parse(listForPlot[i].getAttribute("layout"));
@@ -283,266 +228,11 @@ function plotsOpenDataLayoutInDiv() {
 }
 
 function showPlotInModel(self) {
-    /*
-    modal.style.display = "block";
-    layout = self.layout;
-    data = self.data;
-    Plotly.newPlot("model-body", data, layout);
-
-    div = document.getElementById("model-body");
-
-    w = div.offsetWidth;
-    h = document.body.clientHeight - 200;
-
-    update = {
-    width: w - 60,
-    height: h - 60
-    };
-    Plotly.relayout("model-body", update);
-     */
+ 
 }
 
-//---------------------------Start  Simulation------------------------------------------
-
-var plotslist = [];
-var time = [];
-var listSignals = [];
-
-function getPlots(typeanalysis) {
-    listSignals = [];
-    time = [];
-    plotslist = [];
-
-    var oscilloscope = document.getElementsByName('oscilloscope');
-    for (var i = 0; i < oscilloscope.length; i++) {
-		d=netListPins(oscilloscope[i]);
-        plotslist.push({
-            cha: d[0],
-            chb: d[1],
-			fx:  oscilloscope[i].getAttribute("fx"),
-            elem: oscilloscope[i],
-            valueA: [],
-            valueB: [],
-        });
-    }
-
-    for (var i = 0; i < plotslist.length; i++) {
-        if (plotslist[i].cha != '0')
-            listSignals.push(plotslist[i].cha);
-        if (plotslist[i].chb != '0')
-            listSignals.push(plotslist[i].chb);
-
-    }
-var d=[];
-for(var i=0; i<listSignals.length; i++)
-	d.push('"'+listSignals[i]+'"');
-    return d;
-}
-var plotStart,interactiveStart;
-
-function plotStartInter(units) {
-
-ux=units[units.length-1];
-
-   for (var i = 0; i < plotslist.length; i++) {
-        var data = [];
-      var layout = {
-        margin: {
-            l: 35,
-            r: 25,
-            b: 35,
-            t: 35
-        },
-        xaxis: {
-            title: {
-                text: xNameAnalysis+'['+ux+']',
-
-                font: {
-                    size: 9,
-					color:'#000000'
-                }
-            },
-        },
-		yaxis: {
-            title: {
-                text: '',
-                font: {
-                    size: 9,
-					color:'#000000'
-                }
-            },
-        },
-        title: plotslist[i].elem.getAttribute("title"),
-        font: {
-            size: 9
-        }
-    };
 
 
 
-		labx=0;
-        labt='';
-		labc='#00000';
-
-        var e = plotslist[i].elem.lastChild.firstChild;
-        var ra = plotslist[i].cha;
-		var rb = plotslist[i].chb;
-
-        if ((ra!='0')&&(plotslist[i].fx=='A|B')) {
-            var u = '';
-            n = listSignals.indexOf(plotslist[i].cha);
-            if (n != -1)
-                u = '[' + units[n] + ']';
-            data.push({
-                type: 'scatter',
-                name: plotslist[i].cha + u,
-                line: {
-                    color: plotslist[i].elem.childNodes[0].childNodes[0].style.stroke
-                },
-                y: plotslist[i].valueA,
-                x: time
-            });
-
-			labx=labx+1;
-			labt=plotslist[i].cha+u;
-			labc=plotslist[i].elem.childNodes[0].childNodes[0].style.stroke;
-        }
-
-        if ((rb!='0')&&(plotslist[i].fx=='A|B')) {
-            var u = '';
-            n = listSignals.indexOf(plotslist[i].chb);
-            if (n != -1)
-                u = '[' + units[n] + ']';
-            data.push({
-                type: 'scatter',
-                name: plotslist[i].chb + u,
-                line: {
-                    color: plotslist[i].elem.childNodes[1].childNodes[0].style.stroke
-                },
-                y: plotslist[i].valueB,
-                x: time
-            });
-
-			labx=labx+1;
-			labt=plotslist[i].chb+u;
-			labc=plotslist[i].elem.childNodes[1].childNodes[0].style.stroke;
-        }
-
-		if ((ra!= '0')&&(rb!='0')&&(plotslist[i].fx=='A(B)')) {
-			var u = '';
-            n = listSignals.indexOf(plotslist[i].cha);
-
-            if (n != -1)
-                u = '[' + units[n] + ']';
-            data.push({
-                type: 'scatter',
-                name: plotslist[i].cha + u,
-                line: {
-                    color: plotslist[i].elem.childNodes[0].childNodes[0].style.stroke
-                },
-                y: plotslist[i].valueA,
-                x: plotslist[i].valueB
-            });
-
-			var u = '';
-            n = listSignals.indexOf(plotslist[i].chb);
-            if (n != -1)
-                u = '[' + units[n] + ']';
-
-			layout.xaxis.title.text=plotslist[i].chb + u;
-			layout.xaxis.title.font.color=plotslist[i].elem.childNodes[1].childNodes[0].style.stroke;
-
-			labx=labx+1;
-			labt=plotslist[i].cha+u;
-			labc=plotslist[i].elem.childNodes[0].childNodes[0].style.stroke;
-
-		}
-
-	  	if ((ra!='0')&&(rb!='0')&&(plotslist[i].fx=='B(A)')) {
-			var u = '';
-
-            n = listSignals.indexOf(plotslist[i].cha);
-            if (n != -1)
-                u = '[' + units[n] + ']';
-            data.push({
-                type: 'scatter',
-                name: plotslist[i].cha + u,
-                line: {
-                    color: plotslist[i].elem.childNodes[1].childNodes[0].style.stroke
-                },
-                y: plotslist[i].valueB,
-                x: plotslist[i].valueA
-            });
-
-			var u = '';
-            n = listSignals.indexOf(plotslist[i].cha);
-            if (n != -1)
-                u = '[' + units[n] + ']';
-
-			layout.xaxis.title.text=plotslist[i].cha + u;
-			layout.xaxis.title.font.color=plotslist[i].elem.childNodes[0].childNodes[0].style.stroke;
-
-			labx=labx+1;
-			labt=plotslist[i].chb+u;
-			labc=plotslist[i].elem.childNodes[1].childNodes[0].style.stroke;
-
-		}
-
-		if(labx==1)
-		{
-		    layout.yaxis.title.text=labt;
-			layout.yaxis.title.font.color=labc;
-		}
-	    else
-			layout.yaxis.title.text='';
 
 
-        Plotly.newPlot(e, data, layout, plotConfig);
-    }
-
-    if ((listSignals.length == 0)&&(listElemWithEvent==0))
-        return;
-    window.foo.itRun(true);
-    plotStart = setInterval(function () {
-		interactiveStart=true;
-        var listCommand = [];
-        window.foo.return_list(listCommand, function (pyval) {
-            //window.foo.jscallme("Un message a été reçu: " + pyval);
-            plotAddValue(pyval);
-        });
-    }, 40);
-}
-
-function plotStopFunction() {
-
-    clearInterval(plotStart);
-	interactiveStart=false;
-    window.foo.itRun(false);
-}
-
-function plotAddValue(pyval) {
-    var n = pyval.length - 2;
-    time.push(pyval[n]);
-	if(pyval[n+1])
-	{
-		plotStopFunction();
-		return
-}
-for (var i = 0; i < plotslist.length; i++)
-    for (var j = 0; j < listSignals.length; j++)
-            if (plotslist[i].cha == listSignals[j]) {
-                plotslist[i].valueA.push(pyval[j]);
-				break;
-            }
-for (var i = 0; i < plotslist.length; i++)
-    for (var j = 0; j < listSignals.length; j++)
-            if (plotslist[i].chb == listSignals[j])
-			{
-		        plotslist[i].valueB.push(pyval[j]);
-				break;
-			}
-
-    for (var i = 0; i < plotslist.length; i++)
-        Plotly.redraw(plotslist[i].elem.lastChild.firstChild);
-
-}
