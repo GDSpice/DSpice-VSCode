@@ -4,21 +4,24 @@ DSpice is a professional, cross-platform circuit design and simulation environme
 
 ## What’s New 
 
-**v0.1.3 (Current)**
+**v0.1.4 (Current)**
 
 ### Added
-
-- **Package Metadata:** Added keywords to the extension package for better discoverability in the VS Code marketplace.
+- **Circuit Simulation Engine:** Added `runSimulation` function to enable and execute circuit analysis.
+- **Simulation Results Display:** Added a dedicated view to display circuit simulation results directly within the editor.
+- **Analysis Graphs Enhancement:** Added X- and Y-axis output data visualization to analysis graphs for better data interpretation.
+- **Component Selection Dialog:** Introduced `elementDialog` for streamlined component selection and placement.
+- **Semiconductor Elements:** Added and updated various semiconductor elements to expand the built-in component library.
+- **Output Management:** Added functionality to dynamically add and remove analysis outputs during simulation setup.
+- **Interactive Properties Panel:** Updated analysis views to automatically show the Properties panel when double-clicking a circuit element.
 
 ### Changed
-- **Schematic Symbols:** Updated voltage and current source symbols, Vbar (Vcc), and basic circuit elements to use device names consistently.
-- **GND Behavior:** Improved GND symbol updating logic based on its attachment position in the circuit.
-- **Theming Support:** Updated Operating Point (OP) analysis and wire colors to ensure proper visibility and contrast across all VS Code themes.
-- **Terminology:** Renamed "lib" references to "library" throughout the project for better clarity and consistency.
+- **Code Refactoring:** Renamed internal parsing functions to match `parseSpiceResults` for better consistency and maintainability.
+- **DOM Utility Update:** Updated the `getElementsByClassName` function for improved performance and reliability across the webview.
 
 ### Fixed
-- **Wire Naming:** Resolved wire renaming issues, specifically for Input, Output, and Bidirectional ports.
-- **Wire Rendering:** Fixed general wire naming and color display inconsistencies in the canvas.
+- **Reference Naming:** Resolved reference naming issues to ensure accurate component and net identification during simulation and editing.
+
 
 ## Key Features
 - **Graphical Schematic Designer:** Intuitive interface for drawing and designing circuit schematics.

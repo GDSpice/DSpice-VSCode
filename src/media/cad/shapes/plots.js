@@ -218,13 +218,17 @@ function plotsSaveDataLayoutInDiv() {
 
 function plotsOpenDataLayoutInDiv() {
 
-         var listForPlot = document.querySelectorAll('[name="plots"]');
+    var listForPlot = document.querySelectorAll('[name="plots"]');
     for (var i = 0; i < listForPlot.length; i++) {
 
         layout = JSON.parse(listForPlot[i].getAttribute("layout"));
         data = JSON.parse(listForPlot[i].getAttribute("data"));
         Plotly.plot(listForPlot[i], data, layout, plotConfig);
     }
+
+  var listAnalysis = document.getElementsByClassName("analysis");
+    for (var i = 0; i < listAnalysis.length; i++)
+         modifedSizeAnalysis(listAnalysis[i]);
 }
 
 function showPlotInModel(self) {

@@ -2,6 +2,23 @@
 
 All notable changes to DSpice will be documented in this file.
 
+## [0.1.4] - 2026-09-20
+### Added
+- **Circuit Simulation Engine:** Added `runSimulation` function to enable and execute circuit analysis.
+- **Simulation Results Display:** Added a dedicated view to display circuit simulation results directly within the editor.
+- **Analysis Graphs Enhancement:** Added X- and Y-axis output data visualization to analysis graphs for better data interpretation.
+- **Component Selection Dialog:** Introduced `elementDialog` for streamlined component selection and placement.
+- **Semiconductor Elements:** Added and updated various semiconductor elements to expand the built-in component library.
+- **Output Management:** Added functionality to dynamically add and remove analysis outputs during simulation setup.
+- **Interactive Properties Panel:** Updated analysis views to automatically show the Properties panel when double-clicking a circuit element.
+
+### Changed
+- **Code Refactoring:** Renamed internal parsing functions to match `parseSpiceResults` for better consistency and maintainability.
+- **DOM Utility Update:** Updated the `getElementsByClassName` function for improved performance and reliability across the webview.
+
+### Fixed
+- **Reference Naming:** Resolved reference naming issues to ensure accurate component and net identification during simulation and editing.
+
 ## [0.1.3] - 2026-09-16
 ### Added
 - **Package Metadata:** Added keywords to the extension package for better discoverability in the VS Code marketplace.

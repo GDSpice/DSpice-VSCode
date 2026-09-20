@@ -22,8 +22,8 @@ copyright = '2026, DSpice-VSCode'
 author = 'd.fathi'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.3'
-version='DSpice-VSCode 0.1.3'
+release = '0.1.4'
+version='DSpice-VSCode 0.1.4'
 
 
 # -- General configuration ---------------------------------------------------
