@@ -57,6 +57,7 @@ async function runSimulation() {
     try {
         const results = await drawing.runAnalysis(spice.code);
         console.log('Simulation results:', results); 
+        dataPlot(results.results.results,spice);
         
         if (results && results.success) {
             console.log('stdout:', results.stdout);
@@ -65,4 +66,115 @@ async function runSimulation() {
     } catch (err) {
         console.error('Simulation failed:', err);
     }
+}
+
+
+
+  
+ 
+
+
+  function dataPlot(list,spice)
+{
+  
+	var elem=drawing.resize.setElement;
+    var analy=JSON.parse(elem.getAttribute("description"));
+
+      if(analy.type=='DC Sweep'){
+         var dc=analy.dcsweep;
+         var r=dc.yAxe;
+	       var xa=dc.xAxe;
+         var layout=dc.layout;
+         var xNameAnalysis=analy.dcsweep.param
+       } else if(analy.type=='Time Domain') {
+         var tr=analy.time
+         var r=tr.yAxe;
+         var xa=tr.xAxe;
+         var layout=tr.layout;
+         var xNameAnalysis='Time[sec]'
+      } else if(analy.type=='AC Analysis') {
+         var ac=analy.ac;
+         var r=ac.yAxe;
+         var xa=ac.xAxe;  
+         var layout=ac.layout;
+         var xNameAnalysis='Frequency[Hz]'
+
+       }
+
+// X Axe descriptio---------------------------------------------------------------------------------
+ 
+
+
+
+
+layout.xaxis.title=xNameAnalysis;
+
+ 
+var xAxe=xa;
+var setX=[];
+
+if(xAxe.used){
+  var xpos=list.length-1;
+  layout.xaxis.title=spice.outputs[xpos].name +' ['+spice.outputs[xpos].unit+']';
+     for(var j=0; j< list[xpos].data.length; j++){
+     setX.push(list[xpos].data[j][1]);
+    }
+} else {
+  var xpos=list.length;
+}
+
+
+//Plot data------------------------------------------------------------------------------------------
+  
+  var data=[];
+  for (var i = 0; i < xpos; i++) {
+
+    var x=[];
+    var y=[];
+
+   if(xAxe.used)
+    x=setX;
+
+   for(var j=0; j< list[i].data.length; j++){
+    if(!xAxe.used)
+     x.push(list[i].data[j][0]);
+     y.push(list[i].data[j][1]);
+    }
+   
+    if(spice.outputs[i].func)
+      var func=spice.outputs[i].func;
+    else
+      var func='';
+
+    if(spice.outputs[i].pos==1)
+      var pos='';
+    else
+      var pos=spice.outputs[i].pos;
+    
+    data.push({
+                  type: 'scatter',
+                  name: spice.outputs[i].name +' '+func+'['+spice.outputs[i].unit+']',
+                  line: {
+                      color: spice.outputs[i].color
+                  },
+                  y: y,
+                  x: x,
+                  xaxis: 'x'+pos,
+                  yaxis: 'y'+pos
+              });
+  }
+
+  var n= layout.grid.rows*layout.grid.columns;
+  for(var i=2; i<=n; i++)
+    layout['xaxis'+i].title=layout.xaxis.title;
+    
+
+
+  
+var elem=drawing.resize.setElement.lastChild.firstChild;
+//elem.innerHTML = "<div name='plots' style='border-style: double;zoom:60%'  ondblclick='showPlotInModel(this)'></div>";
+Plotly.newPlot(elem, data, layout, plotConfig);
+Plotly.update(elem);
+ modifedSizeAnalysis(drawing.resize.setElement);
+ drawing.saveData(analy.type+' analysis');
 }

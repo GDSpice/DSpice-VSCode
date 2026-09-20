@@ -623,6 +623,7 @@ document.addEventListener('keydown', (e) => {
         e.preventDefault();
     }
     if (e.key === 'F10') { opAnalysis(); }
+    if(!isCtrl && !isShift){
     if (key === '+') { self.zoomIn(); pageSelect()}
     if (key === '-') {  self.zoomOut(); }
     if (key === 'g') {  self.showGrid(!self.grid.showGrid);             
@@ -651,7 +652,7 @@ document.addEventListener('keydown', (e) => {
     if (key === 'u') { if(drawing.pageType == 'sym') return;  addVBar(); self.activeBtnSelect();}
     if (key === 'o') { if(drawing.pageType == 'sym') return;  addPort(); self.activeBtnSelect();}
     if (key === 'x') { if(drawing.pageType == 'sym') return;  addShape('analysis');} 
-
+    }
     if (isShift && key === 'r') {  rotatePart(); };
     if (isShift && key === 'v'){ flipVerticallyPart(); };
     if (isShift && key === 'h'){  flipHorizontalPart(); };
