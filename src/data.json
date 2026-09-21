@@ -18,15 +18,15 @@
         "VCVS.sym",
         "Load.sym",
         "Power Load.sym",
-        "NegativeResistance.sym",
-        "NonlinearResistance.sym",
-        "TransformerIdeal.sym",
+        "Negative Resistance.sym",
+        "Nonlinear Resistance.sym",
+        "Transformer Ideal.sym",
         "Transmission Line.sym",
-        "Transformer sample.sym",
         "Mutual Inductor.sym",
         "CCS.sym",
         "VCS.sym",
-        "VC Switch.sym"
+        "VC Switch.sym",
+        "Transformer sample.sym"
     ],
     "Semiconductor": [
         "Diode.sym",

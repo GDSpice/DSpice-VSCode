@@ -487,7 +487,7 @@ toolbar.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); toolba
 toolbar.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => toolbar.classList.remove('visible'), 300); });
 
 document.getElementById('btnSelect').addEventListener('click',  () =>{self.activeBtnById('btnSelect');  self.shapes.design.mouse = false;  self.shapes.design.start = false; });
-document.getElementById('btnZoomIn').addEventListener('click', () => { self.zoomIn(); });
+document.getElementById('btnZoomIn').addEventListener('click', () => {colorThemes(); self.zoomIn(); });
 document.getElementById('btnZoomOut').addEventListener('click', () => { self.zoomOut(); });
 document.getElementById('btnGrid').addEventListener('click', (e) => {  self.showGrid(!self.grid.showGrid); e.currentTarget.classList.toggle('active'); });
 document.getElementById('btnSnap').addEventListener('click', (e) => { e.currentTarget.classList.toggle('active'); });
@@ -711,4 +711,34 @@ async function showSymbolPanel() {
             symbolsPanel.show(); // if symbolsPanel is already defined, toggle its visibility
         }
       
+}
+
+
+function colorThemes()
+{
+  	    var s = document.querySelectorAll('[name="net"]');
+        for (var i = 0; i < s.length; i++) 
+            s[i].style.stroke = "#630811";
+
+        var s = document.querySelectorAll('[name="polyline"]');
+        for (var i = 0; i < s.length; i++) 
+            s[i].style.stroke = "#2196f3";
+
+        var s = document.querySelectorAll('[name="polygon"]');
+        for (var i = 0; i < s.length; i++) 
+            s[i].style.stroke = "#2196f3";
+
+        var s = document.querySelectorAll('[name="ellipse"]');
+        for (var i = 0; i < s.length; i++) 
+            s[i].style.stroke = "#2196f3";
+
+        var s = document.querySelectorAll('[name="arc"]');
+        for (var i = 0; i < s.length; i++) 
+            s[i].style.stroke = "#2196f3";
+
+
+
+        var s = document.querySelectorAll('[name="rect"]');
+        for (var i = 0; i < s.length; i++) 
+            s[i].style.stroke = "#2196f3";
 }
