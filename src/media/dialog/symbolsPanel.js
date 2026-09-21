@@ -125,20 +125,21 @@ function fsymbolsPanel(self) {
     scrollbar-width: thin;
 }
 
+
 /* Grid layout for symbols */
 #symbolsPanelBody ul#buttons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     list-style: none;
-    padding: 0;
+    padding: 8px;
     margin: 0;
 }
 
 #symbolsPanelBody ul#buttons li {
-    border: 1px solid #ccc;
-    background: #f9f9f9;
-    border-radius: 3px;
+    border: 1px solid var(--vscode-panel-border, #ccc);
+    background: var(--vscode-editorWidget-background, #f9f9f9);
+    border-radius: 4px;
     aspect-ratio: 1/1;
     display: flex;
     flex-direction: column;
@@ -146,6 +147,13 @@ function fsymbolsPanel(self) {
     justify-content: center;
     overflow: hidden;
     padding: 4px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+
+#symbolsPanelBody ul#buttons li:hover {
+    background: var(--vscode-list-hoverBackground, #e8e8e8);
+    border-color: var(--vscode-focusBorder, #007fd4);
 }
 
 #symbolsPanelBody ul#buttons li button {
@@ -158,21 +166,31 @@ function fsymbolsPanel(self) {
     display: flex;
     align-items: center;
     justify-content: center;
+    outline: none;
+}
+
+
+#symbolsPanelBody ul#buttons li button:focus-visible {
+    outline: 1px solid var(--vscode-focusBorder, #007fd4);
+    outline-offset: 2px;
+    border-radius: 2px;
 }
 
 #symbolsPanelBody ul#buttons li button svg {
     max-width: 100%;
     max-height: 100%;
+    color: var(--vscode-editor-foreground, #333); 
 }
 
 #symbolsPanelBody ul#buttons li p {
-    margin: 3px 0 0 0;
-    font-size: 10px;
+    margin: 4px 0 0 0;
+    font-size: 11px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 95%;
     text-align: center;
+    line-height: 1.2;
 }
 
 #symbolsPanelBody ul#buttons li p a {
@@ -181,6 +199,7 @@ function fsymbolsPanel(self) {
 }
 
 #symbolsPanelBody ul#buttons li p a:hover {
+    color: var(--vscode-textLink-activeForeground, #0066cc);
     text-decoration: underline;
 }
 
@@ -199,6 +218,7 @@ function fsymbolsPanel(self) {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 `;
         var head = document.head || document.getElementsByTagName('head')[0];
         var style = document.createElement('style');

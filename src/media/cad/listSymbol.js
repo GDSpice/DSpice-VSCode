@@ -18,7 +18,7 @@ function getPartForList(self, part) {
     var ymin = 2000;
     var xmax = -2000;
     var ymax = -2000;
-    var strokeWidth = "0.5px";
+    var strokeWidth = "1px";
 
 	var r=[]
 
@@ -245,25 +245,22 @@ function addListSymbToPageLibs(list){
   listSymbols=list;
   
 
-  var rrr='<ul id="buttons" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; list-style: none; padding: 5px; margin: 0;">';
-  
-  for(var i=0; i < list.length; i++){
+var rrr='<ul id="buttons">';
+for(var i=0; i < list.length; i++){
     var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'g');
     getPartForList(newElement, list[i]);
     var symbol=JSON.parse(newElement.firstChild.getAttribute("symbol"));
-
     var w = parseInt(newElement.getAttribute("width"));
     var h = parseInt(newElement.getAttribute("height"));
     var title = setSizeStr(symbol.name);
-
-
-    rrr += "<li style='border:1px solid #ccc; background:#f9f9f9; border-radius:3px; aspect-ratio: 1/1; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 4px;'>"
-         + "<button class='button_lib' data-index='" + i + "' style='width:100%; height:75%; padding:0; background:transparent; border:none; cursor:pointer; display: flex; align-items: center; justify-content: center;'>"
-         + "<svg width='70%' height='70%' viewBox='0 0 " + w + " " + h + "' preserveAspectRatio='xMidYMid meet' style='max-width:100%; max-height:100%;'>" + newElement.innerHTML + "</svg>"
+    
+    rrr += "<li>"
+         + "<button class='button_lib' data-index='" + i + "'>"
+         + "<svg width='70%' height='70%' viewBox='0 0 " + w + " " + h + "' preserveAspectRatio='xMidYMid meet'>" + newElement.innerHTML + "</svg>"
          + "</button>"
-         + "<p style='margin:3px 0 0 0; font-size:10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 95%; text-align: center;'><a href='#' data-index='" + i + "'>" + title + "</a></p>"
+         + "<p><a href='#' data-index='" + i + "'>" + title + "</a></p>"
          + "</li>";
-  }
+}
   
   rrr += '</ul>';
   document.getElementById("componentsPanel").innerHTML = rrr;
