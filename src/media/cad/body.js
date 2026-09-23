@@ -749,7 +749,11 @@ function colorThemes()
 {
   	    var s = document.querySelectorAll('[name="net"]');
         for (var i = 0; i < s.length; i++) 
-            s[i].style.stroke = "#630811";
+        {
+            s[i].style.stroke = "#bd3543c9";
+            s[i].style.strokeWidth ="1.5px";
+
+        }
 
         var s = document.querySelectorAll('[name="polyline"]');
         for (var i = 0; i < s.length; i++) 
