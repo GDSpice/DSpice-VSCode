@@ -51,16 +51,16 @@
         "POWER PMOS.sym"
     ],
     "Source": [
-        "DCCurrent.sym",
-        "DCVoltage.sym",
-        "SinCurrent.sym",
-        "SinVoltage.sym",
-        "TrapezoidCurrent.sym",
-        "TrapezoidVoltage.sym",
-        "ExpCurrent.sym",
-        "ExpVoltage.sym",
-        "PWLCurrent.sym",
-        "PWLVoltage.sym",
-        "ACVoltage.sym"
+        "DC Current.sym",
+        "DC Voltage.sym",
+        "Sin Current.sym",
+        "Sin Voltage.sym",
+        "Trapezoid Current.sym",
+        "Trapezoid Voltage.sym",
+        "Exp Current.sym",
+        "Exp Voltage.sym",
+        "PWL Current.sym",
+        "PWL Voltage.sym",
+        "AC Voltage.sym"
     ]
 }
