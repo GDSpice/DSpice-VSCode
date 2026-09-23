@@ -3,7 +3,7 @@
 Name:        body.js
 Author:      d.fathi
 Created:     05/07/2021
-Update:      07/09/2026
+Update:      23/09/2026
 Copyright:   (c) DSpice 2026
 Licence:     free
 #---------------------------------------------------------------------------------------------------
@@ -72,6 +72,23 @@ style.appendChild(document.createTextNode(css));
 const body = document.getElementById(self.div);
 body.innerHTML = `
 <div id="toolbar">
+
+<div class="toolbar-group" id="grpPanel">
+    <button class="toolbar-btn" id="btnShowPanel" title="Show Panel Description">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer panel border with white fill -->
+            <rect x="2" y="3" width="20" height="18" rx="2" 
+                  stroke="currentColor" stroke-width="1.5" fill="white"/>
+            <!-- Header bar (filled with current color) -->
+            <path d="M2 5 C2 4, 3 3, 4 3 L20 3 C21 3, 22 4, 22 5 L22 8 L2 8 Z" 
+                  fill="currentColor"/>
+            <!-- Two white circles on the right side of header -->
+            <circle cx="17" cy="5.5" r="1" fill="white"/>
+            <circle cx="20" cy="5.5" r="1" fill="white"/>
+        </svg>
+    </button>
+</div>
+
  <div class="toolbar-group">
    <button class="toolbar-btn active" id="btnSelect" title="Select (V)">
      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>
@@ -131,13 +148,20 @@ body.innerHTML = `
        <line x1="12" y1="11" x2="12" y2="20" stroke-width="2"/>
      </svg>
    </button>
-   <button class="toolbar-btn" id="btnPort" title="Port (O)">
-     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-       <rect x="2" y="6" width="12" height="12" rx="1"/>
-       <polygon points="14,6 20,12 14,18" fill="none"/>
-       <line x1="20" y1="12" x2="23" y2="12" stroke-width="2"/>
-     </svg>
-   </button>
+<button class="toolbar-btn" id="btnPort" title="Port (O)">
+    <svg viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg">
+        <!-- Main tag shape: rectangle with arrow end -->
+        <path d="M2 4 L18 4 L23 10 L18 16 L2 16 Z" 
+              fill="#fde047" stroke="#991b1b" stroke-width="1.5" 
+              stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Text "P" inside the tag -->
+        <text x="10" y="13" text-anchor="middle" font-size="9" 
+              font-weight="bold" font-family="Arial, sans-serif" 
+              fill="#991b1b" stroke="none">P</text>
+        <!-- Connection dot at the tip -->
+        <circle cx="24.5" cy="10" r="1.5" fill="#991b1b"/>
+    </svg>
+</button>
    <button class="toolbar-btn" id="btnGND" title="Ground (N)">
      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
        <line x1="12" y1="2" x2="12" y2="10" stroke-width="2"/>
@@ -491,6 +515,7 @@ document.getElementById('btnZoomIn').addEventListener('click', () => {colorTheme
 document.getElementById('btnZoomOut').addEventListener('click', () => { self.zoomOut(); });
 document.getElementById('btnGrid').addEventListener('click', (e) => {  self.showGrid(!self.grid.showGrid); e.currentTarget.classList.toggle('active'); });
 document.getElementById('btnSnap').addEventListener('click', (e) => { e.currentTarget.classList.toggle('active'); });
+
 document.getElementById('btnEllipse').addEventListener('click',  () =>{self.activeBtnById('btnEllipse'); addShape('ellipse'); });
 document.getElementById('btnRectangle').addEventListener('click',  () =>{self.activeBtnById('btnRectangle'); addShape('rect'); });
 document.getElementById('btnPolyline').addEventListener('click',  () =>{self.activeBtnById('btnPolyline'); addShape('polyline'); });
@@ -527,7 +552,13 @@ document.getElementById('btnBringForward').addEventListener('click', () => {
 document.getElementById('btnSendBackward').addEventListener('click', () => {
     if (self.drawing && self.drawing.sendBackward) self.drawing.sendBackward();
 });
-
+document.getElementById('btnShowPanel').addEventListener('click', (e) => {  const isActive=e.currentTarget.classList.toggle('active'); if(!propertiesData)  pageSelect();  
+          if (isActive) {
+                propertiesPanel.show(propertiesData);
+            } else {
+                    propertiesPanel.hide();
+            }
+});
 const toolButtons = [
   'btnSelect', 'btnWire', 'btnBus', 'btnText',
   'btnRectangle', 'btnEllipse', 'btnArc', 'btnPolyline', 'btnPolygon',

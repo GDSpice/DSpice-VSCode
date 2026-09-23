@@ -512,6 +512,7 @@ function fpropertiesPanel(self) {
             closeBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 selfPanel.hide();
+                document.getElementById('btnShowPanel').classList.remove('active');
             });
         }
 
@@ -555,11 +556,11 @@ function fpropertiesPanel(self) {
 
         // Double-click on drawing area to show properties
         if (areaGlobal) {
-            areaGlobal.addEventListener('dblclick', function(e) {
+          /*  areaGlobal.addEventListener('dblclick', function(e) {
                 if(!propertiesData) 
                     pageSelect();
                 selfPanel.show(propertiesData);
-            });
+            });*/
         }
 
 
@@ -574,6 +575,8 @@ function fpropertiesPanel(self) {
 // Global instance
 var propertiesPanel;
 var propertiesData;
+
+
 
 // Global function to build panel (compatibility with modifiedElemSelect.js)
 function buildPanel() {
