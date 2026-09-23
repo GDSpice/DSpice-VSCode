@@ -393,7 +393,7 @@ function fshapes(svg, setDrawing, width, height) {
         switch (element) {
         case 'ellipse':
             var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
-            newElement.style.stroke = "#0000ff";
+            newElement.style.stroke = "#2196f3";
             newElement.style.fill = "#ff7b00";
             newElement.style.strokeWidth = "1px";
             newElement.setAttribute("class", "draggable");
@@ -407,7 +407,7 @@ function fshapes(svg, setDrawing, width, height) {
 
         case 'arc':
             var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'path');
-            newElement.style.stroke = "#0000ff";
+            newElement.style.stroke = "#2196f3";
             newElement.style.fill = "none";
 
             newElement.style.strokeWidth = "1px";
@@ -427,7 +427,7 @@ function fshapes(svg, setDrawing, width, height) {
 
         case 'rect':
             var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-            newElement.style.stroke = "#0000ff";
+            newElement.style.stroke = "#2196f3";
             newElement.style.fill = "#ff7b00";
             newElement.style.strokeWidth = "1px";
             newElement.setAttribute("class", "draggable");  //draggable shadow
@@ -441,7 +441,7 @@ function fshapes(svg, setDrawing, width, height) {
 
         case 'image':
             var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-            newElement.style.stroke = "#0000ff";
+            newElement.style.stroke = "#2196f3";
             newElement.style.fill = "#ff7b00";
             newElement.style.strokeWidth = "1px";
             newElement.setAttribute("class", "draggable");  //draggable shadow
@@ -604,11 +604,14 @@ function fshapes(svg, setDrawing, width, height) {
             var x = xo + 180;
             var y = yo + 140;
             newElement.setAttribute("points", xo + "," + yo + " " + x + "," + y);
-            newElement.style.stroke = "#0000ff";
-            if (element == 'net')
-                newElement.style.stroke = "#630811";
-            newElement.style.fill = "none";
+            newElement.style.stroke = "#2196f3";
             newElement.style.strokeWidth = "1px";
+            if (element == 'net'){
+                newElement.style.stroke = "#630811";
+                newElement.style.strokeWidth = "1.3px";
+            }
+            newElement.style.fill = "none";
+            
             newElement.setAttribute("class", "polyline");
             newElement.setAttribute("name", element);
             svg.appendChild(newElement);
@@ -621,7 +624,7 @@ function fshapes(svg, setDrawing, width, height) {
             var x = xo + 180;
             var y = yo + 140;
             newElement.setAttribute("points", xo + "," + yo + " " + x + "," + y);
-            newElement.style.stroke = "#0000ff";
+            newElement.style.stroke = "#2196f3";
             newElement.style.fill = "#ff7b00";
             newElement.style.strokeWidth = "1px";
             newElement.setAttribute("class", "draggable");

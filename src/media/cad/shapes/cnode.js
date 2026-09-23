@@ -139,9 +139,6 @@ function findNetAttchment(elem)
 
 function getNetRef()
 {
-	    var s = document.querySelectorAll('[name="net"]');
-        for (var i = 0; i < s.length; i++) 
-            s[i].style.stroke = "#630811";
 	   nets=document.querySelectorAll('[name="net"]');
 	   var j=0;
 	  
@@ -157,7 +154,6 @@ function getNetRef()
 			 var node='N0'+j;
 			 nets[i].setAttribute("ref",node);
 			 findNetAttchment(nets[i]);
-			 nets[i].style.stroke = "#630811";
 			}
 		}	
 			
