@@ -208,8 +208,7 @@ function setPosSize(self) {
 
 
 	information(self);
-	if(self.setElement)
-	showDescriptionElemSelectInPanel(self.selectedElement);
+	
 }
 
 //********************************************************Start_Sizing***********************************************************//
@@ -347,6 +346,7 @@ function fresize(svg,setDrawing, width, height) {
             self.addElement('ellipse');
         self.initPos();
         self.limitsUpdate();
+        showDescriptionElemSelectInPanel(self.setElement);
 
     }
 
@@ -368,6 +368,7 @@ function fresize(svg,setDrawing, width, height) {
         self.ellps = [];
 		deleteInfo(self);
 		self.setElement=null;
+        showDescriptionElemSelectInPanel(self.setElement);
     }
 
     self.selectEllipse = function (coord) {

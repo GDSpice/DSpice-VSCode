@@ -80,7 +80,7 @@ function evtDown(self) {
         break;
     }
 
-showDescriptionElemSelectInPanel(self.selectedElement);
+//*****showDescriptionElemSelectInPanel(self.selectedElement);
 
 }
 
@@ -195,7 +195,7 @@ function evtMouve(self) {
     
     self.resize.moveObject();
   //if(self.selectedElement)
-    showDescriptionElemSelectInPanel(self.selectedElement);
+    //******showDescriptionElemSelectInPanel(self.selectedElement);
 
 
 	
@@ -308,7 +308,7 @@ function fshapes(svg, setDrawing, width, height) {
                 self.selectAll.yo = p.y;
                 self.selectAll.x = p.x;
                 self.selectAll.y = p.y;
-				showDescriptionElemSelectInPanel(null);
+				//******showDescriptionElemSelectInPanel(null);
             }
 
          //   getListElementsAddToPageDescription();
