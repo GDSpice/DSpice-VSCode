@@ -59,6 +59,45 @@ width: fit-content;
 #areaC { background-color: Silver; }
 #areaGlobal { align: center; outline: none; position: relative; width: 100%; height: 100%; overflow-y: scroll; user-select: none; scrollbar-width: thin; }
 .setFont { font-family: verdana; font-size: 12px; }
+/*.toolbar-btn {
+  --icon-color: #e2e8f0;
+  --icon-bg: transparent;
+  position: relative;
+}
+
+
+#btnSelect { --icon-color: #1979e6; }
+#btnWire { --icon-color: #25c761; }
+#btnBus { --icon-color: #6ee7b7; }
+#btnPlaceComponent { --icon-color: #ec5656; }
+#btnText { --icon-color: #e65ea9; }
+#btnRectangle { --icon-color: #c4b5fd; }
+#btnEllipse { --icon-color: #a5b4fc; }
+#btnArc { --icon-color: #7dd3fc; }
+#btnPolyline { --icon-color: #5eead4; }
+#btnPolygon { --icon-color: #99f6e4; }
+#btnVCC { --icon-color: #fde047; }
+#btnGND { --icon-color: #fdba74; }
+#btnPort { --icon-color: #fcd34d; }
+#btnRotate { --icon-color: #a5b4fc; }
+#btnFlipVertical { --icon-color: #93c5fd; }
+#btnFlipHorizontal { --icon-color: #7dd3fc; }
+#btnZoomIn { --icon-color: #86efac; }
+#btnZoomOut { --icon-color: #6ee7b7; }
+#btnGrid { --icon-color: #cbd5e1; }
+#btnSnap { --icon-color: #94a3b8; }
+#btnRunAnalysis { --icon-color: #4ade80; }
+#btnHTML { --icon-color: #fb923c; }
+#btnAnalysis { --icon-color: #f472b6; }
+#btnShowPanel{ --icon-color: #b31e6b; }
+
+
+.toolbar-btn svg {
+  color: var(--icon-color);
+  transition: all 0.3s ease;
+}*/
+
+
 `;
 var head = document.head || document.getElementsByTagName('head')[0],
 style = document.createElement('style');
