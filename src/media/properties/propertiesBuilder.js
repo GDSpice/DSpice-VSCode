@@ -76,9 +76,20 @@ function pageSelect() {
 }
 
 function pageModified() {
-mtable.select.width = propertiesData.sections[0].rows[0].value;
-mtable.select.height = propertiesData.sections[0].rows[1].value;
- if(drawing.pageType=="sym"){
+    
+    if(mtable.select.width != propertiesData.sections[0].rows[0].value){
+        mtable.select.width = propertiesData.sections[0].rows[0].value;
+        drawing.grid.pageSize(mtable.select.width,mtable.select.height);
+        return;
+    }
+
+    if(mtable.select.height != propertiesData.sections[0].rows[1].value){
+        mtable.select.height = propertiesData.sections[0].rows[1].value;
+        drawing.grid.pageSize(mtable.select.width,mtable.select.height);
+        return;
+    }
+
+   if(drawing.pageType=="sym"){
     drawing.symbol.name = propertiesData.sections[0].rows[2].value;
     /*if(drawing.symbol.model.type != propertiesData.sections[0].rows[4].value){*/
         drawing.symbol.device.type = 'SPICE'; //propertiesData.sections[0].rows[4].value;
@@ -550,8 +561,7 @@ function modelModified() {
     mtable.select.textContent = propertiesData.sections[0].rows[5].value;
     
 
-    if(mtable.select.getAttribute("modelname") !=propertiesData.sections[0].rows[5].value)
-    {
+    if(mtable.select.getAttribute("modelname") !=propertiesData.sections[0].rows[5].value){
         mtable.select.setAttribute("modelname",propertiesData.sections[0].rows[5].value);
         var result={file: mtable.select.getAttribute('modelfile'), model: mtable.select.getAttribute('modelname')};
          setModelSpice(result, 'model');
