@@ -3,8 +3,8 @@
 # Name:        resize.js
 # Author:      d.fathi
 # Created:     05/06/2021
-# Update:      07/08/2024
-# Copyright:   (c) PyAMS 2024
+# Update:      24/09/2026
+# Copyright:   (c) DSpice 2026
 # Licence:     free
 #--------------------------------------------------------------------------------------------
 */
@@ -308,8 +308,8 @@ function fresize(svg,setDrawing, width, height) {
         switch (element) {
         case 'ellipse':
             var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
-            newElement.style.stroke = "#1100ff";
-            newElement.style.fill = "#1100ff";
+            newElement.style.stroke = "#bb0b78";
+            newElement.style.fill = "#f700ffe3";
             newElement.style.strokeWidth = "1px";
             newElement.setAttribute("cx", 400);
             newElement.setAttribute("cy", 400);
@@ -340,6 +340,15 @@ function fresize(svg,setDrawing, width, height) {
         setInitPos(self);
     }
 
+    self.updateSlect= function () {
+        getType(self);
+        for (var i = 0; i < self.length; i++)
+            self.addElement('ellipse');
+        self.initPos();
+        self.limitsUpdate();
+
+    }
+
     self.creatEllipse = function () {
         getType(self);
         for (var i = 0; i < self.length; i++)
@@ -353,11 +362,13 @@ function fresize(svg,setDrawing, width, height) {
     self.moveObject = function () {
         self.initPos();
         self.limitsUpdate();
+        showDescriptionElemSelectInPanel(self.setElement);
 
     }
 
     self.setPosSize = function () {
         setPosSize(self);
+        showDescriptionElemSelectInPanel(self.setElement);
     }
 
     self.deletEllipse = function () {

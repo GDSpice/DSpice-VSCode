@@ -69,7 +69,7 @@ function cratInfoPath(self) {
 
     if (element == null) {
         var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
-        newElement.style.stroke = "#0000ff";
+        newElement.style.stroke = "#ff009dd5";
         newElement.style.fill = "none";
         newElement.style["stroke-dasharray"] = "5,5";
         newElement.setAttribute("id", setId);
@@ -119,7 +119,7 @@ function cratInfoArc(self) {
 
     if (element == null) {
         var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'polyline');
-        newElement.style.stroke = "#0000ff";
+        newElement.style.stroke = "#ff00c8c7";
         newElement.style.fill = "none";
         newElement.style["stroke-dasharray"] = "5,5";
 		newElement.style["vector-effect"]= "non-scaling-stroke";
@@ -153,7 +153,7 @@ function cratInfoRect(self) {
 
     if (element == null) {
         var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'polyline');
-        newElement.style.stroke = "#0000ff";
+        newElement.style.stroke = "#ff00bfab";
         newElement.style.fill = "none";
         newElement.style["stroke-dasharray"] = "5,5";
 		newElement.style["vector-effect"]= "non-scaling-stroke";

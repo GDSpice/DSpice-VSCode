@@ -151,8 +151,7 @@ function modifiedRect() {
     rect.style.stroke = propertiesData.sections[0].rows[4].color;
     rect.style.fill = propertiesData.sections[0].rows[5].color;
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)
-        mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 
 //-------Ellipse description ---------------------------------------------------
@@ -194,8 +193,7 @@ function modifiedEllipse() {
     ellipse.style.fill = propertiesData.sections[0].rows[5].color;
    // ellipse.style.fillOpacity = propertiesData.sections[0].rows[5].opacity;
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)
-       mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 
 //--arc description ---------------------------------------------------
@@ -268,8 +266,7 @@ function polylineModified() {
     mtable.select.style.stroke = propertiesData.sections[0].rows[0].color;
     modifiedEvent();
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)
-         mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 
 //--Polygon description ---------------------------------------------------
@@ -302,8 +299,7 @@ function polygonModified() {
     mtable.select.style.fill = propertiesData.sections[0].rows[1].color;
     modifiedEvent();
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)
-         mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 //--Net description ---------------------------------------------------
 
@@ -397,7 +393,7 @@ function netModified() {
     }
     
     deleteEllipseMS(mtable.resize);
-        if (mtable.resize.setElement)        mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 
 //-------Reference description-------------------------------------
@@ -441,8 +437,7 @@ function refModified() {
         refSelected();
 
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)        
-        mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 
 
@@ -513,7 +508,7 @@ function paramModified() {
 
     mtable.select.textContent = text;
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)        mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 } 
 
 //-------Model description-------------------------------------
@@ -559,8 +554,7 @@ function modelModified() {
     //    refSelected();
 
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)        
-        mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 
 //-------Pin description ---------------------------------------------------
@@ -661,7 +655,7 @@ function modifiedPin() {
 
     drawingPin(mtable.select);
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)        mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 
 //-------Probe  description----------------------------------------------------------------
@@ -698,7 +692,7 @@ function probeModified() {
     mtable.select.setAttribute("y", propertiesData.sections[0].rows[1].value);
     structProbe(mtable.select);
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)        mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 
 
@@ -740,7 +734,7 @@ function modifiedcodeHTML() {
     mtable.select.setAttribute("height", propertiesData.sections[0].rows[3].value);
     modifedSizeCodeHtml(mtable.select);
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)        mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 
 
@@ -804,7 +798,7 @@ function modifiedText() {
     mtable.select.style.strokeWidth = propertiesData.sections[0].rows[10].value;
     setPosText();
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)        mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 }
 
 
@@ -957,7 +951,7 @@ function modifiedPart() {
 
 
     deleteEllipseMS(mtable.resize);
-    if (mtable.resize.setElement)        mtable.resize.creatEllipse();
+    mtable.resize.updateSlect();
 
 }
 
