@@ -713,7 +713,7 @@ function getDialog(setClick) {
                     mtable.sym.model.dir = 'library';
                     mtable.sym.model.local = true;
                     setPartModel(mtable.select, mtable.sym);
-                    pageSelect();
+                    partSelect();
                 },
                 function () {
                     console.log('Cancelled');

@@ -25,10 +25,11 @@
     drawing.symbol.model.local = true;
   } else if(drawing.pageType === 'dcs'  && setClick === 'model') {
     var part=mtable.select.parentElement;
+    console.log(part);
     var symbol=JSON.parse(part.firstChild.getAttribute("symbol"));
         symbol.model.file = result.file;
         symbol.model.name = result.model;
-        part.setAttribute("symbol", JSON.stringify(symbol)); 
+        part.firstChild.setAttribute("symbol", JSON.stringify(symbol)); 
   } else if(setClick === 'symbol') {
     var listLabel = document.querySelectorAll('#sym [name="modelSpice"]');
 	  if(listLabel.length>=1) {

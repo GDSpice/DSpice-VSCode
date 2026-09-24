@@ -883,7 +883,7 @@ function getPartModel(part) {
 }
 
 function  setPartModel(part, sym) {
-    part.setAttribute("symbol", JSON.stringify(sym)); 
+    part.firstChild.setAttribute("symbol", JSON.stringify(sym)); 
     var collection = part.children;
     for (var i = 0; i < collection.length; i++)
                {

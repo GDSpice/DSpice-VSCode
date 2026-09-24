@@ -90,7 +90,7 @@ function cratInfoCenter(self) {
 
     if (element == null) {
         var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'polyline');
-        newElement.style.stroke = "#0000ff";
+        newElement.style.stroke = "#ff00eadc";
         newElement.style.fill = "none";
         newElement.style["stroke-dasharray"] = "5,5";
         newElement.setAttribute("id", setId);
@@ -219,7 +219,7 @@ function creatInfoIOParam(self){
 
     if (element == null) {
         var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'polyline');
-        newElement.style.stroke = "#0000ff";
+        newElement.style.stroke = "#c300ffd8";
         newElement.style.fill = "none";
         newElement.style["stroke-dasharray"] = "5,5";
 		newElement.style["vector-effect"]= "non-scaling-stroke";
@@ -265,7 +265,7 @@ function creatInfoPin(self){
 
     if (element == null) {
         var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'polyline');
-        newElement.style.stroke = "#0000ff";
+        newElement.style.stroke = "#ff00ddd7";
         newElement.style.fill = "none";
         newElement.style["stroke-dasharray"] = "5,5";
 		newElement.style["vector-effect"]= "non-scaling-stroke";
@@ -328,7 +328,7 @@ function cratInfoText(self) {
 
     if (element == null) {
         var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'polyline');
-        newElement.style.stroke = "#0000ff";
+        newElement.style.stroke = "#ff00ea";
         newElement.style.fill = "none";
         newElement.style["stroke-dasharray"] = "5,5";
 		newElement.style["vector-effect"]= "non-scaling-stroke";

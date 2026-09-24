@@ -548,7 +548,14 @@ function modelModified() {
     mtable.select.setAttribute("y", propertiesData.sections[0].rows[3].value);
     mtable.select.style.fill = propertiesData.sections[0].rows[4].color;
     mtable.select.textContent = propertiesData.sections[0].rows[5].value;
-    mtable.select.setAttribute("modelname",propertiesData.sections[0].rows[5].value);
+    
+
+    if(mtable.select.getAttribute("modelname") !=propertiesData.sections[0].rows[5].value)
+    {
+        mtable.select.setAttribute("modelname",propertiesData.sections[0].rows[5].value);
+        var result={file: mtable.select.getAttribute('modelfile'), model: mtable.select.getAttribute('modelname')};
+         setModelSpice(result, 'model');
+    }
 
    // if(controlRefPart(mtable.select))
     //    refSelected();
@@ -938,8 +945,8 @@ function modifiedPart() {
     part.setAttribute("sref", propertiesData.sections[0].rows[2].value);
 
    if(propertiesData.sections[0].rows.length > 6) {
-     if(mtable.sym.model.name != propertiesData.sections[0].rows[6].value){
-         mtable.sym.model.name = propertiesData.sections[0].rows[6].value;
+     if(mtable.sym.model.name != propertiesData.sections[0].rows[5].value){
+         mtable.sym.model.name = propertiesData.sections[0].rows[5].value;
          setPartModel(mtable.select, mtable.sym);
      }
    }
