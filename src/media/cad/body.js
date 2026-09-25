@@ -59,43 +59,49 @@ width: fit-content;
 #areaC { background-color: Silver; }
 #areaGlobal { align: center; outline: none; position: relative; width: 100%; height: 100%; overflow-y: scroll; user-select: none; scrollbar-width: thin; }
 .setFont { font-family: verdana; font-size: 12px; }
-/*.toolbar-btn {
+.toolbar-btn {
   --icon-color: #e2e8f0;
   --icon-bg: transparent;
   position: relative;
 }
 
-
+#btnShowPanel{ --icon-color: #b31e6b; }
 #btnSelect { --icon-color: #1979e6; }
 #btnWire { --icon-color: #25c761; }
 #btnBus { --icon-color: #6ee7b7; }
 #btnPlaceComponent { --icon-color: #ec5656; }
 #btnText { --icon-color: #e65ea9; }
-#btnRectangle { --icon-color: #c4b5fd; }
-#btnEllipse { --icon-color: #a5b4fc; }
-#btnArc { --icon-color: #7dd3fc; }
-#btnPolyline { --icon-color: #5eead4; }
-#btnPolygon { --icon-color: #99f6e4; }
-#btnVCC { --icon-color: #fde047; }
-#btnGND { --icon-color: #fdba74; }
-#btnPort { --icon-color: #fcd34d; }
-#btnRotate { --icon-color: #a5b4fc; }
-#btnFlipVertical { --icon-color: #93c5fd; }
-#btnFlipHorizontal { --icon-color: #7dd3fc; }
-#btnZoomIn { --icon-color: #86efac; }
-#btnZoomOut { --icon-color: #6ee7b7; }
+#btnRectangle { --icon-color: #6642f5; }
+#btnEllipse { --icon-color: #6642f5; }
+#btnArc { --icon-color: #6642f5; }
+#btnPolyline { --icon-color: #6642f5; }
+#btnPolygon { --icon-color:  #6642f5; }
+#btnVCC { --icon-color: #aa5c09; }
+#btnGND { --icon-color: #aa5c09; }
+#btnPort { --icon-color: #aa5c09; }
+#btnRotate { --icon-color: #697cdb; }
+#btnFlipVertical { --icon-color: #697cdb; }
+#btnFlipHorizontal { --icon-color: #697cdb; }
+#btnZoomIn { --icon-color: #35f37b; }
+#btnZoomOut { --icon-color: #25e79a; }
 #btnGrid { --icon-color: #cbd5e1; }
 #btnSnap { --icon-color: #94a3b8; }
 #btnRunAnalysis { --icon-color: #4ade80; }
 #btnHTML { --icon-color: #fb923c; }
 #btnAnalysis { --icon-color: #f472b6; }
-#btnShowPanel{ --icon-color: #b31e6b; }
+#btnRunAV { --icon-color: #f472b6; }
+#btnAV { --icon-color: #f472b6; }
+#btnReference { --icon-color: #06836ae0 } 
+#btnParameter  { --icon-color: #06836ae0 } 
+#btnModel  { --icon-color: #06836ae0 } 
+#btnCommand  { --icon-color: #06836ae0 } 
+#btnPin  { --icon-color: #06836ae0 } 
 
 
 .toolbar-btn svg {
   color: var(--icon-color);
   transition: all 0.3s ease;
-}*/
+}
 
 
 `;
@@ -191,14 +197,14 @@ body.innerHTML = `
     <svg viewBox="0 0 28 20" xmlns="http://www.w3.org/2000/svg">
         <!-- Main tag shape: rectangle with arrow end -->
         <path d="M2 4 L18 4 L23 10 L18 16 L2 16 Z" 
-              fill="#fde047" stroke="#991b1b" stroke-width="1.5" 
+              fill="none" stroke="currentColor" stroke-width="2" 
               stroke-linejoin="round" stroke-linecap="round"/>
         <!-- Text "P" inside the tag -->
         <text x="10" y="13" text-anchor="middle" font-size="9" 
               font-weight="bold" font-family="Arial, sans-serif" 
-              fill="#991b1b" stroke="none">P</text>
+              fill="currentColor" stroke="none">P</text>
         <!-- Connection dot at the tip -->
-        <circle cx="24.5" cy="10" r="1.5" fill="#991b1b"/>
+        <circle cx="24.5" cy="10" r="1.5" fill="currentColor"/>
     </svg>
 </button>
    <button class="toolbar-btn" id="btnGND" title="Ground (N)">
@@ -208,7 +214,7 @@ body.innerHTML = `
        <line x1="7" y1="14" x2="17" y2="14" stroke-width="2"/>
        <circle cx="12" cy="19" r="1.5" fill="currentColor" stroke="none"/>
      </svg>
-   </button>
+   </button>   
  </div>
  <div class="toolbar-group" id="grpSymProps">
    <button class="toolbar-btn" id="btnPin" title="Add Pin (I)">
@@ -251,15 +257,15 @@ body.innerHTML = `
   <button class="toolbar-btn" id="btnRotate" title="Rotate 90° (Shift+R)">
     <svg viewBox="0 0 100 100" fill="none" xmlns="http://w3.org">
       <path d="M 37 11 L 37 89 A 5 5 0 0 1 31 94 L 8 94 A 5 5 0 0 1 3 89 L 31 16 A 5 5 0 0 1 37 11 Z" 
-            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M 50 67 L 92 94 A 5 5 0 0 1 89 99 L 50 99 A 5 5 0 0 1 45 94 L 45 72 A 5 5 0 0 1 50 67 Z" 
-            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M 45 72 L 45 58 M 45 72 L 59 72" 
-            stroke="#000000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M 87 63 A 36 36 0 0 0 62 17" 
-            stroke="#000000" stroke-width="7" stroke-linecap="round" fill="none"/>
+            stroke="currentColor" stroke-width="7" stroke-linecap="round" fill="none"/>
       <path d="M 72 27 L 55 13 L 73 2" 
-            stroke="#000000" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
     </svg>
   </button>
 
@@ -267,20 +273,20 @@ body.innerHTML = `
   <button class="toolbar-btn" id="btnFlipVertical" title="Flip Vertical (Shift+V)">
     <svg viewBox="0 0 100 100" fill="none" xmlns="http://w3.org">
       <path d="M 94 41 L 6 41 A 5 5 0 0 1 2 35 L 89 5 A 5 5 0 0 1 97 9 L 97 35 A 5 5 0 0 1 94 41 Z" 
-            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-      <line x1="5" y1="50" x2="95" y2="50" stroke="#000000" stroke-width="6" stroke-linecap="round"/>
+            stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="5" y1="50" x2="95" y2="50" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
       <path d="M 94 59 L 6 59 A 5 5 0 0 0 2 65 L 89 95 A 5 5 0 0 0 97 91 L 97 65 A 5 5 0 0 0 94 59 Z" 
-            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </button>
 
   <button class="toolbar-btn" id="btnFlipHorizontal" title="Flip Horizontal (Shift+H)">
     <svg viewBox="0 0 100 100" fill="none" xmlns="http://w3.org">
       <path d="M 41 6 L 41 94 A 5 5 0 0 1 35 98 L 5 11 A 5 5 0 0 1 9 3 L 35 3 A 5 5 0 0 1 41 6 Z" 
-            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-      <line x1="50" y1="5" x2="50" y2="95" stroke="#000000" stroke-width="6" stroke-linecap="round"/>
+            stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="50" y1="5" x2="50" y2="95" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
       <path d="M 59 6 L 59 94 A 5 5 0 0 0 65 98 L 95 11 A 5 5 0 0 0 91 3 L 65 3 A 5 5 0 0 0 59 6 Z" 
-            stroke="#444444" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </button>
 </div>
@@ -331,12 +337,12 @@ body.innerHTML = `
    </button>
    <button class="toolbar-btn" id="btnAV" title="Measure Voltage/Current (Z)">
      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-       <rect x="1" y="4" width="11" height="16" fill="#000000" stroke="#000000" stroke-width="1"/>
-       <rect x="12" y="4" width="11" height="16" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+       <rect x="1" y="4" width="11" height="16" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+       <rect x="12" y="4" width="11" height="16" fill="#ffffff" stroke="currentColor" stroke-width="1"/>
        <text x="6.5" y="17" text-anchor="middle" font-size="12" font-weight="bold" font-family="Arial, sans-serif" fill="#ffffff" stroke="none">A</text>
-       <text x="17.5" y="17" text-anchor="middle" font-size="12" font-weight="bold" font-family="Arial, sans-serif" fill="#000000" stroke="none">V</text>
+       <text x="17.5" y="17" text-anchor="middle" font-size="12" font-weight="bold" font-family="Arial, sans-serif" fill="currentColor" stroke="none">V</text>
      </svg>
-   </button>
+   </button>  
  </div>
  <div class="toolbar-group" id="grpRun">
    <button class="toolbar-btn" id="btnRunAnalysis" title="Run Analysis (F9)">
@@ -348,10 +354,10 @@ body.innerHTML = `
    </button>
    <button class="toolbar-btn" id="btnRunAV" title="Run AV Measurement (F10)">
      <svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg">
-       <rect x="1" y="2" width="11" height="16" fill="#000000" stroke="#000000" stroke-width="1"/>
-       <rect x="12" y="2" width="11" height="16" fill="#ffffff" stroke="#000000" stroke-width="1"/>
+       <rect x="1" y="2" width="11" height="16" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+       <rect x="12" y="2" width="11" height="16" fill="#ffffff" stroke="currentColor" stroke-width="1"/>
        <text x="6.5" y="15" text-anchor="middle" font-size="11" font-weight="bold" font-family="Arial, sans-serif" fill="#ffffff" stroke="none">A</text>
-       <text x="17.5" y="15" text-anchor="middle" font-size="11" font-weight="bold" font-family="Arial, sans-serif" fill="#000000" stroke="none">V</text>
+       <text x="17.5" y="15" text-anchor="middle" font-size="11" font-weight="bold" font-family="Arial, sans-serif" fill="currentColor" stroke="none">V</text>
        <polygon points="9,20 15,23 9,26" fill="currentColor" stroke="currentColor" stroke-width="1" opacity="0.7"/>
      </svg>
    </button>
@@ -721,7 +727,7 @@ document.addEventListener('keydown', (e) => {
     if (key === 'n') { if(drawing.pageType == 'sym') return;  addGnd(); self.activeBtnSelect();}
     if (key === 'u') { if(drawing.pageType == 'sym') return;  addVBar(); self.activeBtnSelect();}
     if (key === 'o') { if(drawing.pageType == 'sym') return;  addPort(); self.activeBtnSelect();}
-    if (key === 'x') { if(drawing.pageType == 'sym') return;  addShape('analysis');} 
+   // if (key === 'x') { if(drawing.pageType == 'sym') return;  addShape('analysis');} 
     }
     if (isShift && key === 'r') {  rotatePart(); };
     if (isShift && key === 'v'){ flipVerticallyPart(); };
