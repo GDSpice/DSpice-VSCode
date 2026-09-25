@@ -429,7 +429,7 @@ function updateToolbarVisibility(self) {
         'btnWire', 'btnBus', 'btnPlaceComponent',
         'btnVCC', 'btnGND', 'btnPort',
         'btnRotate', 'btnFlipVertical', 'btnFlipHorizontal',
-        'btnCommand', 'btnHTML', 'btnAnalysis', 'btnAV',
+        'btnCommand', 'btnHTML', 'btnAnalysis', 'btnAV',    
         'btnRunAnalysis', 'btnRunAV', 'btnSubBlock'
     ];
     
@@ -579,7 +579,7 @@ document.getElementById('btnRotate').addEventListener('click',  () =>{  rotatePa
 document.getElementById('btnFlipVertical').addEventListener('click',  () =>{ flipVerticallyPart(); });
 document.getElementById('btnFlipHorizontal').addEventListener('click',  () =>{  flipHorizontalPart(); });
 
-document.getElementById('btnBringToFront').addEventListener('click', () => {
+document.getElementById('btnBringToFront').addEventListener('click', () => {  
     if (self.drawing && self.drawing.bringToFront) self.drawing.bringToFront();
 });
 document.getElementById('btnSendToBack').addEventListener('click', () => {
@@ -607,7 +607,7 @@ const toolButtons = [
   'btnModel', 'btnCommand',
   'btnHTML', 'btnAnalysis', 'btnAV',
   'btnSubBlock'
-];
+];   
 
 const toolNames = [
   'select', 'wire', 'bus', 'component', 'text',
@@ -760,6 +760,59 @@ self.activeBtnById = function(id){
 
 
 document.getElementById("btnBus").style.display = "none";
+
+    // --- Future Application Buttons Logic ---
+    const futureButtons = [
+          'btnAnalysis','btnRunAnalysis','btnCommand', 'btnHTML','btnSubBlock',
+          'btnBringToFront','btnSendToBack','btnBringForward','btnSendBackward'
+    ];
+    
+    futureButtons.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.title = "Future Application (Coming Soon)";
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+            newBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                showFutureToast(newBtn);
+            });
+        }
+    });
+
+  
+    function showFutureToast(btn) {
+      
+        let oldToast = document.getElementById('future-toast');
+        if (oldToast) oldToast.remove();
+        let toast = document.createElement('div');
+        toast.id = 'future-toast';
+        toast.innerText = 'Future Application (Coming Soon)';
+        toast.style.cssText = `
+            position: fixed; 
+            background: #333; 
+            color: #fff; 
+            padding: 8px 16px; 
+            border-radius: 6px; 
+            font-size: 13px; 
+            z-index: 10000; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+            transition: opacity 0.3s ease; 
+            opacity: 0;
+            font-family: verdana;
+            pointer-events: none;
+        `;
+        document.body.appendChild(toast);
+        let rect = btn.getBoundingClientRect();
+        toast.style.left = (rect.left + rect.width / 2 - toast.offsetWidth / 2) + 'px';
+        toast.style.top = (rect.bottom + 10) + 'px';
+        setTimeout(() => { toast.style.opacity = '1'; }, 10);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 300);
+        }, 2000);
+    }
 
 }
 
