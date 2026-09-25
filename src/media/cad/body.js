@@ -440,7 +440,7 @@ function updateToolbarVisibility(self) {
     ];
     
     const dcsOnlyButtons = [
-        'btnReference', 'btnParameter', 'btnPin'
+        'btnReference', 'btnParameter', 'btnPin', 'btnModel'
     ];
     
     symOnlyButtons.forEach(id => {
