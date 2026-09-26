@@ -204,14 +204,14 @@ function fsymbolsPanel(self) {
 }
 
 /* Placeholder style */
-.symbol-list-placeholder {
+/*.symbol-list-placeholder {
     text-align: center;
     color: var(--vscode-descriptionForeground, #888);
     padding: 4px 0;
     font-style: italic;
     border: 1px dashed var(--vscode-panel-border, #ccc);
     border-radius: 4px;
-}
+}*/
 
 #selectLibs {
     width: 100%;
